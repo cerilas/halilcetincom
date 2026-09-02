@@ -1,3 +1,21 @@
+# Theme tokens
+
+## Compact summary
+- Background `#07080b`
+- Foreground `#f3eee4`
+- Gold `#c4a46a` / gold-soft `#e8d5a3`
+- Muted `#9a9386`
+- Line `rgba(243,238,228,0.1)`
+- Card `#101216` / hover `#16191f`
+- Fonts: Geist Sans (body), Instrument Serif (display, italic headlines)
+- Radius: pills `rounded-full`, cards `rounded-2xl`, forms `rounded-xl`
+- Max width: `max-w-6xl`, page padding `px-5`
+- Motion: spotlight fade-in, marquee, number ticker, 3D card tilt, magnetic buttons, scroll progress
+
+## Raw source
+
+### `app/globals.css`
+```css
 @import "tailwindcss";
 
 :root {
@@ -106,8 +124,6 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
-  font-feature-settings: "cv11", "ss01";
-  font-variation-settings: "opsz" 32;
 }
 
 ::selection {
@@ -125,21 +141,6 @@ body {
     linear-gradient(to bottom, rgba(196, 164, 106, 0.08) 1px, transparent 1px);
   background-size: 72px 72px;
   mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
-}
-@keyframes slider-bloom {
-  0%,
-  100% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 0.95;
-  }
-}
-
-
-.hero-compare {
-  background: transparent;
-  overflow: visible;
 }
 
 .gold-line {
@@ -161,23 +162,26 @@ body {
     scroll-behavior: auto !important;
   }
 }
+```
 
-/* ─── Performance: GPU layer promotion ───────────────────────────────────── */
-/* Force compositor-only layers on elements that animate transform/opacity */
-.will-change-transform {
-  will-change: transform;
-  transform: translateZ(0); /* create new stacking context on GPU */
-  backface-visibility: hidden;
+### `lib/utils.ts`
+```ts
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }
 
-/* Sticky hero: isolate so it doesn't trigger ancestor repaints */
-.sticky {
-  isolation: isolate;
+export function siteUrl() {
+  return process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 }
 
-/* Canvas (WebGL LineWaves): own compositing layer */
-.line-waves-container canvas {
-  will-change: contents;
-  image-rendering: auto;
+export function whatsappHref(phone: string, message?: string) {
+  const digits = phone.replace(/\D/g, "");
+  const text = message
+    ? `?text=${encodeURIComponent(message)}`
+    : "";
+  return `https://wa.me/${digits}${text}`;
 }
-
+```

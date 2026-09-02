@@ -1,0 +1,176 @@
+{
+  "clinic": {
+    "name": "Halil Çetin",
+    "legalName": "Halil Çetin Hair Transplant",
+    "tagline": "Hassas planlama. Doğal çizgi. Kalıcı sonuç.",
+    "phone": "+90 553 681 76 90",
+    "whatsapp": "905536817690",
+    "email": "info@halilcetin.com",
+    "address": "Atay Plaza, Mücahitler Mah. 52062 Nolu Sk Bina No: 2, A Blok Kat: 8 Daire: 29, 27090 Şehitkamil / Gaziantep",
+    "hours": "Pazartesi – Cumartesi, 09:00 – 19:00",
+    "doctorName": "Op. Dr. Halil Çetin",
+    "doctorTitle": "Saç Ekimi ve Medikal Estetik"
+  },
+  "seo": {
+    "title": "Halil Çetin Hair Transplant | İstanbul Saç Ekimi Kliniği",
+    "description": "İstanbul'da doğal saç çizgisi odaklı FUE, DHI ve Safir FUE saç ekimi. Kişiye özel planlama, şeffaf süreç ve uzun dönem takip.",
+    "keywords": [
+      "saç ekimi istanbul",
+      "fue saç ekimi",
+      "dhi saç ekimi",
+      "safir fue",
+      "halil çetin saç ekimi"
+    ]
+  },
+  "hero": {
+    "eyebrow": "İstanbul · Premium Saç Ekimi",
+    "title": "Yüzünüze ait bir",
+    "italic": "saç çizgisi.",
+    "subtitle": "Teknolojik planlama, cerrahi hassasiyet ve doğal yoğunluk. Abartısız, ölçülebilir, kalıcı.",
+    "primaryCta": "Ücretsiz analiz",
+    "secondaryCta": "Sonuçları incele"
+  },
+  "stats": [
+    { "id": "years", "value": 12, "suffix": "+", "label": "Yıl klinik deneyim" },
+    { "id": "ops", "value": 4800, "suffix": "+", "label": "Başarılı operasyon" },
+    { "id": "sat", "value": 98, "suffix": "%", "label": "Hasta memnuniyeti" },
+    { "id": "follow", "value": 18, "suffix": " ay", "label": "Ortalama takip" }
+  ],
+  "treatments": [
+    {
+      "id": "fue",
+      "slug": "fue-sac-ekimi",
+      "title": "FUE Saç Ekimi",
+      "excerpt": "Mikro motor ile folikül bazlı alım. İz bırakmayan, doğal yönelimli ekim.",
+      "description": "FUE, greftlerin tek tek alındığı ve alıcı alana doğal saç açısına göre yerleştirildiği temel tekniktir. Donör alanı koruyarak yüksek yoğunluk hedeflenir. Halil Çetin kliniğinde planlama, saç çizgisi tasarımı ve greft dağılımı kişiye özel yapılır.",
+      "grafts": "2.500 – 4.500 greft",
+      "duration": "6 – 8 saat"
+    },
+    {
+      "id": "dhi",
+      "slug": "dhi-sac-ekimi",
+      "title": "DHI Saç Ekimi",
+      "excerpt": "Choi implanter ile kanal açmadan ekim. Daha kontrollü açı ve yoğunluk.",
+      "description": "DHI, greftlerin implanter kalemle doğrudan yerleştirildiği yöntemdir. Özellikle saç çizgisi, şakak ve sıklaştırma bölgelerinde açı kontrolü yüksektir. Mevcut saçları koruyarak çalışmak isteyen adaylar için uygundur.",
+      "grafts": "2.000 – 3.500 greft",
+      "duration": "7 – 9 saat"
+    },
+    {
+      "id": "safir",
+      "slug": "safir-fue",
+      "title": "Safir FUE",
+      "excerpt": "Safir uçlu kanallar. Daha ince kesi, daha hızlı iyileşme yüzeyi.",
+      "description": "Safir FUE, kanal açma aşamasında safir uç kullanır. Daha homojen kanal geometrisi, daha az travma ve daha temiz iyileşme yüzeyi hedeflenir. Yoğun görünüm isteyen hastalarda sık tercih edilir.",
+      "grafts": "3.000 – 5.000 greft",
+      "duration": "6 – 8 saat"
+    },
+    {
+      "id": "beard",
+      "slug": "sakal-ekimi",
+      "title": "Sakal & Kaş Ekimi",
+      "excerpt": "Yüz oranlarına göre tasarlanan sakal, favori ve kaş yoğunluğu.",
+      "description": "Sakal ve kaş ekiminde hedef yalnızca yoğunluk değil, yüz simetrisi ve kıl yönüdür. Donör seçimi, açı ve kıvrım klinik planlamanın merkezindedir.",
+      "grafts": "800 – 2.500 greft",
+      "duration": "3 – 6 saat"
+    }
+  ],
+  "process": [
+    {
+      "id": "consult",
+      "title": "1. Analiz & Konsültasyon",
+      "body": "Uzman ekibimiz tarafından dökülme evreniz, donör bölge kapasiteniz ve greft ihtiyacınız detaylıca analiz edilir. Beklentileriniz dinlenerek size en uygun ekim planlaması oluşturulur."
+    },
+    {
+      "id": "design",
+      "title": "2. Kişiye Özel Tasarım",
+      "body": "Yüz hatlarınız, altın oran ve kas yapınız dikkate alınarak en doğal görünümü verecek şekilde ön hat, sakal veya kaş kontürü tasarlanır. Ortak onay sağlanmadan asla operasyona başlanmaz."
+    },
+    {
+      "id": "extract",
+      "title": "3. Ağrısız Greft Alımı",
+      "body": "Konforlu lokal anestezi sonrası, donör bölgeden sağlıklı saç kökleri (greftler) mikro-motorlarla tek tek toplanır. Hücre canlılığını korumak için kökler özel solüsyonlarda bekletilir."
+    },
+    {
+      "id": "place",
+      "title": "4. Mikro Kanal ve Ekim",
+      "body": "Seçilen yönteme (Safir FUE veya DHI) göre doğal çıkış yönü, açısı ve derinliği hesaplanarak kökler yerleştirilir. Özellikle ön hatta maksimum doğallık hedeflenir."
+    },
+    {
+      "id": "care",
+      "title": "5. İlk Yıkama ve İyileşme",
+      "body": "Operasyon sonrası ilk yıkamanız klinikte özenle yapılır. Size verilen özel losyonlarla 10 gün içinde kabuklanma atlatılır. Bu süreçte uzmanlarımız WhatsApp üzerinden sizi adım adım takip eder."
+    },
+    {
+      "id": "grow",
+      "title": "6. Şok Dökülme ve Final",
+      "body": "İlk ay yaşanan geçici 'şok dökülme' sonrası, 3. aydan itibaren yeni kökleriniz kalıcı olarak filizlenmeye başlar. 12-18 ayın sonunda planlanan o kusursuz, gür ve doğal görünüme kavuşursunuz."
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "t1",
+      "name": "Mert K.",
+      "country": "İstanbul",
+      "quote": "Çizgi abartısız duruyor. 10. ayda tararken kendi saçım gibi hissettim. Klinik süreci net anlattı, sürpriz çıkmadı.",
+      "rating": 5
+    },
+    {
+      "id": "t2",
+      "name": "James R.",
+      "country": "Londra",
+      "quote": "Transfer, otel ve operasyon tek elden yürüdü. Donör alanım doğal kaldı — en çok bunu önemsiyordum.",
+      "rating": 5
+    },
+    {
+      "id": "t3",
+      "name": "Emre A.",
+      "country": "Ankara",
+      "quote": "DHI ile sıklaştırma yaptık. Mevcut saçlarım korundu, tepe boşluğu kapandı. Takip 12 ay sürdü.",
+      "rating": 5
+    },
+    {
+      "id": "t4",
+      "name": "Lukas S.",
+      "country": "Berlin",
+      "quote": "Klinik teknolojik görünüyor ama konuşma dili sade. Greft sayısı şişirilmedi. Sonuç yüzüme uyuyor.",
+      "rating": 5
+    }
+  ],
+  "faqs": [
+    {
+      "id": "f1",
+      "question": "Saç ekimi kalıcı mıdır?",
+      "answer": "Donör bölgeden alınan foliküller genetik olarak dökülmeye dirençlidir. Doğru planlama ve donör koruması ile ekilen greftler kalıcıdır. İlerleyen dökülme için medikal destek gerekebilir."
+    },
+    {
+      "id": "f2",
+      "question": "FUE mi DHI mi?",
+      "answer": "Geniş alan ve yüksek greft sayısında FUE / Safir FUE; saç çizgisi, sıklaştırma ve mevcut saçı koruma ihtiyacında DHI öne çıkar. Karar, analiz sonrası verilir."
+    },
+    {
+      "id": "f3",
+      "question": "Ne zaman işe dönerim?",
+      "answer": "Masa başı işler için genelde 3–5 gün yeterlidir. Kabuklar 10 gün içinde dökülür. Ağır spor 1 ay ertelenir."
+    },
+    {
+      "id": "f4",
+      "question": "Şok dökülme normal midir?",
+      "answer": "Evet. 2–8. haftalar arasında ekilen saçlar geçici dökülebilir. 3. aydan itibaren yeni çıkış başlar, 12. ayda final yoğunluk görülür."
+    },
+    {
+      "id": "f5",
+      "question": "Yurt dışından hasta kabul ediyor musunuz?",
+      "answer": "Evet. Online fotoğraf analizi, transfer ve konaklama koordinasyonu sunuyoruz. Operasyon günü İstanbul'da olmanız yeterlidir."
+    }
+  ],
+  "about": {
+    "headline": "Cerrahi titizlik, dijital planlama.",
+    "body": "Halil Çetin Hair Transplant, saç ekimini bir paket turu değil klinik bir işlem olarak ele alır. Hedef; fotoğrafta abartılı, hayatta yapay duran bir tepe değil — yaşınızla, alın yapınızla ve duruşunuzla uyumlu bir saç çizgisidir. Planlama yüz oranlarından, greft kalitesinden ve donörün uzun vadeli sağlığından başlar.",
+    "highlights": [
+      "Kişiye özel saç çizgisi ve yoğunluk haritası",
+      "Donör alanı koruyan alım disiplini",
+      "Operasyon günü şeffaf greft sayımı",
+      "12 aya kadar klinik takip"
+    ]
+  }
+}
