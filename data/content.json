@@ -8,22 +8,25 @@
     "email": "info@halilcetin.com",
     "address": "Atay Plaza, Mücahitler Mah. 52062 Nolu Sk Bina No: 2, A Blok Kat: 8 Daire: 29, 27090 Şehitkamil / Gaziantep",
     "hours": "Pazartesi – Cumartesi, 09:00 – 19:00",
-    "doctorName": "Op. Dr. Halil Çetin",
+    "doctorName": "Saç Ekim Uzmanı Halil Çetin",
     "doctorTitle": "Saç Ekimi ve Medikal Estetik"
   },
   "seo": {
-    "title": "Halil Çetin Hair Transplant | İstanbul Saç Ekimi Kliniği",
-    "description": "İstanbul'da doğal saç çizgisi odaklı FUE, DHI ve Safir FUE saç ekimi. Kişiye özel planlama, şeffaf süreç ve uzun dönem takip.",
+    "title": "Halil Çetin Hair Transplant | Gaziantep Saç Ekimi Kliniği",
+    "description": "Gaziantep'te doğal saç çizgisi odaklı FUE, DHI ve Safir FUE saç ekimi. En iyi Gaziantep saç ekim uzmanı Halil Çetin ile kişiye özel planlama ve kalıcı sonuçlar.",
     "keywords": [
-      "saç ekimi istanbul",
+      "saç ekimi gaziantep",
+      "en iyi saç ekim kliniği",
+      "en iyi gaziantep saç ekim uzmanı",
+      "halil çetin saç ekimi",
+      "gaziantep saç ekim merkezi",
       "fue saç ekimi",
       "dhi saç ekimi",
-      "safir fue",
-      "halil çetin saç ekimi"
+      "safir fue"
     ]
   },
   "hero": {
-    "eyebrow": "İstanbul · Premium Saç Ekimi",
+    "eyebrow": "Gaziantep · Premium Saç Ekimi",
     "title": "Yüzünüze ait bir",
     "italic": "saç çizgisi.",
     "subtitle": "Teknolojik planlama, cerrahi hassasiyet ve doğal yoğunluk. Abartısız, ölçülebilir, kalıcı.",
@@ -31,45 +34,72 @@
     "secondaryCta": "Sonuçları incele"
   },
   "stats": [
-    { "id": "years", "value": 12, "suffix": "+", "label": "Yıl klinik deneyim" },
-    { "id": "ops", "value": 4800, "suffix": "+", "label": "Başarılı operasyon" },
-    { "id": "sat", "value": 98, "suffix": "%", "label": "Hasta memnuniyeti" },
-    { "id": "follow", "value": 18, "suffix": " ay", "label": "Ortalama takip" }
+    {
+      "id": "years",
+      "value": 12,
+      "suffix": "+",
+      "label": "Yıl klinik deneyim"
+    },
+    {
+      "id": "ops",
+      "value": 4800,
+      "suffix": "+",
+      "label": "Başarılı operasyon"
+    },
+    {
+      "id": "sat",
+      "value": 98,
+      "suffix": "%",
+      "label": "Hasta memnuniyeti"
+    },
+    {
+      "id": "follow",
+      "value": 18,
+      "suffix": " ay",
+      "label": "Ortalama takip"
+    }
   ],
   "treatments": [
     {
       "id": "fue",
       "slug": "fue-sac-ekimi",
       "title": "FUE Saç Ekimi",
+      "image": "/protocols/dogal-sac-cizgisi-tasarimi-fue.jpg",
       "excerpt": "Mikro motor ile folikül bazlı alım. İz bırakmayan, doğal yönelimli ekim.",
-      "description": "FUE, greftlerin tek tek alındığı ve alıcı alana doğal saç açısına göre yerleştirildiği temel tekniktir. Donör alanı koruyarak yüksek yoğunluk hedeflenir. Halil Çetin kliniğinde planlama, saç çizgisi tasarımı ve greft dağılımı kişiye özel yapılır.",
+      "description": "Gaziantep FUE saç ekimi merkezimizde uyguladığımız bu teknik, greftlerin tek tek mikro motorlar ile donör bölgeden alınarak ekilmesi işlemidir. Doğal saç çizgisi tasarımı ve kişiye özel yoğunluk planlaması ile kalıcı, estetik ve ağrısız sonuçlar sunuyoruz. Saç Ekim Uzmanı Halil Çetin liderliğinde, donör alanınızı koruyarak en yüksek greft sayısına güvenli bir şekilde ulaşıyor ve saç dökülmesi probleminize ömür boyu kalıcı bir çözüm getiriyoruz.",
       "grafts": "2.500 – 4.500 greft",
-      "duration": "6 – 8 saat"
+      "duration": "6 – 8 saat",
+      "contentHtml": "\n    <h2>FUE Saç Ekimi Nedir?</h2>\n    <p>FUE (Follicular Unit Extraction), saç ekimi dünyasında en çok bilinen ve uygulanan, minimal invaziv bir saç restorasyon yöntemidir. Gaziantep ve tüm dünyada altın standart kabul edilen bu yöntemde, donör bölgedeki saç kökleri özel mikro motor uçlarıyla tek tek, etrafındaki dokuya zarar vermeden toplanır.</p>\n    \n    <h3>FUE Tekniğinin Avantajları</h3>\n    <ul>\n      <li><strong>İz Bırakmaz:</strong> Klasik FUT yönteminin aksine deride kesi yapılmaz, dolayısıyla operasyon sonrasında ensede dikiş izi kalmaz.</li>\n      <li><strong>Hızlı İyileşme:</strong> Minimal doku hasarı sayesinde günlük hayata dönüş son derece hızlıdır.</li>\n      <li><strong>Yüksek Greft Sayısı:</strong> Tek seansta 4.500 ile 5.000 grefte kadar (yaklaşık 10.000 - 12.500 saç teli) ekim yapma imkanı sunar.</li>\n      <li><strong>Doğal Sonuçlar:</strong> Alınan kökler, dökülme bölgesinde açılan mikro kanallara doğal saç çıkış yönüne uygun olarak yerleştirilir.</li>\n    </ul>\n\n    <h3>Halil Çetin Farkıyla FUE</h3>\n    <p>Saç Ekim Uzmanı Halil Çetin ve ekibi, FUE operasyonlarında greftlerin canlı kalma süresini maksimize eden özel solüsyonlar kullanır. Hastanın ön saç çizgisi tamamen <strong>altın oran</strong> prensiplerine göre kişiye özel tasarlanır. Asimetrik çizimler veya tek tip \"fabrika üretimi\" saç çizgilerinden kesinlikle kaçınılarak, kişinin yaşına ve yüz anatomisine en uygun profil elde edilir.</p>\n  "
     },
     {
       "id": "dhi",
       "slug": "dhi-sac-ekimi",
       "title": "DHI Saç Ekimi",
+      "image": "/protocols/tepe-bolgesi-sac-ekimi-sonuclari.jpg",
       "excerpt": "Choi implanter ile kanal açmadan ekim. Daha kontrollü açı ve yoğunluk.",
-      "description": "DHI, greftlerin implanter kalemle doğrudan yerleştirildiği yöntemdir. Özellikle saç çizgisi, şakak ve sıklaştırma bölgelerinde açı kontrolü yüksektir. Mevcut saçları koruyarak çalışmak isteyen adaylar için uygundur.",
+      "description": "DHI (Direct Hair Implantation) saç ekimi, özel Choi kalemleri kullanılarak saç köklerinin kanal açılmadan doğrudan cilt altına yerleştirildiği yenilikçi bir yöntemdir. Özellikle Gaziantep'te tıraşsız saç ekimi ve mevcut saç aralarına sıklaştırma arayan hastalarımız için idealdir. Bu teknik, saç kökünün açısını ve yönünü mükemmel bir şekilde kontrol etmemizi sağlayarak, tamamen doğal bir görünüm elde etmemize olanak tanır. Doku hasarı minimum olduğu için iyileşme süreci oldukça hızlıdır.",
       "grafts": "2.000 – 3.500 greft",
-      "duration": "7 – 9 saat"
+      "duration": "7 – 9 saat",
+      "contentHtml": "\n    <h2>DHI Saç Ekimi (Doğrudan Saç Ekimi) Nedir?</h2>\n    <p>DHI (Direct Hair Implantation), saç ekim teknolojisinde gelinen en son noktalardan biridir. Bu teknikte <strong>Choi Pen</strong> (Choi Kalemi) adı verilen özel medikal kalemler kullanılır. En büyük özelliği, kanal açma ve saç kökünü yerleştirme işleminin aynı anda yapılmasına olanak tanımasıdır.</p>\n    \n    <h3>Neden DHI Tekniğini Tercih Etmelisiniz?</h3>\n    <ul>\n      <li><strong>Tıraşsız Saç Ekimi İmkanı:</strong> Özellikle kadınlar veya saçlarını tamamen kestirmek istemeyen yöneticiler/profesyoneller için idealdir. Sadece donör bölgenin tıraş edilmesi veya tamamen tıraşsız ekim seçenekleri sunulur.</li>\n      <li><strong>Yüksek Sıklık (Yoğunluk):</strong> İnce uçlu Choi kalemleri sayesinde saç kökleri birbirine çok daha yakın ekilebilir, bu da dar alanlarda mükemmel yoğunluk sağlar.</li>\n      <li><strong>Minimum Travma ve Kanama:</strong> Önceden kanal açılmadığı için derideki tahribat minimum düzeydedir. İyileşme süreci çok daha hızlıdır.</li>\n    </ul>\n\n    <h3>İşlem Süreci ve Güvenilirlik</h3>\n    <p>DHI tekniği, diğer yöntemlere göre çok daha yüksek bir el becerisi, tecrübe ve ekip koordinasyonu gerektirir. Halil Çetin ve uzman ekibi, 15 yıllık tecrübesiyle DHI operasyonlarını sıfır hata toleransıyla yürütür. Ekim sonrası saçların tutunma oranı (survival rate) %98'in üzerindedir.</p>\n  "
     },
     {
       "id": "safir",
       "slug": "safir-fue",
       "title": "Safir FUE",
+      "image": "/protocols/safir-fue-sac-ekimi-operasyonu.png",
       "excerpt": "Safir uçlu kanallar. Daha ince kesi, daha hızlı iyileşme yüzeyi.",
-      "description": "Safir FUE, kanal açma aşamasında safir uç kullanır. Daha homojen kanal geometrisi, daha az travma ve daha temiz iyileşme yüzeyi hedeflenir. Yoğun görünüm isteyen hastalarda sık tercih edilir.",
+      "description": "Safir FUE saç ekimi, klasik metal uçlar yerine gerçek safir cevherinden üretilen pürüzsüz ve ultra keskin uçların kullanıldığı premium bir işlemdir. Gaziantep saç ekimi kliniğimizde uygulanan bu gelişmiş yöntemle, doku travması en aza indirilir ve mikro kanallar saç köküne tam uyumlu olarak mikroskobik boyutta açılır. Daha sık, gür ve doğal saçlara çok daha hızlı bir iyileşme süreciyle kavuşmanızı sağlayan Safir FUE, son derece konforlu bir operasyon deneyimi sunar.",
       "grafts": "3.000 – 5.000 greft",
-      "duration": "6 – 8 saat"
+      "duration": "6 – 8 saat",
+      "contentHtml": "\n    <h2>Safir FUE (Sapphire FUE) Nedir?</h2>\n    <p>Safir FUE, klasik FUE yönteminin çok daha yenilikçi ve doku dostu bir versiyonudur. Ekim yapılacak alana kanallar (yuvalar) açılırken geleneksel çelik slitler yerine, gerçek doğal <strong>safir taşından</strong> üretilen çok keskin ve pürüzsüz uçlar kullanılır.</p>\n    \n    <h3>Safir FUE'nin Tıbbi Avantajları</h3>\n    <ul>\n      <li><strong>Daha Pürüzsüz Kanallar:</strong> Safir bıçakların antibakteriyel yüzeyi ve V şeklindeki yapısı sayesinde ciltte çok daha küçük ve kusursuz kanallar açılır.</li>\n      <li><strong>Köklerin Daha İyi Tutunması:</strong> Kanallar, saç köklerinin boyutuna birebir uygun açıldığı için greftlerin (köklerin) yerinden oynaması veya açılarının bozulması riski ortadan kalkar.</li>\n      <li><strong>Daha Sıkı ve Yoğun Ekim:</strong> Uçların inceliği sayesinde, santimetrekare başına düşen saç kökü sayısı artırılabilir.</li>\n      <li><strong>Daha Az Ödem:</strong> Klasik yöntemlere kıyasla kafa derisine çok daha az sıvı enjekte edilir ve doku travması azaldığı için operasyon sonrası şişlik (ödem) minimum seviyede kalır.</li>\n    </ul>\n\n    <h3>Safir FUE ile Doğallığın Zirvesi</h3>\n    <p>Kliniğimizde Safir FUE tekniği, özellikle alın bölgesi ve tepe bölgelerinde geniş açıklığı olan hastalarımız için birinci tercih olmaktadır. Halil Çetin Hair Transplant kliniğinde, uluslararası ISHRS standartlarına uygun olarak en kaliteli safir uçlar sadece tek bir hasta için kullanılıp imha edilmektedir.</p>\n  "
     },
     {
       "id": "beard",
       "slug": "sakal-ekimi",
       "title": "Sakal & Kaş Ekimi",
+      "image": "/protocols/sakal-ve-biyik-ekimi-gaziantep.png",
       "excerpt": "Yüz oranlarına göre tasarlanan sakal, favori ve kaş yoğunluğu.",
-      "description": "Sakal ve kaş ekiminde hedef yalnızca yoğunluk değil, yüz simetrisi ve kıl yönüdür. Donör seçimi, açı ve kıvrım klinik planlamanın merkezindedir.",
+      "description": "Yüz hatlarınıza altın orana uygun, tamamen doğal bir görünüm kazandıran sakal, bıyık ve kaş ekimi uygulamalarımız, estetik cerrahi hassasiyetiyle gerçekleştirilir. Yüz simetrisi ve kıl çıkış yönleri titizlikle hesaplanarak yapılan bu ekim işlemleri, seyrelme veya yara izi gibi sorunları kalıcı olarak ortadan kaldırır. Saç Ekim Uzmanı Halil Çetin'in deneyimiyle yüzünüzün karakterine en uygun, karizmatik ve dolgun sonuçlara kliniğimizde güvenle ulaşabilirsiniz.",
       "grafts": "800 – 2.500 greft",
       "duration": "3 – 6 saat"
     }
@@ -160,7 +190,7 @@
     {
       "id": "f5",
       "question": "Yurt dışından hasta kabul ediyor musunuz?",
-      "answer": "Evet. Online fotoğraf analizi, transfer ve konaklama koordinasyonu sunuyoruz. Operasyon günü İstanbul'da olmanız yeterlidir."
+      "answer": "Evet. Online fotoğraf analizi, transfer ve konaklama koordinasyonu sunuyoruz. Operasyon günü Gaziantep'te olmanız yeterlidir."
     }
   ],
   "about": {

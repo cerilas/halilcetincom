@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Article {
+  id                String   @id @default(cuid())
+  slug              String   @unique
+  category          String
+  coverImage        String?
+  title             String
+  contentHtml       String
+  metaTitle         String?
+  metaDescription   String?
+  metaKeywords      String?
+  titleEn           String?
+  contentHtmlEn     String?
+  metaTitleEn       String?
+  metaDescriptionEn String?
+  metaKeywordsEn    String?
+  publishedAt       DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  author            String   @default("Saç Ekim Uzmanı Halil Çetin")
+  coverImageAlt     String?
+  coverImageAltEn   String?
+}
+
+model PageView {
+  id        String   @id @default(cuid())
+  sessionId String
+  url       String
+  referrer  String?
+  country   String?
+  city      String?
+  duration  Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model AppointmentSettings {
+  id              String   @id @default("default")
+  workingDays     String   @default("1,2,3,4,5,6") // 0=Sun, 1=Mon, ..., 6=Sat
+  startTime       String   @default("09:00")
+  endTime         String   @default("19:00")
+  slotDuration    Int      @default(60) // in minutes
+  concurrentLimit Int      @default(2) // max bookings per slot
+  notifyPhones    String   @default("") // SMS notification numbers
+  updatedAt       DateTime @updatedAt
+}
+
+model Appointment {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  email     String?
+  date      DateTime // the exact start time of the slot
+  status    String   @default("PENDING") // PENDING, APPROVED, REJECTED
+  createdAt DateTime @default(now())
+}

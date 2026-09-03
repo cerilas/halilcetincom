@@ -1,6 +1,21 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
+  /* Light Mode Variables */
+  --background: #ffffff;
+  --foreground: #07080b;
+  --gold: #9e7535;
+  --gold-soft: #b38b4c;
+  --muted: #4a4a4a;
+  --line: rgba(7, 8, 11, 0.2);
+  --card: #fdfdfd;
+  --card-hover: #f7f7f7;
+}
+
+.dark {
+  /* Dark Mode Variables (Original) */
   --background: #07080b;
   --foreground: #f3eee4;
   --gold: #c4a46a;

@@ -36,7 +36,7 @@ export function ContactForm() {
           className="mt-2 w-full rounded-xl border border-line bg-background px-4 py-3 text-sm outline-none focus:border-gold"
         />
       </label>
-      <GlareButton type="submit" className="w-full bg-gold text-black">
+      <GlareButton type="submit" className="w-full bg-gold text-white font-bold dark:text-black dark:font-medium">
         Gönder
       </GlareButton>
       {status === "ok" && (

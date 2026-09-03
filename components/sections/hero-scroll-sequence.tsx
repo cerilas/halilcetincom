@@ -18,10 +18,8 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
   // Preload video and images for a smooth scroll experience
   // The Splash Screen will wait for the 'app-ready' event before revealing.
   useEffect(() => {
-    // 1. Fetch Video as Blob (Fixes Opera/Chromium buffering issues)
-    const videoPromise = fetch("/results/after-video.mp4")
-      .then((res) => res.blob())
-      .then((blob) => URL.createObjectURL(blob));
+    // 1. Direct Video URL (Safari gets stuck on Blob URLs due to Range request requirements)
+    const videoPromise = Promise.resolve("/safir-fue-sac-ekimi-oncesi-sonrasi-gaziantep.mp4");
 
     // 2. Preload high-res comparison images
     const loadImage = (src: string) => {
@@ -33,8 +31,8 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
       });
     };
 
-    const img1 = loadImage("/results/after_new.png");
-    const img2 = loadImage("/results/before_new.png");
+    const img1 = loadImage("/results/sac-ekimi-sonrasi-dogal-gorunum.png");
+    const img2 = loadImage("/results/sac-ekimi-oncesi-tepe-bolgesi.png");
 
     Promise.all([videoPromise, img1, img2])
       .then(([videoUrl]) => {
@@ -139,10 +137,10 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
             className="relative w-[80%] h-[70vh] max-h-[700px] max-w-5xl pointer-events-none rounded-2xl overflow-hidden ring-1 ring-white/10"
           >
             <ComparisonSlider
-              beforeImage="/results/after_new.png"
+              beforeImage="/results/sac-ekimi-sonrasi-dogal-gorunum.png"
               beforeVideo={videoSrc || undefined}
               videoRef={videoRef}
-              afterImage="/results/before_new.png"
+              afterImage="/results/sac-ekimi-oncesi-tepe-bolgesi.png"
               beforeAlt="Saç ekimi sonrası — doğal yoğunluk ve çizgi"
               afterAlt="Saç ekimi öncesi — seyrek ön hat ve tepe"
               value={sliderPosition}
@@ -153,7 +151,7 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
               dividerExtent={1}
               handleSize={44}
               showLabels
-              labelText={{ before: "Sonra", after: "Önce" }}
+              labelText={{ before: "Önce", after: "Sonra" }}
               labelPosition="top-left"
               className="h-full w-full pointer-events-auto"
               imageClassName="object-cover object-top"
@@ -167,35 +165,29 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
         {/* Text overlay — bottom-left with gradient fade */}
         <div className="absolute inset-x-0 bottom-0 z-20 pointer-events-none">
           {/* Gradient: transparent at top → dark at bottom */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#07080b] via-[#07080b]/80 to-transparent" />
           
           <div className="relative mx-auto max-w-6xl px-5 pb-14 pt-32 pointer-events-auto">
             <div className="max-w-xl">
-              <p className="text-xs tracking-[0.32em] text-gold uppercase">
+              <p className="text-xs tracking-[0.32em] text-[#c4a46a] uppercase">
                 {content.hero.eyebrow}
               </p>
-              <h1 className="mt-4 font-display text-[2.6rem] leading-[0.95] sm:text-6xl md:text-7xl">
+              <h1 className="mt-4 font-display text-[2.6rem] leading-[0.95] sm:text-6xl md:text-7xl text-[#f3eee4]">
                 <SplitText text={content.hero.title} as="span" className="block" />
-                <em className="mt-2 block italic text-gold-soft">
+                <em className="mt-2 block italic text-[#e8d5a3]">
                   {content.hero.italic}
                 </em>
               </h1>
-              <p className="mt-6 max-w-md text-base leading-8 text-muted">
+              <p className="mt-6 max-w-md text-base leading-8 text-[#9a9386]">
                 {content.hero.subtitle}
               </p>
               
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <GlareButton
-                  href="/iletisim"
-                  className="relative bg-gold text-black"
+                  href="/randevu"
+                  className="relative bg-gold text-white font-bold dark:text-black dark:font-medium"
                 >
                   {content.hero.primaryCta}
-                </GlareButton>
-                <GlareButton
-                  href="/sonuclar"
-                  className="border border-line text-foreground"
-                >
-                  {content.hero.secondaryCta}
                 </GlareButton>
               </div>
             </div>
@@ -204,7 +196,7 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
         
         {/* Scroll hint */}
         <div className="absolute bottom-4 right-5 z-30 lg:hidden">
-          <p className="text-[10px] tracking-[0.22em] text-muted/50 uppercase">
+          <p className="text-[10px] tracking-[0.22em] text-[#9a9386]/50 uppercase">
             Kaydırın · 12. ay sonuç
           </p>
         </div>

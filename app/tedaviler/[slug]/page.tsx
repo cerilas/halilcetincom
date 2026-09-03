@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getContent } from "@/lib/content";
 import { SiteShell } from "@/components/layout/site-shell";
 import { JsonLd } from "@/lib/seo";
 import { MagneticButton } from "@/components/react-bits/magnetic-button";
+import { CtaSection } from "@/components/sections/cta-section";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -56,16 +58,32 @@ export default async function TreatmentPage({ params }: Props) {
           <span>{treatment.grafts}</span>
           <span>{treatment.duration}</span>
         </div>
+        
+        {treatment.image && (
+          <div className="my-10 overflow-hidden rounded-2xl border border-line relative h-[400px]">
+            <Image
+              src={treatment.image}
+              alt={`${treatment.title} - Saç Ekimi Operasyonu`}
+              fill
+              sizes="(max-width: 768px) 100vw, 800px"
+              className="object-cover opacity-90"
+              priority
+            />
+          </div>
+        )}
+        
         <div className="gold-line my-10 h-px" />
-        <p className="text-base leading-8 text-foreground/85">
-          {treatment.description}
-        </p>
+        <div 
+          className="prose dark:prose-invert prose-gold max-w-none text-base leading-8 text-foreground/85 prose-headings:font-display prose-headings:text-foreground prose-a:text-gold hover:prose-a:text-gold-soft prose-strong:text-foreground"
+          dangerouslySetInnerHTML={{ __html: treatment.contentHtml || `<p>${treatment.description}</p>` }}
+        />
         <div className="mt-12">
           <MagneticButton href="/iletisim" className="bg-gold text-black">
             Bu tedavi için analiz
           </MagneticButton>
         </div>
       </article>
+      <CtaSection content={content} />
     </SiteShell>
   );
 }

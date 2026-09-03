@@ -7,7 +7,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const url = siteUrl();
   const now = new Date();
 
-  const staticRoutes = ["", "/tedaviler", "/surec", "/sonuclar", "/hakkimizda", "/iletisim"].map(
+  const staticRoutes = ["", "/tedaviler", "/surec", "/iletisim", "/bilgi-bankasi", "/halil-cetin-kimdir"].map(
     (path) => ({
       url: `${url}${path}`,
       lastModified: now,
@@ -23,5 +23,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...treatments];
+  const { prisma } = await import("@/lib/db");
+  const articles = await prisma.article.findMany({ select: { slug: true, updatedAt: true } });
+  const articleRoutes = articles.map((a) => ({
+    url: `${url}/bilgi-bankasi/${a.slug}`,
+    lastModified: a.updatedAt,
+    changeFrequency: "weekly" as const,
+    priority: 0.6,
+  }));
+
+  return [...staticRoutes, ...treatments, ...articleRoutes];
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 
 export function ParallaxBio() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -52,23 +53,27 @@ export function ParallaxBio() {
   return (
     <div 
       ref={containerRef} 
-      className="relative mb-6 rounded-2xl border border-line bg-background p-2 aspect-[4/5] w-64 md:w-80 group cursor-pointer"
+      className="relative mb-6 rounded-2xl border border-line bg-background p-2 aspect-[4/5] w-[85%] max-w-[280px] sm:max-w-[320px] group cursor-pointer"
     >
       <div className="relative w-full h-full overflow-hidden rounded-xl bg-background/50">
-        <img 
+        <Image 
           ref={bgRef}
-          src="/halil-cetin-bg.png" 
-          alt="Clinic Background" 
+          src="/uzman-halil-cetin-sac-ekimi-gaziantep-bg.png" 
+          alt="Gaziantep Saç Ekimi Kliniği - VIP Ortam" 
+          fill
+          sizes="(max-width: 768px) 50vw, 320px"
           className="absolute -left-[15%] -top-[15%] h-[130%] w-[130%] max-w-none object-cover opacity-80 transition-opacity group-hover:opacity-100 will-change-transform"
           style={{ transformOrigin: "center center" }}
         />
       </div>
         
-      <img 
+      <Image 
         ref={fgRef}
-        src="/halil-cetin-fg.png" 
-        alt="Halil Çetin" 
-        className="absolute bottom-0 left-0 w-full h-[115%] object-cover object-bottom pointer-events-none will-change-transform"
+        src="/uzman-halil-cetin-sac-ekimi-gaziantep-fg.png" 
+        alt="Saç Ekim Uzmanı Halil Çetin Profil" 
+        fill
+        sizes="(max-width: 768px) 50vw, 320px"
+        className="absolute bottom-0 left-0 w-full h-[120%] object-contain object-bottom pointer-events-none will-change-transform"
         style={{ 
           transformOrigin: "bottom center",
           WebkitMaskImage: "linear-gradient(to bottom, black 85%, transparent 100%)",

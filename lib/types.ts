@@ -37,8 +37,10 @@ export type Treatment = {
   id: string;
   slug: string;
   title: string;
+  image?: string;
   excerpt: string;
   description: string;
+  contentHtml?: string;
   grafts: string;
   duration: string;
 };
@@ -88,4 +90,5 @@ export type Inquiry = {
   email: string;
   message: string;
   createdAt: string;
+  isRead?: boolean;
 };

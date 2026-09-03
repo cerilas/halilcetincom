@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 
 const patients = [
-  { id: 1, before: "/oncesi-sonrasi galeri/1.jpg", after: "/oncesi-sonrasi galeri/2.jpg" },
-  { id: 2, before: "/oncesi-sonrasi galeri/3.jpg", after: "/oncesi-sonrasi galeri/4.jpg" },
-  { id: 3, before: "/oncesi-sonrasi galeri/5.jpg", after: "/oncesi-sonrasi galeri/6.jpg" },
-  { id: 4, before: "/oncesi-sonrasi galeri/7.jpg", after: "/oncesi-sonrasi galeri/8.jpg" },
-  { id: 5, before: "/oncesi-sonrasi galeri/9.jpg", after: "/oncesi-sonrasi galeri/10.jpg" },
+  { id: 1, before: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-1.jpg", after: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-2.jpg" },
+  { id: 2, before: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-3.jpg", after: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-4.jpg" },
+  { id: 3, before: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-5.jpg", after: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-6.jpg" },
+  { id: 4, before: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-7.jpg", after: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-8.jpg" },
+  { id: 5, before: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-9.jpg", after: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-10.jpg" },
 ];
 
 export function ResultsGallery() {
@@ -89,6 +90,7 @@ export function ResultsGallery() {
             const topImg = card.querySelector('.gallery-top-img') as HTMLElement;
             if (topImg) {
               topImg.style.clipPath = `inset(0 0 0 ${progress * 100}%)`;
+              (topImg.style as any).webkitClipPath = `inset(0 0 0 ${progress * 100}%)`;
             }
           }
         }
@@ -162,17 +164,21 @@ export function ResultsGallery() {
               className="gallery-card relative w-[70vw] md:w-[35vw] lg:w-[28vw] aspect-[3/4] md:aspect-[4/5] shrink-0 rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-2xl"
             >
               {/* After image (Left side) */}
-              <img
+              <Image
                 src={p.after}
-                alt={`Hasta ${index + 1} Sonrası`}
-                className="pointer-events-none absolute inset-0 w-full h-full object-cover object-top"
+                alt={`Gaziantep Saç Ekimi Sonucu Hasta ${index + 1} - 12. Ay Sonrası`}
+                fill
+                sizes="(max-width: 768px) 70vw, 35vw"
+                className="pointer-events-none object-cover object-top"
               />
               {/* Before image (Right side) */}
-              <img
+              <Image
                 src={p.before}
-                alt={`Hasta ${index + 1} Öncesi`}
-                className="gallery-top-img pointer-events-none absolute inset-0 w-full h-full object-cover object-top"
-                style={{ clipPath: "inset(0 0 0 50%)" }}
+                alt={`Gaziantep Saç Ekimi Öncesi Hasta ${index + 1} - Kellik ve Seyreklik`}
+                fill
+                sizes="(max-width: 768px) 70vw, 35vw"
+                className="gallery-top-img pointer-events-none object-cover object-top"
+                style={{ clipPath: "inset(0 0 0 50%)", WebkitClipPath: "inset(0 0 0 50%)" }}
               />
               
               <span className="pointer-events-none absolute bottom-4 left-4 z-30 whitespace-nowrap text-[10px] tracking-[0.2em] text-gold/90 uppercase font-medium drop-shadow-md">

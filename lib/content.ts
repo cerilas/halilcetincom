@@ -24,3 +24,18 @@ export async function addInquiry(inquiry: Inquiry) {
   list.unshift(inquiry);
   await fs.writeFile(inquiriesPath, JSON.stringify(list, null, 2), "utf8");
 }
+
+export async function updateInquiry(id: string, updates: Partial<Inquiry>) {
+  const list = await getInquiries();
+  const index = list.findIndex(i => i.id === id);
+  if (index !== -1) {
+    list[index] = { ...list[index], ...updates };
+    await fs.writeFile(inquiriesPath, JSON.stringify(list, null, 2), "utf8");
+  }
+}
+
+export async function deleteInquiry(id: string) {
+  const list = await getInquiries();
+  const filtered = list.filter(i => i.id !== id);
+  await fs.writeFile(inquiriesPath, JSON.stringify(filtered, null, 2), "utf8");
+}

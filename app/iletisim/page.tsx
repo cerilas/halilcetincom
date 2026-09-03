@@ -5,9 +5,9 @@ import { whatsappHref } from "@/lib/utils";
 import { ContactForm } from "@/components/sections/contact-form";
 
 export const metadata: Metadata = {
-  title: "İletişim ve Ücretsiz Analiz",
+  title: "İletişim & Ücretsiz Saç Analizi Randevusu | Gaziantep Saç Ekimi",
   description:
-    "Halil Çetin Hair Transplant ile iletişime geçin. Ücretsiz saç analizi, WhatsApp ve İstanbul Nişantaşı klinik randevusu.",
+    "Halil Çetin Hair Transplant ile iletişime geçin. Ücretsiz saç analizi, WhatsApp ve klinik randevusu ile hayalinizdeki saçlara kavuşun.",
   alternates: { canonical: "/iletisim" },
 };
 

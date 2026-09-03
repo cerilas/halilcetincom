@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useCallback, useMemo } from "react";
+import Image from "next/image";
 import "./profile-card.css";
 
 const DEFAULT_INNER_GRADIENT =
@@ -63,7 +64,7 @@ function ProfileCardComponent({
   miniAvatarUrl,
   name = "Halil Çetin",
   title = "Saç Ekimi Uzmanı",
-  handle = "Op. Dr.",
+  handle = "Saç Ekim Uzmanı",
   status = "İstanbul",
   contactText = "İletişim",
   showUserInfo = true,
@@ -305,24 +306,31 @@ function ProfileCardComponent({
             <div className="pc-shine" />
             <div className="pc-glare" />
             <div className="pc-content pc-avatar-content">
-              <img
-                className="avatar"
-                src={avatarUrl}
-                alt={`${name} fotoğrafı`}
-                loading="lazy"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = "none";
-                }}
-              />
+              {avatarUrl && (
+                <Image
+                  className="avatar object-cover"
+                  src={avatarUrl}
+                  alt={`${name} - Gaziantep Saç Ekimi Uzmanı Fotoğrafı`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 400px"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = "none";
+                  }}
+                />
+              )}
               {showUserInfo && (
                 <div className="pc-user-info">
                   <div className="pc-user-details">
-                    <div className="pc-mini-avatar">
-                      <img
-                        src={miniAvatarUrl || avatarUrl}
-                        alt={`${name} mini avatar`}
-                        loading="lazy"
-                      />
+                    <div className="pc-mini-avatar relative h-8 w-8 overflow-hidden rounded-full">
+                      {(miniAvatarUrl || avatarUrl) && (
+                        <Image
+                          src={miniAvatarUrl || avatarUrl}
+                          alt={`${name} - Uzman Avatarı`}
+                          fill
+                          sizes="32px"
+                          className="object-cover"
+                        />
+                      )}
                     </div>
                     <div className="pc-user-text">
                       <div className="pc-handle">{handle}</div>

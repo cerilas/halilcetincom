@@ -40,43 +40,54 @@ const seoLocations = [
   "Hatay Saç Ekimi", "İskenderun Saç Ekimi", "Antakya Saç Ekimi"
 ];
 
+function slugify(text: string) {
+  return text.toLowerCase()
+    .replace(/ş/g, 's').replace(/ı/g, 'i').replace(/ğ/g, 'g')
+    .replace(/ü/g, 'u').replace(/ö/g, 'o').replace(/ç/g, 'c')
+    .replace(/\?/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 const legalLinks = [
-  "Aydınlatma Metni & KVKK",
-  "Gizlilik Politikası",
-  "Kullanım Koşulları",
-  "Çerez Politikası",
-  "Yasal Uyarı"
+  { name: "Aydınlatma Metni & KVKK", href: "/kvkk" },
+  { name: "Gizlilik Politikası", href: "/gizlilik-politikasi" },
+  { name: "Kullanım Koşulları", href: "/kullanim-kosullari" },
+  { name: "Çerez Politikası", href: "/cerez-politikasi" },
+  { name: "Yasal Uyarı", href: "/yasal-uyari" }
 ];
 
 export function Footer({ content }: { content: SiteContent }) {
   return (
-    <footer className="border-t border-line bg-[#040508] relative overflow-hidden">
+    <footer className="border-t border-line bg-background relative overflow-hidden">
       {/* Background glow */}
       <div className="pointer-events-none absolute left-1/2 bottom-0 h-[400px] w-[800px] -translate-x-1/2 translate-y-1/2 rounded-full bg-gold/5 blur-[120px]" />
       
       {/* Main Top Tier */}
       <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-5 py-20 md:grid-cols-12">
-        <div className="md:col-span-4 lg:col-span-5">
+        <div className="md:col-span-4 lg:col-span-4">
           <Link href="/">
-            <img src="/DARK-BG.svg" alt={content.clinic.legalName} className="h-8 w-auto opacity-90 transition-opacity hover:opacity-100" />
+            <img src="/DARK-BG.svg" alt="Halil Çetin Saç Ekim Merkezi Logo" className="h-8 w-auto opacity-90 transition-opacity hover:opacity-100 hidden dark:block" />
+            <img src="/LIGHT-BG.svg" alt="Halil Çetin Saç Ekim Merkezi Logo" className="h-8 w-auto opacity-90 transition-opacity hover:opacity-100 block dark:hidden" />
           </Link>
           <p className="mt-6 max-w-sm font-display text-3xl leading-tight text-foreground/90">
             {content.clinic.tagline}
           </p>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
-            Doğal sonuçlar ve kalıcı memnuniyet için uluslararası standartlarda saç ekimi hizmeti.
+            Gaziantep saç ekimi merkezi olarak Uzman Halil Çetin liderliğinde; Safir FUE, DHI ve kök hücre destekli dökülme tedavilerinde ömür boyu kalıcı, %100 doğal sonuçlar ve uluslararası VIP standartlarda sağlık hizmeti sunuyoruz.
           </p>
         </div>
         
-        <div className="md:col-span-3 lg:col-span-2">
+        <div className="md:col-span-3 lg:col-span-3">
           <p className="text-xs tracking-[0.2em] text-gold uppercase mb-6 font-medium">
             Navigasyon
           </p>
           <div className="flex flex-col gap-4 text-sm text-muted/80">
-            <Link href="/tedaviler" className="hover:text-gold transition-colors w-max">Tedaviler</Link>
-            <Link href="/surec" className="hover:text-gold transition-colors w-max">Süreç</Link>
-            <Link href="/hakkimizda" className="hover:text-gold transition-colors w-max">Klinik</Link>
-            <Link href="/iletisim" className="hover:text-gold transition-colors w-max">İletişim</Link>
+            <Link href="/halil-cetin-kimdir" className="hover:text-gold transition-colors w-max">Halil Çetin Kimdir?</Link>
+            <Link href="/tedaviler" className="hover:text-gold transition-colors w-max">Saç Ekimi Tedavileri</Link>
+            <Link href="/surec" className="hover:text-gold transition-colors w-max">Operasyon Süreci & Planlama</Link>
+            <Link href="/bilgi-bankasi" className="hover:text-gold transition-colors w-max">Uzman Bilgi Bankası (Blog)</Link>
+            <Link href="/iletisim" className="hover:text-gold transition-colors w-max">Ücretsiz Analiz & İletişim</Link>
           </div>
         </div>
         
@@ -84,7 +95,7 @@ export function Footer({ content }: { content: SiteContent }) {
           <p className="text-xs tracking-[0.2em] text-gold uppercase mb-6 font-medium">
             İletişim & Konum
           </p>
-          <div className="space-y-4 text-sm text-muted/80">
+          <div className="space-y-4 text-sm text-muted/80 mb-8">
             <p className="flex items-start gap-3">
               <MapPin size={16} className="mt-0.5 shrink-0 text-gold/50" />
               <span className="leading-relaxed">{content.clinic.address}</span>
@@ -106,11 +117,24 @@ export function Footer({ content }: { content: SiteContent }) {
               </a>
             </p>
           </div>
+          
+          <div className="h-48 w-full rounded-xl overflow-hidden border border-line opacity-80 hover:opacity-100 transition-opacity">
+            <iframe 
+              src="https://maps.google.com/maps?q=37.0748307,37.3705138&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0, filter: "grayscale(1) invert(90%) contrast(80%)" }} 
+              allowFullScreen 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Klinik Konumu"
+            />
+          </div>
         </div>
       </div>
 
       {/* Middle Tier: FAQs & SEO Regions */}
-      <div className="relative z-10 border-t border-white/5 bg-white/[0.01]">
+      <div className="relative z-10 border-t border-black/5 dark:border-white/5 bg-black/[0.01] dark:bg-white/[0.01]">
         <div className="mx-auto max-w-7xl px-5 py-16">
           <div className="grid gap-16 md:grid-cols-2 lg:grid-cols-12">
             
@@ -122,7 +146,7 @@ export function Footer({ content }: { content: SiteContent }) {
               <ul className="flex flex-col gap-3">
                 {faqs.map((faq, i) => (
                   <li key={i}>
-                    <Link href="#" className="text-xs text-muted/70 hover:text-gold transition-colors line-clamp-1">
+                    <Link href={`/bilgi-bankasi/${slugify(faq)}`} className="text-xs text-muted/70 hover:text-gold transition-colors line-clamp-1">
                       {faq}
                     </Link>
                   </li>
@@ -137,7 +161,11 @@ export function Footer({ content }: { content: SiteContent }) {
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-3">
                 {seoLocations.map((loc, i) => (
-                  <Link key={i} href="#" className="text-[11px] text-muted/50 hover:text-gold transition-colors truncate block">
+                  <Link 
+                    key={i} 
+                    href={`/bilgi-bankasi/${slugify(loc)}`} 
+                    className="text-[11px] text-muted/50 hover:text-gold transition-colors truncate block"
+                  >
                     {loc}
                   </Link>
                 ))}
@@ -149,13 +177,13 @@ export function Footer({ content }: { content: SiteContent }) {
       </div>
 
       {/* Bottom Tier: Legal & Copyright */}
-      <div className="relative z-10 border-t border-white/5">
+      <div className="relative z-10 border-t border-black/5 dark:border-white/5">
         <div className="mx-auto max-w-7xl px-5 py-8">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div className="flex flex-wrap items-center gap-4 text-[11px] text-muted/60">
               {legalLinks.map((link, i) => (
-                <Link key={i} href="#" className="hover:text-white transition-colors">
-                  {link}
+                <Link key={i} href={link.href} className="hover:text-white transition-colors">
+                  {link.name}
                 </Link>
               ))}
             </div>
@@ -176,7 +204,7 @@ export function Footer({ content }: { content: SiteContent }) {
             </div>
           </div>
           
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted/40 border-t border-white/5 pt-8">
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted/40 border-t border-black/5 dark:border-white/5 pt-8">
             <span>© {new Date().getFullYear()} {content.clinic.legalName}. Tüm hakları saklıdır.</span>
             <Link href="/admin" className="hover:text-white transition-colors">
               Yönetim Paneli

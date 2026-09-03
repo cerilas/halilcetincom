@@ -8,10 +8,10 @@ export function DoctorProfileCard() {
 
   return (
     <ProfileCard
-      avatarUrl="/doctor.jpg"
-      name="Op. Dr. Halil Çetin"
+      avatarUrl="/halil-cetin-hair-transplant-doktor.jpg"
+      name="Saç Ekim Uzmanı Halil Çetin"
       title="Saç Ekimi ve Medikal Estetik"
-      handle="Op. Dr."
+      handle="Saç Ekim Uzmanı"
       status="İstanbul"
       contactText="İletişim"
       showUserInfo

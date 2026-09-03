@@ -14,6 +14,7 @@ import { Counter } from "@/components/ui/counter";
 import { ParallaxBio } from "@/components/ui/parallax-bio";
 import { ResultsGallery } from "@/components/sections/results-gallery";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
+import { CtaSection } from "@/components/sections/cta-section";
 
 export function HomeView({ content }: { content: SiteContent }) {
   const wa = whatsappHref(
@@ -80,7 +81,7 @@ export function HomeView({ content }: { content: SiteContent }) {
                   gap={12}
                   textColor="currentColor"
                   fontWeight={300}
-                  gradientFrom="#07080b"
+                  gradientFrom="var(--background)"
                 />
                 <span className="mb-4 ml-2 font-display text-7xl font-light">+</span>
               </div>
@@ -90,6 +91,14 @@ export function HomeView({ content }: { content: SiteContent }) {
               <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
                 Yılların tecrübesi, doğal sonuçlar ve memnun hastalar. Saç ekiminde güvenilir ellerdesiniz.
               </p>
+              
+              <Link 
+                href="/halil-cetin-kimdir"
+                className="mt-8 group inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-6 py-3 text-sm font-medium text-gold transition-all hover:bg-gold hover:text-black"
+              >
+                <span className="truncate">Saç Ekim Uzmanı Halil Çetin</span>
+                <ArrowUpRight size={16} className="shrink-0 transition-transform group-hover:rotate-12" />
+              </Link>
             </div>
           </div>
         </section>
@@ -127,12 +136,7 @@ export function HomeView({ content }: { content: SiteContent }) {
 
                     <div className="my-6 overflow-hidden rounded-xl border border-line">
                       <img
-                        src={
-                          i === 0 ? "/protocols/hairline.jpg" :
-                            i === 1 ? "/protocols/crown.jpg" :
-                              i === 2 ? "/protocols/operation.png" :
-                                "/protocols/beard.png"
-                        }
+                        src={treatment.image || "/protocols/dogal-sac-cizgisi-tasarimi-fue.jpg"}
                         alt={treatment.title}
                         className="h-48 w-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
                       />
@@ -204,27 +208,7 @@ export function HomeView({ content }: { content: SiteContent }) {
         </section>
       </ScrollReveal>
 
-      <ScrollReveal>
-        <section className="px-5 pb-24">
-          <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-line bg-card px-8 py-16 md:px-16">
-            <BorderBeam />
-            <p className="text-xs tracking-[0.28em] text-gold uppercase">
-              Ücretsiz analiz
-            </p>
-            <h2 className="mt-4 max-w-2xl font-display text-4xl md:text-6xl">
-              Fotoğrafınızı gönderin. 24 saatte plan.
-            </h2>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <GlareButton href="/iletisim" className="bg-gold text-black">
-                Formu doldur
-              </GlareButton>
-              <GlareButton href={wa} className="border border-line">
-                WhatsApp
-              </GlareButton>
-            </div>
-          </div>
-        </section>
-      </ScrollReveal>
+      <CtaSection content={content} />
     </>
   );
 }

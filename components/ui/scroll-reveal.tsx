@@ -33,8 +33,8 @@ export function ScrollReveal({
         }
       },
       {
-        threshold,
-        rootMargin: "0px 0px -50px 0px", // Trigger slightly before it comes fully into view
+        threshold: 0.05, // Trigger when just 5% is visible
+        rootMargin: "0px 0px 100px 0px", // Trigger 100px before it even enters the viewport
       }
     );
 
@@ -53,7 +53,7 @@ export function ScrollReveal({
     <div
       ref={ref}
       className={cn(
-        "transition-all duration-1000 ease-out",
+        "transition-all duration-700 ease-out", // Reduced from 1000 to 700 for snappier feel
         isVisible ? "opacity-100 translate-y-0" : "opacity-0",
         className
       )}

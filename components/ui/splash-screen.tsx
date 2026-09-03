@@ -127,7 +127,7 @@ function SplashAnimation() {
             />
           </mask>
         </defs>
-        <rect width="100%" height="100%" fill="#050505" mask="url(#splash-mask)" />
+        <rect width="100%" height="100%" className="fill-background" mask="url(#splash-mask)" />
       </svg>
 
       {/* Logo and Glow */}
@@ -148,7 +148,12 @@ function SplashAnimation() {
           <img
             src="/DARK-BG.svg"
             alt="Halil Çetin"
-            className="relative z-10 h-12 w-auto object-contain"
+            className="relative z-10 h-12 w-auto object-contain hidden dark:block"
+          />
+          <img
+            src="/LIGHT-BG.svg"
+            alt="Halil Çetin"
+            className="relative z-10 h-12 w-auto object-contain block dark:hidden"
           />
         </div>
       </div>
