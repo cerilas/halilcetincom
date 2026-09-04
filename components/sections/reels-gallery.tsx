@@ -1,17 +1,9 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/lib/db";
 import { ReelsCarousel } from "@/components/ui/reels-carousel";
 
-// If you don't have a global prisma client exported from @/lib/prisma,
-// let's define it here just in case, or use standard pattern.
-// But wait, they must have one. Let's assume standard `@/lib/prisma` or `@prisma/client`.
-// I will just instantiate PrismaClient here if it fails, but in App Router it's better to use a singleton.
-// Actually, I can check if lib/prisma.ts exists.
-
 export async function ReelsGallery() {
-  let reels = [];
+  let reels: any[] = [];
   try {
-    const { PrismaClient } = await import('@prisma/client');
-    const prisma = new PrismaClient();
     reels = await prisma.reel.findMany({
       where: { published: true },
       orderBy: { order: 'asc' },
