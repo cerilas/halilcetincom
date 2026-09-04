@@ -10,6 +10,15 @@ import { toast } from "sonner";
 export function InboxView({ initialInquiries }: { initialInquiries: Inquiry[] }) {
   const [inquiries, setInquiries] = useState(initialInquiries);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 10;
+  
+  const totalPages = Math.ceil(inquiries.length / ITEMS_PER_PAGE) || 1;
+  const paginatedInquiries = inquiries.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   const selectedInquiry = inquiries.find((i) => i.id === selectedId);
 
@@ -61,7 +70,7 @@ export function InboxView({ initialInquiries }: { initialInquiries: Inquiry[] })
           <h2 className="font-medium text-sm text-muted">Mesajlar ({inquiries.length})</h2>
         </div>
         <div className="flex-1 overflow-y-auto">
-          {inquiries.map((inq) => (
+          {paginatedInquiries.map((inq) => (
             <button
               key={inq.id}
               onClick={() => selectMessage(inq)}
@@ -89,6 +98,29 @@ export function InboxView({ initialInquiries }: { initialInquiries: Inquiry[] })
             </button>
           ))}
         </div>
+        
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="p-4 border-t border-line bg-background/50 flex items-center justify-between text-sm">
+            <button
+              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="px-3 py-1 rounded-lg border border-line bg-card disabled:opacity-50 hover:bg-line/20 transition-colors"
+            >
+              Önceki
+            </button>
+            <span className="text-muted">
+              Sayfa {currentPage} / {totalPages}
+            </span>
+            <button
+              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="px-3 py-1 rounded-lg border border-line bg-card disabled:opacity-50 hover:bg-line/20 transition-colors"
+            >
+              Sonraki
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Message Details */}

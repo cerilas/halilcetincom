@@ -1,0 +1,52 @@
+PrismaClientValidationError: 
+Invalid `prisma.appointment.create()` invocation:
+
+{
+  data: {
+    name: "asdasd",
+    phone: "123123123",
+    email: "",
+    type: "Ön Görüşme",
+    ~~~~
+    date: new Date("2026-09-05T06:00:00.000Z"),
+?   id?: String,
+?   status?: String,
+?   createdAt?: DateTime
+  }
+}
+
+Unknown argument `type`. Did you mean `name`? Available options are marked with ?.
+    at wn (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/@prisma/client/runtime/library.js:29:1363)
+    at $n.handleRequestError (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/@prisma/client/runtime/library.js:121:6958)
+    at $n.handleAndLogRequestError (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/@prisma/client/runtime/library.js:121:6623)
+    at $n.request (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/@prisma/client/runtime/library.js:121:6307)
+    at async l (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/@prisma/client/runtime/library.js:130:9633)
+    at async createAppointment (file:///Users/deniz/Downloads/HalilCetinHairTransplant/.next/dev/server/chunks/ssr/_1hvgvsd._.js?id=%5Bproject%5D/app/yonetim/actions.ts+%5Bapp-rsc%5D+(ecmascript):197:25)
+    at async executeActionAndPrepareForRender (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:168:5395)
+    at async /Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:168:2018
+    at async handleAction (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:166:27863)
+    at async renderToHTMLOrFlightImpl (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:173:2883)
+    at async doRender (/Users/deniz/Downloads/HalilCetinHairTransplant/.next/dev/server/chunks/ssr/node_modules_next_dist_1ou3yty._.js:595:32)
+    at async AppPageRouteModule.handleResponse (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js:216:76101)
+    at async handleResponse (/Users/deniz/Downloads/HalilCetinHairTransplant/.next/dev/server/chunks/ssr/node_modules_next_dist_1ou3yty._.js:962:36)
+    at async Module.handler (/Users/deniz/Downloads/HalilCetinHairTransplant/.next/dev/server/chunks/ssr/node_modules_next_dist_1ou3yty._.js:1433:24)
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/next/dist/server/base-server.js:1537:9)
+    at async DevServer.renderPageComponent (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/next/dist/server/base-server.js:1589:24)
+    at async DevServer.renderToResponseImpl (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/next/dist/server/base-server.js:1639:32)
+    at async DevServer.pipeImpl (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/next/dist/server/base-server.js:1088:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/next/dist/server/next-server.js:338:17)
+    at async DevServer.handleRequestImpl (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/next/dist/server/base-server.js:979:17)
+    at async /Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/next/dist/server/dev/next-dev-server.js:426:20
+    at async Span.traceAsyncFn (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/next/dist/trace/trace.js:164:20)
+    at async DevServer.handleRequest (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/next/dist/server/dev/next-dev-server.js:422:24)
+    at async invokeRender (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/next/dist/server/lib/router-server.js:306:21)
+    at async handleRequest (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/next/dist/server/lib/router-server.js:508:24)
+    at async requestHandlerImpl (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/next/dist/server/lib/router-server.js:565:13)
+    at async Server.requestListener (/Users/deniz/Downloads/HalilCetinHairTransplant/node_modules/next/dist/server/lib/start-server.js:225:13)
+{
+  "type": "Ön Görüşme",
+  "name": "asdasd",
+  "phone": "123123123",
+  "email": "",
+  "date": "2026-09-05T06:00:00.000Z"
+}

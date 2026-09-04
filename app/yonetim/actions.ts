@@ -92,37 +92,85 @@ export async function getAppointments() {
   return prisma.appointment.findMany({ orderBy: { createdAt: "desc" } });
 }
 
+export async function deleteAppointment(id: string) {
+  await checkAuth();
+  await prisma.appointment.delete({ where: { id } });
+  revalidatePath("/yonetim/randevular");
+  revalidatePath("/randevu");
+}
+
+import { sendSmsNotification } from "@/lib/sms";
+
 export async function updateAppointmentStatus(id: string, status: string) {
   await checkAuth();
   const updated = await prisma.appointment.update({
     where: { id },
     data: { status }
   });
+
+  if (updated.phone) {
+    const formattedDate = updated.date.toLocaleDateString("tr-TR");
+    const dayName = updated.date.toLocaleDateString("tr-TR", { weekday: "long" });
+    const timeString = updated.date.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" });
+
+    if (status === "APPROVED") {
+      const msg = `Sn. ${updated.name} randevu talebiniz onaylanmistir. ${formattedDate} ${timeString} Konum: www.halilcetinsacekimi.com`;
+      await sendSmsNotification([updated.phone], msg);
+    } else if (status === "REJECTED") {
+      const msg = `Sn. ${updated.name}, randevunuz iptal edilmistir. Lutfen klinik ile iletisime geciniz.`;
+      await sendSmsNotification([updated.phone], msg);
+    }
+  }
+
   revalidatePath("/yonetim/randevular");
   return updated;
 }
 
-import { sendSmsNotification } from "@/lib/sms";
+export async function createAppointment(data: { name: string, phone: string, email?: string, date: Date | string, type: string }) {
+  try {
+    const appointmentDate = new Date(data.date);
+    
+    const created = await prisma.appointment.create({ 
+      data: {
+        name: data.name,
+        phone: data.phone,
+        email: data.email,
+        type: data.type,
+        date: appointmentDate
+      }
+    });
+    
+    const formattedDate = appointmentDate.toLocaleDateString("tr-TR");
+    const dayName = appointmentDate.toLocaleDateString("tr-TR", { weekday: "long" });
+    const timeString = appointmentDate.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" });
+    
+    // Hastaya SMS gönderimi
+    if (data.phone) {
+      // Convert type to english chars to be safe
+      const safeType = data.type.replace(/ö/g, 'o').replace(/Ö/g, 'O').replace(/ş/g, 's').replace(/Ş/g, 'S').replace(/ğ/g, 'g').replace(/Ğ/g, 'G').replace(/ü/g, 'u').replace(/Ü/g, 'U').replace(/ı/g, 'i').replace(/İ/g, 'I').replace(/ç/g, 'c').replace(/Ç/g, 'C');
+      const safeName = data.name.replace(/ö/g, 'o').replace(/Ö/g, 'O').replace(/ş/g, 's').replace(/Ş/g, 'S').replace(/ğ/g, 'g').replace(/Ğ/g, 'G').replace(/ü/g, 'u').replace(/Ü/g, 'U').replace(/ı/g, 'i').replace(/İ/g, 'I').replace(/ç/g, 'c').replace(/Ç/g, 'C');
+      
+      const patientMsg = `Sn. ${safeName}, Halil Cetin Sac Ekimi'ni tercih ettiginiz icin tesekkurler. ${formattedDate} ${timeString} saatli ${safeType} talebiniz alinmistir.`;
+      await sendSmsNotification([data.phone], patientMsg);
+    }
 
-export async function createAppointment(data: { name: string, phone: string, email?: string, date: Date }) {
-  const created = await prisma.appointment.create({ data });
-  
   // Get settings to find notifyPhones
   const settings = await prisma.appointmentSettings.findUnique({ where: { id: "default" } });
   if (settings && settings.notifyPhones) {
     const phones = settings.notifyPhones.split(",").map(p => p.trim()).filter(Boolean);
     if (phones.length > 0) {
-      const formattedDate = data.date.toLocaleDateString("tr-TR");
-      const dayName = data.date.toLocaleDateString("tr-TR", { weekday: "long" });
-      const timeString = data.date.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" });
-      
-      const message = `${formattedDate} tarihi ${dayName} günü ${timeString} saati için Halil Çetin adına randevu talebiniz var. Hemen görüntüleyin: www.halilcetinsacekimi.com/yonetim`;
-      
-      // Call the external SMS API
+      const safeType = data.type.replace(/ö/g, 'o').replace(/Ö/g, 'O').replace(/ş/g, 's').replace(/Ş/g, 'S').replace(/ğ/g, 'g').replace(/Ğ/g, 'G').replace(/ü/g, 'u').replace(/Ü/g, 'U').replace(/ı/g, 'i').replace(/İ/g, 'I').replace(/ç/g, 'c').replace(/Ç/g, 'C');
+      const message = `${formattedDate} ${timeString} icin ${safeType} talebi var. Goruntuleyin: halilcetinsacekimi.com/yonetim`;
+      // Call the external SMS API for admins
       await sendSmsNotification(phones, message);
     }
   }
 
   revalidatePath("/yonetim/randevular");
-  return created;
+  return { success: true };
+  } catch (error: any) {
+    console.error("Create Appointment Error:", error);
+    require('fs').writeFileSync('/Users/deniz/Downloads/HalilCetinHairTransplant/debug-error.log', (error.stack || error.message) + '\n' + JSON.stringify(data, null, 2));
+    throw new Error(error.message || "Randevu oluşturulamadı");
+  }
 }

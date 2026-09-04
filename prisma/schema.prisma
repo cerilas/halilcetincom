@@ -56,7 +56,8 @@ model Appointment {
   name      String
   phone     String
   email     String?
+  type      String   @default("Ön Görüşme") // "Ön Görüşme", "Saç Analizi", "Bakım", "Kontrol"
   date      DateTime // the exact start time of the slot
-  status    String   @default("PENDING") // PENDING, APPROVED, REJECTED
+  status    String   @default("PENDING") // PENDING, APPROVED, REJECTED, CANCELLED_BY_PATIENT
   createdAt DateTime @default(now())
 }

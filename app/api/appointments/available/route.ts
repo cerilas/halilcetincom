@@ -16,18 +16,17 @@ export async function GET(req: NextRequest) {
     }
 
     // Settings
-    let settings = await prisma.appointmentSettings.findUnique({ where: { id: "default" } });
-    if (!settings) {
-      settings = {
-        id: "default",
-        workingDays: "1,2,3,4,5,6",
-        startTime: "09:00",
-        endTime: "19:00",
-        slotDuration: 60,
-        concurrentLimit: 2,
-        updatedAt: new Date()
-      };
-    }
+    const dbSettings = await prisma.appointmentSettings.findUnique({ where: { id: "default" } });
+    const settings = dbSettings || {
+      id: "default",
+      workingDays: "1,2,3,4,5,6",
+      startTime: "09:00",
+      endTime: "19:00",
+      slotDuration: 60,
+      concurrentLimit: 2,
+      notifyPhones: "",
+      updatedAt: new Date()
+    };
 
     const workingDays = settings.workingDays.split(",").map(Number);
     const dayOfWeek = date.getDay(); // 0=Sun, 1=Mon...
@@ -93,7 +92,7 @@ export async function GET(req: NextRequest) {
     // Filter available slots
     const availableSlots = slots.filter(slot => {
       const bookedCount = bookingsBySlot[slot] || 0;
-      return bookedCount < (settings?.concurrentLimit ?? 2);
+      return bookedCount < settings.concurrentLimit;
     });
 
     return NextResponse.json({ slots: availableSlots });

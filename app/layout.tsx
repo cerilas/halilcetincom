@@ -8,6 +8,7 @@ import { SplashScreen } from "@/components/ui/splash-screen";
 import { CookieBanner } from "@/components/ui/cookie-banner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AnalyticsTracker } from "@/components/analytics-tracker";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const inter = Inter({
@@ -84,6 +85,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <CookieBanner />
           <AnalyticsTracker />
           {children}
+          <Toaster position="top-center" richColors theme="system" />
         </ThemeProvider>
       </body>
     </html>

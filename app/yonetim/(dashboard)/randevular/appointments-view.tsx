@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { updateAppointmentSettings, updateAppointmentStatus } from "../../actions";
+import { updateAppointmentSettings, updateAppointmentStatus, deleteAppointment } from "../../actions";
 import { toast } from "sonner";
-import { Check, X, Clock, Settings, Users, Save, Calendar as CalendarIcon, Phone, Mail } from "lucide-react";
+import { Check, X, Clock, Settings, Users, Save, Calendar as CalendarIcon, Phone, Mail, ChevronLeft, ChevronRight, ArrowUpDown, Trash2, AlertTriangle, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Appointment = {
@@ -11,6 +11,7 @@ type Appointment = {
   name: string;
   phone: string;
   email: string | null;
+  type: string;
   date: Date;
   status: string;
   createdAt: Date;
@@ -39,6 +40,27 @@ export function AppointmentsView({ initialAppointments, settings }: { initialApp
   const [activeTab, setActiveTab] = useState<"list" | "settings">("list");
   const [appointments, setAppointments] = useState(initialAppointments);
   const [isSaving, setIsSaving] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState<string | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  // Pagination & Sorting State
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const [sortBy, setSortBy] = useState<"createdAt" | "date">("createdAt");
+  const [sortOrder, setSortOrder] = useState<"desc" | "asc">("desc");
+
+  const sortedAppointments = [...appointments].sort((a, b) => {
+    const valA = new Date(a[sortBy]).getTime();
+    const valB = new Date(b[sortBy]).getTime();
+    if (sortOrder === "asc") return valA - valB;
+    return valB - valA;
+  });
+
+  const totalPages = Math.ceil(sortedAppointments.length / itemsPerPage);
+  const paginatedAppointments = sortedAppointments.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   // Settings State
   const [workingDays, setWorkingDays] = useState<string[]>(settings.workingDays.split(","));
@@ -83,6 +105,20 @@ export function AppointmentsView({ initialAppointments, settings }: { initialApp
     }
   };
 
+  const handleDelete = async (id: string) => {
+    try {
+      setIsDeleting(true);
+      await deleteAppointment(id);
+      setAppointments(prev => prev.filter(a => a.id !== id));
+      toast.success("Randevu kalıcı olarak silindi.");
+      setDeleteModalOpen(null);
+    } catch (error) {
+      toast.error("Randevu silinirken bir hata oluştu.");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-8 h-full">
       {/* Header */}
@@ -106,13 +142,57 @@ export function AppointmentsView({ initialAppointments, settings }: { initialApp
 
       {activeTab === "list" && (
         <div className="space-y-4">
+          {appointments.length > 0 && (
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-card border border-line p-4 rounded-2xl mb-6">
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-medium text-foreground">Sırala:</span>
+                
+                <div className="flex bg-line/20 p-1 rounded-xl items-center">
+                  <button
+                    onClick={() => setSortBy("createdAt")}
+                    className={cn(
+                      "px-4 py-1.5 text-xs font-medium rounded-lg transition-all", 
+                      sortBy === "createdAt" ? "bg-background shadow-sm text-foreground ring-1 ring-black/5 dark:ring-white/10" : "text-muted hover:text-foreground"
+                    )}
+                  >
+                    Alınma Tarihi
+                  </button>
+                  <button
+                    onClick={() => setSortBy("date")}
+                    className={cn(
+                      "px-4 py-1.5 text-xs font-medium rounded-lg transition-all", 
+                      sortBy === "date" ? "bg-background shadow-sm text-foreground ring-1 ring-black/5 dark:ring-white/10" : "text-muted hover:text-foreground"
+                    )}
+                  >
+                    Randevu Tarihi
+                  </button>
+                </div>
+
+                <div className="w-px h-5 bg-line mx-1" />
+
+                <button 
+                  onClick={() => setSortOrder(prev => prev === "desc" ? "asc" : "desc")}
+                  className="flex items-center gap-2 px-3 py-1.5 bg-line/10 hover:bg-line/30 rounded-xl text-xs font-medium text-foreground transition-colors border border-line"
+                  title={sortOrder === "desc" ? "Yeniden Eskiye" : "Eskiden Yeniye"}
+                >
+                  <ArrowUpDown className="w-3.5 h-3.5 text-gold" />
+                  {sortOrder === "desc" ? "Azalan" : "Artan"}
+                </button>
+              </div>
+              <div className="text-sm text-muted">
+                Toplam {appointments.length} randevu
+              </div>
+            </div>
+          )}
+
           {appointments.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-64 text-muted bg-card border border-line rounded-3xl">
               <CalendarIcon className="w-12 h-12 mb-4 opacity-50" />
               <p>Henüz randevu talebi bulunmuyor.</p>
             </div>
           ) : (
-            appointments.map(app => (
+            <>
+              {paginatedAppointments.map(app => (
               <div key={app.id} className="bg-card border border-line p-6 rounded-3xl flex flex-col md:flex-row md:items-center justify-between gap-6 transition-colors hover:border-gold/50">
                 <div className="flex-1 space-y-1">
                   <div className="flex items-center gap-3 mb-2">
@@ -121,8 +201,9 @@ export function AppointmentsView({ initialAppointments, settings }: { initialApp
                       app.status === "PENDING" && "bg-yellow-500/10 text-yellow-500 border border-yellow-500/20",
                       app.status === "APPROVED" && "bg-green-500/10 text-green-500 border border-green-500/20",
                       app.status === "REJECTED" && "bg-red-500/10 text-red-500 border border-red-500/20",
+                      app.status === "CANCELLED_BY_PATIENT" && "bg-orange-500/10 text-orange-500 border border-orange-500/20",
                     )}>
-                      {app.status === "PENDING" ? "Bekliyor" : app.status === "APPROVED" ? "Onaylandı" : "İptal"}
+                      {app.status === "PENDING" ? "Bekliyor" : app.status === "APPROVED" ? "Onaylandı" : app.status === "CANCELLED_BY_PATIENT" ? "Hasta İptal Etti" : "İptal"}
                     </span>
                     <span className="text-sm text-muted">
                       {new Date(app.createdAt).toLocaleDateString('tr-TR')}
@@ -130,6 +211,7 @@ export function AppointmentsView({ initialAppointments, settings }: { initialApp
                   </div>
                   <h3 className="text-xl font-medium text-foreground">{app.name}</h3>
                   <div className="flex flex-wrap items-center gap-4 text-sm text-muted">
+                    <span className="flex items-center gap-1.5 px-2 py-1 bg-gold/10 text-gold rounded-md font-medium text-xs border border-gold/20">{app.type}</span>
                     <span className="flex items-center gap-1.5"><CalendarIcon className="w-4 h-4" /> {new Date(app.date).toLocaleString('tr-TR', { dateStyle: 'long', timeStyle: 'short' })}</span>
                     <span className="flex items-center gap-1.5"><Phone className="w-4 h-4" /> <a href={`tel:${app.phone}`} className="hover:text-gold">{app.phone}</a></span>
                     {app.email && <span className="flex items-center gap-1.5"><Mail className="w-4 h-4" /> <a href={`mailto:${app.email}`} className="hover:text-gold">{app.email}</a></span>}
@@ -137,36 +219,109 @@ export function AppointmentsView({ initialAppointments, settings }: { initialApp
                 </div>
                 
                 <div className="flex items-center gap-2">
-                  {app.status !== "APPROVED" && (
-                    <button 
-                      onClick={() => updateStatus(app.id, "APPROVED")}
-                      className="flex items-center gap-2 px-4 py-2 bg-green-500/10 text-green-500 rounded-xl hover:bg-green-500/20 transition-colors"
-                    >
-                      <Check className="w-4 h-4" /> Onayla
-                    </button>
+                  {app.status !== "CANCELLED_BY_PATIENT" && (
+                    <>
+                      {app.status !== "APPROVED" && (
+                        <button 
+                          onClick={() => updateStatus(app.id, "APPROVED")}
+                          className="flex items-center gap-2 px-4 py-2 bg-green-500/10 text-green-500 rounded-xl hover:bg-green-500/20 transition-colors"
+                        >
+                          <Check className="w-4 h-4" /> Onayla
+                        </button>
+                      )}
+                      {app.status !== "REJECTED" && (
+                        <button 
+                          onClick={() => updateStatus(app.id, "REJECTED")}
+                          className="flex items-center gap-2 px-4 py-2 bg-red-500/10 text-red-500 rounded-xl hover:bg-red-500/20 transition-colors"
+                        >
+                          <X className="w-4 h-4" /> İptal Et
+                        </button>
+                      )}
+                      {app.status !== "PENDING" && (
+                        <button 
+                          onClick={() => updateStatus(app.id, "PENDING")}
+                          className="flex items-center gap-2 px-4 py-2 bg-yellow-500/10 text-yellow-500 rounded-xl hover:bg-yellow-500/20 transition-colors"
+                        >
+                          <Clock className="w-4 h-4" /> Beklemeye Al
+                        </button>
+                      )}
+                    </>
                   )}
-                  {app.status !== "REJECTED" && (
-                    <button 
-                      onClick={() => updateStatus(app.id, "REJECTED")}
-                      className="flex items-center gap-2 px-4 py-2 bg-red-500/10 text-red-500 rounded-xl hover:bg-red-500/20 transition-colors"
-                    >
-                      <X className="w-4 h-4" /> İptal Et
-                    </button>
+                  {app.status === "CANCELLED_BY_PATIENT" && (
+                    <span className="text-sm text-muted italic flex items-center gap-2 px-4 py-2 bg-orange-500/5 rounded-xl border border-orange-500/10">
+                      <X className="w-4 h-4 text-orange-500" /> Düzenlenemez
+                    </span>
                   )}
-                  {app.status !== "PENDING" && (
-                    <button 
-                      onClick={() => updateStatus(app.id, "PENDING")}
-                      className="flex items-center gap-2 px-4 py-2 bg-yellow-500/10 text-yellow-500 rounded-xl hover:bg-yellow-500/20 transition-colors"
-                    >
-                      <Clock className="w-4 h-4" /> Beklemeye Al
-                    </button>
-                  )}
+                  
+                  <div className="w-px h-6 bg-line mx-2" />
+                  
+                  <button 
+                    onClick={() => setDeleteModalOpen(app.id)}
+                    className="flex items-center justify-center p-2.5 bg-red-500/10 text-red-500 rounded-xl hover:bg-red-500/20 transition-colors"
+                    title="Kalıcı Olarak Sil"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
-            ))
-          )}
-        </div>
-      )}
+            ))}
+
+            {/* Pagination UI */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-2 mt-8">
+                <button
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="p-2 border border-line rounded-xl hover:bg-line/20 disabled:opacity-50 transition-colors bg-card"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <span className="text-sm font-medium px-4 bg-card border border-line py-2 rounded-xl">Sayfa {currentPage} / {totalPages}</span>
+                <button
+                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="p-2 border border-line rounded-xl hover:bg-line/20 disabled:opacity-50 transition-colors bg-card"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Delete Confirmation Modal */}
+        {deleteModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm px-4">
+            <div className="bg-card border border-line rounded-3xl p-6 md:p-8 max-w-sm w-full shadow-2xl animate-in fade-in zoom-in duration-200">
+              <div className="w-16 h-16 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <AlertTriangle className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-medium text-center mb-2 text-foreground">Randevuyu Kalıcı Sil</h3>
+              <p className="text-muted text-center text-sm mb-8">
+                Bu randevuyu kalıcı olarak silmek istediğinize emin misiniz? Bu işlem geri alınamaz.
+              </p>
+              
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={() => handleDelete(deleteModalOpen)}
+                  disabled={isDeleting}
+                  className="w-full py-3 bg-red-500 hover:bg-red-600 text-white rounded-xl font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                >
+                  {isDeleting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Evet, Sil"}
+                </button>
+                <button
+                  onClick={() => setDeleteModalOpen(null)}
+                  disabled={isDeleting}
+                  className="w-full py-3 bg-transparent border border-line text-foreground hover:bg-line/20 rounded-xl font-medium transition-colors disabled:opacity-50"
+                >
+                  Vazgeç
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    )}
 
       {activeTab === "settings" && (
         <div className="bg-card border border-line rounded-3xl p-8 max-w-3xl">
