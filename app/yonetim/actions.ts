@@ -130,6 +130,21 @@ export async function createAppointment(data: { name: string, phone: string, ema
   try {
     const appointmentDate = new Date(data.date);
     
+    // Check concurrency limit
+    const settings = await prisma.appointmentSettings.findUnique({ where: { id: "default" } });
+    const limit = settings?.concurrentLimit || 2;
+    
+    const bookedCount = await prisma.appointment.count({
+      where: {
+        date: appointmentDate,
+        status: { notIn: ["REJECTED", "CANCELLED_BY_PATIENT"] }
+      }
+    });
+
+    if (bookedCount >= limit) {
+      throw new Error("Seçilen saat için kontenjan dolmuştur. Lütfen başka bir saat seçiniz.");
+    }
+    
     const created = await prisma.appointment.create({ 
       data: {
         name: data.name,
@@ -154,8 +169,8 @@ export async function createAppointment(data: { name: string, phone: string, ema
       await sendSmsNotification([data.phone], patientMsg);
     }
 
-  // Get settings to find notifyPhones
-  const settings = await prisma.appointmentSettings.findUnique({ where: { id: "default" } });
+  // Get settings to find notifyPhones (already fetched at the top)
+  // settings is already defined
   if (settings && settings.notifyPhones) {
     const phones = settings.notifyPhones.split(",").map(p => p.trim()).filter(Boolean);
     if (phones.length > 0) {

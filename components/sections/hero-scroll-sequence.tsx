@@ -153,7 +153,7 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
               showLabels
               labelText={{ before: "Önce", after: "Sonra" }}
               labelPosition="top-left"
-              className="h-full w-full pointer-events-auto"
+              className="h-full w-full pointer-events-none"
               imageClassName="object-cover object-top"
               handleClassName="z-20 border border-gold/80 bg-background/55 text-gold shadow-[0_0_18px_rgba(255,246,220,0.8),0_0_40px_rgba(196,164,106,0.9),0_0_72px_rgba(196,164,106,0.45)] backdrop-blur-md"
               labelClassName="tracking-[0.28em]"

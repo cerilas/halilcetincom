@@ -61,3 +61,18 @@ model Appointment {
   status    String   @default("PENDING") // PENDING, APPROVED, REJECTED, CANCELLED_BY_PATIENT
   createdAt DateTime @default(now())
 }
+
+model Reel {
+  id          String   @id @default(cuid())
+  videoUrl    String
+  thumbnailUrl String?
+  profileName String   @default("halilcetin")
+  profilePic  String?
+  description String?
+  likes       Int      @default(0)
+  comments    Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  published   Boolean  @default(true)
+  order       Int      @default(0)
+}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import type { SiteContent } from "@/lib/types";
 import { whatsappHref } from "@/lib/utils";
@@ -15,6 +16,7 @@ import { ParallaxBio } from "@/components/ui/parallax-bio";
 import { ResultsGallery } from "@/components/sections/results-gallery";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { CtaSection } from "@/components/sections/cta-section";
+import { ReelsGallery } from "@/components/sections/reels-gallery";
 
 export function HomeView({ content }: { content: SiteContent }) {
   const wa = whatsappHref(
@@ -73,15 +75,9 @@ export function HomeView({ content }: { content: SiteContent }) {
                 Uzmanlık ve Güven
               </p>
               <div className="flex items-end text-gold">
-                <Counter
+                <NumberTicker
                   value={4876}
-                  places={[1000, 100, 10, 1]}
-                  fontSize={80}
-                  padding={10}
-                  gap={12}
-                  textColor="currentColor"
-                  fontWeight={300}
-                  gradientFrom="var(--background)"
+                  className="font-display text-[80px] font-light leading-none tracking-tighter"
                 />
                 <span className="mb-4 ml-2 font-display text-7xl font-light">+</span>
               </div>
@@ -102,6 +98,10 @@ export function HomeView({ content }: { content: SiteContent }) {
             </div>
           </div>
         </section>
+      </ScrollReveal>
+
+      <ScrollReveal>
+        <ReelsGallery />
       </ScrollReveal>
 
       <ScrollReveal>
@@ -134,11 +134,13 @@ export function HomeView({ content }: { content: SiteContent }) {
                       </p>
                     </div>
 
-                    <div className="my-6 overflow-hidden rounded-xl border border-line">
-                      <img
+                    <div className="my-6 overflow-hidden rounded-xl border border-line relative h-48 w-full">
+                      <Image
                         src={treatment.image || "/protocols/dogal-sac-cizgisi-tasarimi-fue.jpg"}
                         alt={treatment.title}
-                        className="h-48 w-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
                       />
                     </div>
 
@@ -158,7 +160,7 @@ export function HomeView({ content }: { content: SiteContent }) {
 
       <ScrollReveal>
         <section className="border-y border-line bg-card/40">
-          <div className="mx-auto grid max-w-6xl gap-10 px-5 pt-8 pb-20 md:grid-cols-4">
+          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-10 px-5 pt-8 pb-20 md:grid-cols-4">
             {content.stats.map((stat) => (
               <div key={stat.id}>
                 <p className="font-display text-5xl text-gold-soft">

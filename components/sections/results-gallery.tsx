@@ -4,11 +4,11 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 
 const patients = [
-  { id: 1, before: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-1.jpg", after: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-2.jpg" },
-  { id: 2, before: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-3.jpg", after: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-4.jpg" },
-  { id: 3, before: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-5.jpg", after: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-6.jpg" },
-  { id: 4, before: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-7.jpg", after: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-8.jpg" },
-  { id: 5, before: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-9.jpg", after: "/sac-ekimi-oncesi-sonrasi-sonuclari/gaziantep-sac-ekimi-sonuclari-10.jpg" },
+  { id: 2, before: "/before-after-image-packs/11-new.jpg", after: "/before-after-image-packs/12-new.jpg" },
+  { id: 3, before: "/before-after-image-packs/13.jpg", after: "/before-after-image-packs/14.jpg" },
+  { id: 4, before: "/before-after-image-packs/15.jpg", after: "/before-after-image-packs/16.jpg" },
+  { id: 5, before: "/before-after-image-packs/17.jpg", after: "/before-after-image-packs/18.jpg" },
+  { id: 1, before: "/before-after-image-packs/9.jpg", after: "/before-after-image-packs/10.jpg" },
 ];
 
 export function ResultsGallery() {
@@ -180,13 +180,6 @@ export function ResultsGallery() {
                 className="gallery-top-img pointer-events-none object-cover object-top"
                 style={{ clipPath: "inset(0 0 0 50%)", WebkitClipPath: "inset(0 0 0 50%)" }}
               />
-              
-              <span className="pointer-events-none absolute bottom-4 left-4 z-30 whitespace-nowrap text-[10px] tracking-[0.2em] text-gold/90 uppercase font-medium drop-shadow-md">
-                SONRASI
-              </span>
-              <span className="pointer-events-none absolute bottom-4 right-4 z-30 whitespace-nowrap text-[10px] tracking-[0.2em] text-gold/90 uppercase font-medium drop-shadow-md">
-                ÖNCESİ
-              </span>
             </div>
           ))}
           

@@ -206,7 +206,7 @@ export function Footer({ content }: { content: SiteContent }) {
           
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted/40 border-t border-black/5 dark:border-white/5 pt-8">
             <span>© {new Date().getFullYear()} {content.clinic.legalName}. Tüm hakları saklıdır.</span>
-            <Link href="/admin" className="hover:text-white transition-colors">
+            <Link href="/yonetim" className="hover:text-white transition-colors">
               Yönetim Paneli
             </Link>
           </div>
