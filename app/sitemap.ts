@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { getContent } from "@/lib/content";
 import { siteUrl } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const content = await getContent();
   const url = siteUrl();
