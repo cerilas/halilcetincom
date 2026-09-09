@@ -38,25 +38,25 @@
       "id": "years",
       "value": 12,
       "suffix": "+",
-      "label": "Yıl klinik deneyim"
+      "label": "Saç Ekiminde Klinik Deneyim"
     },
     {
       "id": "ops",
-      "value": 4800,
+      "value": 21000,
       "suffix": "+",
-      "label": "Başarılı operasyon"
+      "label": "Saç ve Sakal Ekimi Deneyimi"
     },
     {
       "id": "sat",
       "value": 98,
       "suffix": "%",
-      "label": "Hasta memnuniyeti"
+      "label": "Saç Ekimi Hasta Memnuniyeti"
     },
     {
       "id": "follow",
       "value": 18,
       "suffix": " ay",
-      "label": "Ortalama takip"
+      "label": "Saç Ekimi Sonrası Takip"
     }
   ],
   "treatments": [
