@@ -227,7 +227,7 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
                   rel="noopener noreferrer"
                   className="flex h-[3.25rem] items-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white transition-transform hover:scale-105"
                 >
-                  <Image src="/WhatsApp.svg.webp" alt="WhatsApp" width={20} height={20} className="h-5 w-5 object-contain" />
+                  <Image src="/wa-ikon-cmpd.webp" alt="WhatsApp" width={20} height={20} className="h-5 w-5 object-contain" />
                   WhatsApp'tan Ulaş
                 </a>
               </div>

@@ -31,7 +31,7 @@ export function CtaSection({ content }: { content: SiteContent }) {
               rel="noopener noreferrer"
               className="flex h-[3.25rem] items-center gap-2 rounded-full border border-line px-8 font-medium transition-colors hover:border-[#25D366] hover:text-[#25D366]"
             >
-              <img src="/WhatsApp.svg.webp" alt="WhatsApp" className="h-5 w-5 object-contain" />
+              <img src="/wa-ikon-cmpd.webp" alt="WhatsApp" className="h-5 w-5 object-contain" />
               WhatsApp
             </a>
           </div>
