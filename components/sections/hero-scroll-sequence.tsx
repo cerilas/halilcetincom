@@ -152,7 +152,7 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
       <div className="sticky top-0 h-[100svh] overflow-hidden flex flex-col isolate">
         {/* Background decorators - Removed WebGL LineWaves for performance */}
         <div className="absolute inset-0 z-0 bg-white dark:bg-[#07080b]">
-          <div className="absolute inset-0 opacity-[0.05] dark:opacity-[0.03] bg-[url('/noise.png')]" />
+          <div className="absolute inset-0 opacity-[0.05] dark:opacity-[0.03]" />
         </div>
         <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" fill="#E8D5A3" />
 

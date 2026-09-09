@@ -143,7 +143,7 @@ export function ResultsGallery() {
         
         {/* Background Glow */}
         <div className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/10 opacity-20 blur-[150px]" />
-        <div className="pointer-events-none absolute inset-0 opacity-[0.02] bg-[url('/noise.png')]" />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.02]" />
 
         {/* Section Title */}
         <div className="absolute top-16 left-5 md:top-24 md:left-12 z-20 pointer-events-none">
