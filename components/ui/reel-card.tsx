@@ -102,7 +102,7 @@ export function ReelCard({ reel, isActive = false, onActivate }: ReelCardProps) 
           </div>
           <span className="font-semibold text-sm drop-shadow-md">{reel.profileName}</span>
           <a 
-            href="https://www.instagram.com/mehmetcetin_sacekimi/" 
+            href="https://www.instagram.com/halilcetinsacekim/" 
             target="_blank" 
             rel="noopener noreferrer"
             className="border border-white/40 backdrop-blur-sm text-[11px] px-3 py-1 rounded-full font-medium ml-1 hover:bg-white/20 transition drop-shadow-md"
