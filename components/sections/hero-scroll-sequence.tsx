@@ -67,7 +67,12 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
       const vh = window.innerHeight;
       const maxScroll = rect.height - vh;
       const scrolled = -rect.top;
-      targetProgress = Math.max(0, Math.min(1, scrolled / maxScroll));
+      const newTarget = Math.max(0, Math.min(1, scrolled / maxScroll));
+      
+      // Performans Optimizasyonu: Eğer hedeflenen ilerleme değişmediyse (örneğin animasyon bittiyse ve aşağı inmeye devam ediliyorsa), boş yere RAF başlatma.
+      if (newTarget === targetProgress) return;
+      targetProgress = newTarget;
+
       // Only kick off RAF if not already running
       if (!isRunning) {
         isRunning = true;
