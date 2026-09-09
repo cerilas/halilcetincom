@@ -3,6 +3,7 @@ import { getContent } from "@/lib/content";
 import { SiteShell } from "@/components/layout/site-shell";
 import { whatsappHref } from "@/lib/utils";
 import { ContactForm } from "@/components/sections/contact-form";
+import { MapPin, Clock, Phone, Mail } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "İletişim & Ücretsiz Saç Analizi Randevusu | Gaziantep Saç Ekimi",
@@ -24,17 +25,47 @@ export default async function ContactPage() {
           <h1 className="mt-3 font-display text-5xl md:text-6xl">
             Analiz için yazın.
           </h1>
-          <div className="mt-10 space-y-4 text-sm text-muted">
-            <p>{content.clinic.address}</p>
-            <p>{content.clinic.hours}</p>
-            <p>{content.clinic.phone}</p>
-            <p>{content.clinic.email}</p>
+          <div className="mt-12 mb-12">
+            <p className="text-xs tracking-[0.2em] text-muted uppercase mb-4">
+              Hemen Arayın
+            </p>
             <a
-              href={whatsappHref(content.clinic.whatsapp)}
-              className="inline-block text-gold"
+              href={`tel:${content.clinic.phone.replace(/\s+/g, '')}`}
+              className="group flex flex-wrap items-center gap-4 text-4xl md:text-5xl lg:text-5xl font-display text-foreground hover:text-gold transition-colors duration-300"
             >
-              WhatsApp hattı →
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-line bg-card group-hover:border-gold/50 group-hover:bg-gold/5 transition-all">
+                <Phone className="h-6 w-6 text-gold" />
+              </div>
+              <span className="tracking-tight">{content.clinic.phone}</span>
             </a>
+          </div>
+
+          <div className="space-y-6 text-sm text-muted border-t border-line pt-10">
+            <div className="flex gap-4">
+              <MapPin className="h-5 w-5 shrink-0 text-gold" />
+              <p className="leading-relaxed">{content.clinic.address}</p>
+            </div>
+            <div className="flex items-center gap-4">
+              <Clock className="h-5 w-5 shrink-0 text-gold" />
+              <p>{content.clinic.hours}</p>
+            </div>
+            <div className="flex items-center gap-4">
+              <Mail className="h-5 w-5 shrink-0 text-gold" />
+              <a href={`mailto:${content.clinic.email}`} className="hover:text-gold transition-colors">
+                {content.clinic.email}
+              </a>
+            </div>
+            <div className="flex items-center gap-4">
+              <img src="/WhatsApp.svg.webp" alt="WhatsApp" className="h-5 w-5 shrink-0 object-contain" />
+              <a
+                href={whatsappHref(content.clinic.whatsapp, "Merhaba, ücretsiz saç ekimi analizi için bilgi almak istiyorum.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium hover:text-[#25D366] transition-colors"
+              >
+                WhatsApp Hattından Ulaşın
+              </a>
+            </div>
           </div>
         </div>
         <ContactForm />

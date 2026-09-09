@@ -10,18 +10,13 @@ import type { SiteContent } from "@/lib/types";
 
 export function HeroScrollSequence({ content }: { content: SiteContent }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   
   const [sliderPosition, setSliderPosition] = useState(20);
-  const [videoSrc, setVideoSrc] = useState<string>("");
+  const [videoProgress, setVideoProgress] = useState(0);
 
   // Preload video and images for a smooth scroll experience
   // The Splash Screen will wait for the 'app-ready' event before revealing.
   useEffect(() => {
-    // 1. Direct Video URL (Safari gets stuck on Blob URLs due to Range request requirements)
-    const videoPromise = Promise.resolve("/safir-fue-sac-ekimi-oncesi-sonrasi-gaziantep.mp4");
-
-    // 2. Preload high-res comparison images
     const loadImage = (src: string) => {
       return new Promise<void>((resolve) => {
         const img = new Image();
@@ -31,18 +26,31 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
       });
     };
 
-    const img1 = loadImage("/results/sac-ekimi-sonrasi-dogal-gorunum.png");
-    const img2 = loadImage("/results/sac-ekimi-oncesi-tepe-bolgesi.png");
+    // Preload first 15 frames for quick initial paint
+    const initialFrames = [];
+    for (let i = 1; i <= 15; i++) {
+      const num = i.toString().padStart(4, "0");
+      initialFrames.push(loadImage(`/webp_frames_20fps/frame_${num}.webp`));
+    }
 
-    Promise.all([videoPromise, img1, img2])
-      .then(([videoUrl]) => {
-        setVideoSrc(videoUrl as string);
+    // Preload high-res comparison images
+    const img1 = loadImage("/results/sac-ekimi-sonrasi-dogal-gorunum.png");
+    const img2 = loadImage("/before222.webp");
+
+    Promise.all([...initialFrames, img1, img2])
+      .then(() => {
         // Signal splash screen to open
         window.dispatchEvent(new Event("app-ready"));
+
+        // Lazy load the rest in background
+        for (let i = 16; i <= 200; i++) {
+          const num = i.toString().padStart(4, "0");
+          const img = new Image();
+          img.src = `/webp_frames_20fps/frame_${num}.webp`;
+        }
       })
       .catch((err) => {
         console.error("Error preloading assets:", err);
-        // Fallback open
         window.dispatchEvent(new Event("app-ready"));
       });
   }, []);
@@ -98,15 +106,10 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
       }
 
       // Phase 2 (0.4 to 1.0): Video scrubs
-      if (videoRef.current && videoRef.current.duration) {
-        const phase2Progress = Math.max(0, (p - 0.4) / 0.6);
-        const targetTime = phase2Progress * videoRef.current.duration;
-        
-        // Videos are usually 30fps (33ms per frame). Scrubbing faster than 0.04s causes extreme CPU lag,
-        // because the browser tries to decode sub-frames. We threshold it to 0.05s.
-        if (Math.abs(videoRef.current.currentTime - targetTime) > 0.05) {
-          videoRef.current.currentTime = targetTime;
-        }
+      const phase2Progress = Math.max(0, (p - 0.4) / 0.6);
+      
+      if (Math.abs(phase2Progress - videoProgress) > 0.001) {
+        setVideoProgress(phase2Progress);
       }
     };
 
@@ -126,21 +129,28 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
     <section ref={containerRef} className="relative h-[300vh]">
       <div className="sticky top-0 h-[100svh] overflow-hidden flex flex-col isolate">
         {/* Background decorators - Removed WebGL LineWaves for performance */}
-        <div className="absolute inset-0 z-0 bg-[#07080b]">
-          <div className="absolute inset-0 opacity-[0.03] bg-[url('/noise.png')]" />
+        <div className="absolute inset-0 z-0 bg-white dark:bg-[#07080b]">
+          <div className="absolute inset-0 opacity-[0.05] dark:opacity-[0.03] bg-[url('/noise.png')]" />
         </div>
         <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" fill="#E8D5A3" />
 
         {/* Comparison slider */}
         <div className="absolute inset-0 flex items-center justify-center pt-24 pb-32">
           <div 
-            className="relative w-[80%] h-[70vh] max-h-[700px] max-w-5xl pointer-events-none rounded-2xl overflow-hidden ring-1 ring-white/10"
+            className="relative w-[80%] h-[70vh] max-h-[700px] max-w-5xl pointer-events-none rounded-2xl overflow-hidden"
+            style={{
+              maskImage: 'linear-gradient(to bottom, black 75%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, black 75%, transparent 100%)'
+            }}
           >
             <ComparisonSlider
               beforeImage="/results/sac-ekimi-sonrasi-dogal-gorunum.png"
-              beforeVideo={videoSrc || undefined}
-              videoRef={videoRef}
-              afterImage="/results/sac-ekimi-oncesi-tepe-bolgesi.png"
+              sequencePrefix="/webp_frames_20fps/frame_"
+              sequenceExt=".webp"
+              sequenceCount={200}
+              sequenceProgress={videoProgress}
+              afterImage="/before222.webp"
+              priority={true}
               beforeAlt="Saç ekimi sonrası — doğal yoğunluk ve çizgi"
               afterAlt="Saç ekimi öncesi — seyrek ön hat ve tepe"
               value={sliderPosition}
@@ -165,20 +175,20 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
         {/* Text overlay — bottom-left with gradient fade */}
         <div className="absolute inset-x-0 bottom-0 z-20 pointer-events-none">
           {/* Gradient: transparent at top → dark at bottom */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#07080b] via-[#07080b]/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 dark:from-[#07080b] dark:via-[#07080b]/80 to-transparent" />
           
           <div className="relative mx-auto max-w-6xl px-5 pb-14 pt-32 pointer-events-auto">
             <div className="max-w-xl">
-              <p className="text-xs tracking-[0.32em] text-[#c4a46a] uppercase">
+              <p className="text-xs tracking-[0.32em] text-gold uppercase">
                 {content.hero.eyebrow}
               </p>
-              <h1 className="mt-4 font-display text-[2.6rem] leading-[0.95] sm:text-6xl md:text-7xl text-[#f3eee4]">
+              <h1 className="mt-4 font-display text-[2.6rem] leading-[0.95] sm:text-6xl md:text-7xl text-foreground">
                 <SplitText text={content.hero.title} as="span" className="block" />
-                <em className="mt-2 block italic text-[#e8d5a3]">
+                <em className="mt-2 block italic text-gold-soft">
                   {content.hero.italic}
                 </em>
               </h1>
-              <p className="mt-6 max-w-md text-base leading-8 text-[#9a9386]">
+              <p className="mt-6 max-w-md text-base leading-8 text-muted">
                 {content.hero.subtitle}
               </p>
               
@@ -189,6 +199,15 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
                 >
                   {content.hero.primaryCta}
                 </GlareButton>
+                <a
+                  href={`https://wa.me/${content.clinic.whatsapp}?text=Merhaba,%20ücretsiz%20saç%20ekimi%20analizi%20için%20ulaşıyorum.`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-[3.25rem] items-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white transition-transform hover:scale-105"
+                >
+                  <img src="/WhatsApp.svg.webp" alt="WhatsApp" className="h-5 w-5 object-contain" />
+                  WhatsApp'tan Ulaş
+                </a>
               </div>
             </div>
           </div>
@@ -196,7 +215,7 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
         
         {/* Scroll hint */}
         <div className="absolute bottom-4 right-5 z-30 lg:hidden">
-          <p className="text-[10px] tracking-[0.22em] text-[#9a9386]/50 uppercase">
+          <p className="text-[10px] tracking-[0.22em] text-muted/60 uppercase">
             Kaydırın · 12. ay sonuç
           </p>
         </div>

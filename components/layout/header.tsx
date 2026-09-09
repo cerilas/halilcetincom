@@ -78,6 +78,15 @@ export function Header() {
           >
             Ücretsiz Analiz
           </Link>
+          <a
+            href="https://wa.me/905321616090?text=Merhaba,%20ücretsiz%20saç%20ekimi%20analizi%20için%20ulaşıyorum."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#25D366] transition-transform hover:scale-105"
+            title="WhatsApp'tan Ulaşın"
+          >
+            <img src="/WhatsApp.svg.webp" alt="WhatsApp" className="h-5 w-5 object-contain" />
+          </a>
         </div>
 
         <div className="flex items-center gap-3 md:hidden">

@@ -116,6 +116,15 @@ export function Footer({ content }: { content: SiteContent }) {
                 {content.clinic.email}
               </a>
             </p>
+            <a
+              href={`https://wa.me/${content.clinic.whatsapp}?text=Merhaba,%20saç%20ekimi%20hakkında%20bilgi%20almak%20istiyorum.`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 flex w-max items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-medium text-white transition-transform hover:scale-105"
+            >
+              <img src="/WhatsApp.svg.webp" alt="WhatsApp" className="h-5 w-5 object-contain" />
+              WhatsApp'tan Ulaşın
+            </a>
           </div>
           
           <div className="h-48 w-full rounded-xl overflow-hidden border border-line opacity-80 hover:opacity-100 transition-opacity">

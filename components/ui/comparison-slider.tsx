@@ -8,6 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 type Orientation = "horizontal" | "vertical";
@@ -22,9 +23,14 @@ export type ComparisonSliderProps = {
   beforeImage: string;
   beforeVideo?: string;
   videoRef?: React.RefObject<HTMLVideoElement | null>;
+  sequencePrefix?: string;
+  sequenceExt?: string;
+  sequenceCount?: number;
+  sequenceProgress?: number;
   afterImage: string;
   beforeAlt?: string;
   afterAlt?: string;
+  priority?: boolean;
   initialPosition?: number;
   value?: number;
   orientation?: Orientation;
@@ -85,9 +91,14 @@ export function ComparisonSlider({
   beforeImage,
   beforeVideo,
   videoRef,
+  sequencePrefix,
+  sequenceExt = ".webp",
+  sequenceCount,
+  sequenceProgress = 0,
   afterImage,
   beforeAlt = "Before",
   afterAlt = "After",
+  priority = false,
   initialPosition = 50,
   value,
   orientation = "horizontal",
@@ -130,6 +141,90 @@ export function ComparisonSlider({
   const initialPosRef = useRef(clamp(initialPosition));
   const [position, setPosition] = useState(clamp(initialPosition));
   const [prefersReduced, setPrefersReduced] = useState(reducedMotion);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const loadedFramesRef = useRef<{ [index: number]: HTMLImageElement }>({});
+
+  useEffect(() => {
+    if (!sequencePrefix || sequenceCount === undefined) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
+
+    // Calculate current frame index (1 to sequenceCount)
+    const frameIndex = Math.max(1, Math.min(sequenceCount, Math.max(1, Math.ceil(sequenceProgress * sequenceCount))));
+    
+    // Draw the frame
+    const drawFrame = (img: HTMLImageElement) => {
+      if (img.naturalWidth === 0) return;
+      if (canvas.width !== img.naturalWidth || canvas.height !== img.naturalHeight) {
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+      }
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
+
+    let img = loadedFramesRef.current[frameIndex];
+    if (img && img.complete && img.naturalWidth > 0) {
+      drawFrame(img);
+    } else {
+      img = new Image();
+      const num = frameIndex.toString().padStart(4, "0");
+      img.src = `${sequencePrefix}${num}${sequenceExt}`;
+      loadedFramesRef.current[frameIndex] = img;
+      img.onload = () => drawFrame(img);
+    }
+  }, [sequenceProgress, sequencePrefix, sequenceExt, sequenceCount]);
+
+  useEffect(() => {
+    if (!beforeVideo) return;
+    const video = videoRef?.current;
+    const canvas = canvasRef.current;
+    if (!video || !canvas) return;
+
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
+
+    let handle: number;
+    // @ts-ignore
+    const hasRVFC = "requestVideoFrameCallback" in video;
+
+    const renderFrame = () => {
+      if (video.readyState >= 2 && video.videoWidth > 0) {
+        if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+        }
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      }
+      if (hasRVFC) {
+        // @ts-ignore
+        handle = video.requestVideoFrameCallback(renderFrame);
+      }
+    };
+
+    if (hasRVFC) {
+      // @ts-ignore
+      handle = video.requestVideoFrameCallback(renderFrame);
+    } else {
+      const fallbackLoop = () => {
+        renderFrame();
+        handle = requestAnimationFrame(fallbackLoop);
+      };
+      handle = requestAnimationFrame(fallbackLoop);
+    }
+
+    return () => {
+      if (hasRVFC) {
+        // @ts-ignore
+        video.cancelVideoFrameCallback(handle);
+      } else {
+        cancelAnimationFrame(handle);
+      }
+    };
+  }, [beforeVideo, videoRef]);
 
   const isVertical = orientation === "vertical";
 
@@ -343,7 +438,17 @@ export function ComparisonSlider({
         }
       }}
     >
-      {beforeVideo ? (
+      {(beforeVideo || sequencePrefix) && (
+        <canvas
+          ref={canvasRef}
+          className={cn(
+            "h-full w-full object-cover object-top",
+            imageClassName,
+          )}
+          style={{ clipPath: beforeClip }}
+        />
+      )}
+      {beforeVideo && !sequencePrefix && (
         <video
           key={beforeVideo}
           ref={videoRef}
@@ -352,30 +457,32 @@ export function ComparisonSlider({
           muted
           preload="auto"
           crossOrigin="anonymous"
-          className={cn(
-            "h-full w-full object-cover object-top",
-            imageClassName,
-          )}
-          style={{ clipPath: beforeClip }}
+          className="absolute opacity-0 pointer-events-none w-px h-px overflow-hidden -z-10"
         />
-      ) : (
-        <img
+      )}
+      {!beforeVideo && !sequencePrefix && (
+        <Image
           src={beforeImage}
-          alt={beforeAlt}
+          alt={beforeAlt || ""}
           draggable={false}
+          fill
+          sizes="(max-width: 1024px) 100vw, 80vw"
           className={cn(
-            "h-full w-full object-cover object-top",
+            "object-cover object-top",
             imageClassName,
           )}
           style={{ clipPath: beforeClip }}
         />
       )}
-      <img
+      <Image
         src={afterImage}
-        alt={afterAlt}
+        alt={afterAlt || ""}
         draggable={false}
+        fill
+        sizes="(max-width: 1024px) 100vw, 80vw"
+        priority={priority}
         className={cn(
-          "absolute inset-0 h-full w-full object-cover object-top",
+          "object-cover object-top",
           imageClassName,
         )}
         style={{ clipPath: afterClip }}

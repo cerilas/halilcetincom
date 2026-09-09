@@ -25,9 +25,15 @@ export function CtaSection({ content }: { content: SiteContent }) {
             <GlareButton href="/iletisim" className="bg-gold text-white font-bold dark:text-black dark:font-medium">
               Formu doldur
             </GlareButton>
-            <GlareButton href={wa} className="border border-line">
+            <a
+              href={wa}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-[3.25rem] items-center gap-2 rounded-full border border-line px-8 font-medium transition-colors hover:border-[#25D366] hover:text-[#25D366]"
+            >
+              <img src="/WhatsApp.svg.webp" alt="WhatsApp" className="h-5 w-5 object-contain" />
               WhatsApp
-            </GlareButton>
+            </a>
           </div>
         </div>
       </section>
