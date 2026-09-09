@@ -85,7 +85,7 @@ export function Header() {
             className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#25D366] transition-transform hover:scale-105"
             title="WhatsApp'tan Ulaşın"
           >
-            <img src="/wa-ikon-cmpd.webp" alt="WhatsApp" className="h-5 w-5 object-contain" />
+            <img src="/whatsapp.png" alt="WhatsApp" className="h-5 w-5 object-contain" />
           </a>
         </div>
 
