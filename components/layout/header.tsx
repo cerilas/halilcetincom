@@ -44,12 +44,12 @@ export function Header() {
           className="flex items-center hover:opacity-80 transition-opacity"
         >
           <img 
-            src="/DARK-BG.svg" 
+            src="/DARK-BG.png" 
             alt="Halil Çetin Saç Ekim Merkezi Gaziantep Logo" 
             className="hidden h-14 w-auto dark:block" 
           />
           <img 
-            src="/LIGHT-BG.svg" 
+            src="/LIGHT-BG.png" 
             alt="Halil Çetin Saç Ekim Merkezi Gaziantep Logo" 
             className="block h-14 w-auto dark:hidden" 
           />

@@ -67,8 +67,8 @@ export function Footer({ content }: { content: SiteContent }) {
       <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-5 py-20 md:grid-cols-12">
         <div className="md:col-span-4 lg:col-span-4">
           <Link href="/">
-            <img src="/DARK-BG.svg" alt="Halil Çetin Saç Ekim Merkezi Logo" className="h-8 w-auto opacity-90 transition-opacity hover:opacity-100 hidden dark:block" />
-            <img src="/LIGHT-BG.svg" alt="Halil Çetin Saç Ekim Merkezi Logo" className="h-8 w-auto opacity-90 transition-opacity hover:opacity-100 block dark:hidden" />
+            <img src="/DARK-BG.png" alt="Halil Çetin Saç Ekim Merkezi Logo" className="h-8 w-auto opacity-90 transition-opacity hover:opacity-100 hidden dark:block" />
+            <img src="/LIGHT-BG.png" alt="Halil Çetin Saç Ekim Merkezi Logo" className="h-8 w-auto opacity-90 transition-opacity hover:opacity-100 block dark:hidden" />
           </Link>
           <p className="mt-6 max-w-sm font-display text-3xl leading-tight text-foreground/90">
             {content.clinic.tagline}

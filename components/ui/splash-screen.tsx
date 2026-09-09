@@ -146,12 +146,12 @@ function SplashAnimation() {
             }}
           />
           <img
-            src="/DARK-BG.svg"
+            src="/DARK-BG.png"
             alt="Halil Çetin"
             className="relative z-10 h-12 w-auto object-contain hidden dark:block"
           />
           <img
-            src="/LIGHT-BG.svg"
+            src="/LIGHT-BG.png"
             alt="Halil Çetin"
             className="relative z-10 h-12 w-auto object-contain block dark:hidden"
           />
