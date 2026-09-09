@@ -137,7 +137,7 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
         {/* Comparison slider */}
         <div className="absolute inset-0 flex items-center justify-center pt-24 pb-32">
           <div 
-            className="relative w-[80%] h-[70vh] max-h-[700px] max-w-5xl pointer-events-none rounded-2xl overflow-hidden"
+            className="relative w-full h-[70vh] md:w-[80%] max-h-[700px] max-w-5xl pointer-events-none md:rounded-2xl overflow-hidden"
             style={{
               maskImage: 'linear-gradient(to bottom, black 75%, transparent 100%)',
               WebkitMaskImage: 'linear-gradient(to bottom, black 75%, transparent 100%)'
