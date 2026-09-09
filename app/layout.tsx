@@ -160,7 +160,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
             aria-label="WhatsApp ile iletişime geçin"
           >
             <img 
-              src="/WhatsApp.svg.webp" 
+              src="/whatsapp.png" 
               alt="WhatsApp" 
               width={32}
               height={32}

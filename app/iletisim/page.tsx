@@ -56,7 +56,7 @@ export default async function ContactPage() {
               </a>
             </div>
             <div className="flex items-center gap-4">
-              <img src="/WhatsApp.svg.webp" alt="WhatsApp" className="h-5 w-5 shrink-0 object-contain" />
+              <img src="/whatsapp.png" alt="WhatsApp" className="h-5 w-5 shrink-0 object-contain" />
               <a
                 href={whatsappHref(content.clinic.whatsapp, "Merhaba, ücretsiz saç ekimi analizi için bilgi almak istiyorum.")}
                 target="_blank"
