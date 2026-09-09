@@ -26,6 +26,7 @@ export function ResultsGallery() {
     let isVisible = false;
     let isTicking = true;
     let cardMetrics: { left: number; width: number }[] = [];
+    let lastProgressCache = new Map<number, number>();
 
     const updateMetrics = () => {
       if (!trackRef.current) return;
@@ -94,6 +95,11 @@ export function ResultsGallery() {
           let progress = (splitScreenX - screenX) / metrics.width;
           
           progress = Math.max(0, Math.min(1, progress));
+          
+          // Performans Optimizasyonu: Sadece progress değeri değişen kartların DOM'unu güncelle.
+          // Bu, mobilde saniyede 60 kez gereksiz yere 9 kartın stilini hesaplamayı önler.
+          if (lastProgressCache.get(i) === progress) continue;
+          lastProgressCache.set(i, progress);
           
           // Apply clipPath directly to the top image for zero-latency synchronization
           const card = trackRef.current.children[i] as HTMLElement;
