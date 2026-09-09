@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import React, { useRef, useState, useEffect } from "react";
 import { ComparisonSlider } from "@/components/ui/comparison-slider";
 import { LineWaves } from "@/components/ui/line-waves";
@@ -19,7 +21,7 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
   useEffect(() => {
     const loadImage = (src: string) => {
       return new Promise<void>((resolve) => {
-        const img = new Image();
+        const img = new window.Image();
         img.src = src;
         img.onload = () => resolve();
         img.onerror = () => resolve(); // Don't block splash screen on failure
@@ -42,11 +44,26 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
         // Signal splash screen to open
         window.dispatchEvent(new Event("app-ready"));
 
-        // Lazy load the rest in background
-        for (let i = 16; i <= 200; i++) {
-          const num = i.toString().padStart(4, "0");
-          const img = new Image();
+        // Lazy load the rest in background using requestIdleCallback
+        let currentFrame = 16;
+        const loadNextFrame = () => {
+          if (currentFrame > 200) return;
+          const num = currentFrame.toString().padStart(4, "0");
+          const img = new window.Image();
           img.src = `/webp_frames_20fps/frame_${num}.webp`;
+          currentFrame++;
+          
+          if ('requestIdleCallback' in window) {
+            (window as any).requestIdleCallback(loadNextFrame);
+          } else {
+            setTimeout(loadNextFrame, 10);
+          }
+        };
+
+        if ('requestIdleCallback' in window) {
+          (window as any).requestIdleCallback(loadNextFrame);
+        } else {
+          setTimeout(loadNextFrame, 500);
         }
       })
       .catch((err) => {
@@ -210,7 +227,7 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
                   rel="noopener noreferrer"
                   className="flex h-[3.25rem] items-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white transition-transform hover:scale-105"
                 >
-                  <img src="/WhatsApp.svg.webp" alt="WhatsApp" className="h-5 w-5 object-contain" />
+                  <Image src="/WhatsApp.svg.webp" alt="WhatsApp" width={20} height={20} className="h-5 w-5 object-contain" />
                   WhatsApp'tan Ulaş
                 </a>
               </div>

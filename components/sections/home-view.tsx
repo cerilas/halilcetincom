@@ -76,7 +76,7 @@ export function HomeView({ content }: { content: SiteContent }) {
               </p>
               <div className="flex items-end text-gold">
                 <NumberTicker
-                  value={14876}
+                  value={21876}
                   className="font-display text-[80px] font-light leading-none tracking-tighter"
                 />
                 <span className="mb-4 ml-2 font-display text-7xl font-light">+</span>

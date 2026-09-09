@@ -481,6 +481,7 @@ export function ComparisonSlider({
         fill
         sizes="(max-width: 1024px) 100vw, 80vw"
         priority={priority}
+        fetchPriority={priority ? "high" : "auto"}
         className={cn(
           "object-cover object-top",
           imageClassName,
