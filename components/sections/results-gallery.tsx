@@ -24,6 +24,7 @@ export function ResultsGallery() {
     let currentX = 0;
     let targetX = 0;
     let isVisible = false;
+    let isTicking = true;
     let cardMetrics: { left: number; width: number }[] = [];
 
     const updateMetrics = () => {
@@ -57,16 +58,22 @@ export function ResultsGallery() {
       const maxTranslate = trackWidth - vw;
 
       targetX = progress * -maxTranslate;
+
+      if (!isTicking) {
+        isTicking = true;
+        tick();
+      }
     };
 
     const tick = () => {
-      if (!isVisible) {
-        rafId = requestAnimationFrame(tick);
+      if (!isVisible && Math.abs(targetX - currentX) < 0.5) {
+        // Stop looping completely if not visible and already at target
+        isTicking = false;
         return;
       }
       
       // Snap to target if very close to avoid infinite micro-updates
-      if (Math.abs(targetX - currentX) < 0.1) {
+      if (Math.abs(targetX - currentX) < 0.5) {
         currentX = targetX;
       } else {
         currentX += (targetX - currentX) * 0.1;

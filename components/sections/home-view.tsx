@@ -1,22 +1,21 @@
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { ArrowUpRight } from "lucide-react";
 import type { SiteContent } from "@/lib/types";
 import { whatsappHref } from "@/lib/utils";
 import { Marquee } from "@/components/ui/marquee";
 import { NumberTicker } from "@/components/ui/number-ticker";
-import { BorderBeam } from "@/components/ui/border-beam";
 import { PinCard } from "@/components/ui/pin-card";
-import { FaqList } from "@/components/ui/faq-list";
-import { GlareButton } from "@/components/ui/glare-button";
-import { ProcessRail } from "@/components/sections/process-rail";
 import { HeroScrollSequence } from "@/components/sections/hero-scroll-sequence";
-import { Counter } from "@/components/ui/counter";
 import { ParallaxBio } from "@/components/ui/parallax-bio";
-import { ResultsGallery } from "@/components/sections/results-gallery";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { CtaSection } from "@/components/sections/cta-section";
-import { ReelsGallery } from "@/components/sections/reels-gallery";
+
+const ReelsGallery = dynamic(() => import("@/components/sections/reels-gallery").then(mod => mod.ReelsGallery));
+const ResultsGallery = dynamic(() => import("@/components/sections/results-gallery").then(mod => mod.ResultsGallery));
+const ProcessRail = dynamic(() => import("@/components/sections/process-rail").then(mod => mod.ProcessRail));
+const FaqList = dynamic(() => import("@/components/ui/faq-list").then(mod => mod.FaqList));
 
 export function HomeView({ content }: { content: SiteContent }) {
   const wa = whatsappHref(
