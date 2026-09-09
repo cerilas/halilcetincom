@@ -39,7 +39,7 @@ export function CookieBanner() {
     <div className="fixed bottom-0 left-0 right-0 z-[999] p-4 sm:p-6 pointer-events-none md:bottom-6 md:left-6 md:right-auto">
       <div 
         className={cn(
-          "pointer-events-auto relative w-full max-w-md overflow-hidden rounded-2xl border border-line bg-background/80 p-6 backdrop-blur-xl shadow-2xl transition-all duration-500",
+          "pointer-events-auto relative w-full max-w-md overflow-hidden rounded-2xl border border-line bg-background/95 p-6 md:backdrop-blur-xl shadow-2xl transition-all duration-500",
           isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
         )}
       >

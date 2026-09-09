@@ -58,7 +58,7 @@ export function ReelCard({ reel, isActive = false, onActivate }: ReelCardProps) 
   return (
     <div 
       className={cn(
-        "relative w-[280px] h-[500px] md:w-[300px] md:h-[533px] shrink-0 snap-center rounded-2xl overflow-hidden bg-black text-white shadow-xl group/card transition-all duration-700 ease-in-out origin-center",
+        "relative w-[280px] h-[500px] md:w-[300px] md:h-[533px] shrink-0 snap-center rounded-2xl overflow-hidden bg-black text-white shadow-xl group/card transition-transform duration-500 ease-in-out origin-center",
         isActive ? "scale-100 z-10 opacity-100 mx-2 md:mx-6" : "scale-[0.80] md:scale-90 z-0 opacity-40 hover:opacity-70"
       )}
     >
@@ -76,7 +76,7 @@ export function ReelCard({ reel, isActive = false, onActivate }: ReelCardProps) 
       
       {!isPlaying && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none bg-black/10 transition-opacity duration-500">
-           <div className="w-16 h-16 rounded-full bg-black/40 flex items-center justify-center backdrop-blur-sm opacity-0 group-hover/card:opacity-100 transition-opacity">
+           <div className="w-16 h-16 rounded-full bg-black/40 flex items-center justify-center md:backdrop-blur-sm opacity-0 group-hover/card:opacity-100 transition-opacity">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6 4L20 12L6 20V4Z" />
               </svg>
@@ -105,7 +105,7 @@ export function ReelCard({ reel, isActive = false, onActivate }: ReelCardProps) 
             href="https://www.instagram.com/halilcetinsacekim/" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="border border-white/40 backdrop-blur-sm text-[11px] px-3 py-1 rounded-full font-medium ml-1 hover:bg-white/20 transition drop-shadow-md"
+            className="border border-white/40 md:backdrop-blur-sm text-[11px] px-3 py-1 rounded-full font-medium ml-1 hover:bg-white/20 transition drop-shadow-md"
           >
             Takip Et
           </a>

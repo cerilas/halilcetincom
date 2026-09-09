@@ -35,7 +35,7 @@ export function Header() {
     <header 
       className={cn(
         "fixed inset-x-0 top-0 z-40 transition-all duration-300",
-        isScrolled ? "bg-background/95 dark:bg-background/50 backdrop-blur-md border-b border-line" : "bg-transparent"
+        isScrolled ? "bg-background/95 dark:bg-background/80 md:backdrop-blur-md border-b border-line" : "bg-transparent"
       )}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
@@ -55,7 +55,7 @@ export function Header() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-1 rounded-full border border-line bg-background dark:bg-background/70 px-2 py-1.5 backdrop-blur-md md:flex">
+        <nav className="hidden items-center gap-1 rounded-full border border-line bg-background dark:bg-background/70 px-2 py-1.5 md:backdrop-blur-md md:flex">
           {links.map((link) => (
             <Link
               key={link.href}
@@ -103,7 +103,7 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="mx-5 rounded-2xl border border-line bg-background/95 p-4 backdrop-blur-xl md:hidden">
+        <div className="mx-5 rounded-2xl border border-line bg-background/95 p-4 md:backdrop-blur-xl md:hidden">
           {links.map((link) => (
             <Link
               key={link.href}

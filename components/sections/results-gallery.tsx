@@ -18,6 +18,17 @@ const patients = [
 export function ResultsGallery() {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Mobil kontrolü
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     let rafId: number;
@@ -28,16 +39,24 @@ export function ResultsGallery() {
     let cardMetrics: { left: number; width: number }[] = [];
     let lastProgressCache = new Map<number, number>();
 
+    if (isMobile) {
+      // Mobilde JS tabanlı animasyonu tamamen kapat
+      return;
+    }
+
     const updateMetrics = () => {
       if (!trackRef.current) return;
-      const cards = trackRef.current.children;
-      cardMetrics = [];
-      for (let i = 0; i < patients.length; i++) {
-        const card = cards[i] as HTMLElement;
-        if (card) {
-          cardMetrics.push({ left: card.offsetLeft, width: card.offsetWidth });
-        }
-      }
+      const cards = Array.from(trackRef.current.children) as HTMLElement[];
+      
+      // Sadece galeri kartlarını al
+      const validCards = cards.filter(c => c.classList.contains('gallery-card'));
+      
+      cardMetrics = validCards.map((card) => {
+        return {
+          left: card.offsetLeft,
+          width: card.offsetWidth
+        };
+      });
     };
 
     const handleScroll = () => {
@@ -137,22 +156,21 @@ export function ResultsGallery() {
       window.removeEventListener("resize", onResize);
       cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <section 
       ref={containerRef} 
       className="relative z-50 bg-background border-t border-line"
-      style={{ height: "300vh" }}
+      style={{ height: isMobile ? "auto" : "300vh" }}
     >
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center">
+      <div className="md:sticky md:top-0 md:h-screen w-full md:overflow-hidden flex flex-col justify-center py-24 md:py-0">
         
         {/* Background Glow */}
-        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/10 opacity-20 blur-[150px]" />
-        <div className="pointer-events-none absolute inset-0 opacity-[0.02]" />
+        <div className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/10 opacity-20 blur-[150px] hidden md:block" />
 
         {/* Section Title */}
-        <div className="absolute top-16 left-5 md:top-24 md:left-12 z-20 pointer-events-none">
+        <div className="md:absolute top-16 left-5 md:top-24 md:left-12 z-20 pointer-events-none px-5 md:px-0 mb-8 md:mb-0">
           <p className="text-xs tracking-[0.28em] text-gold uppercase mb-4">
             Kanıtlanmış Sonuçlar
           </p>
@@ -161,47 +179,51 @@ export function ResultsGallery() {
           </h2>
         </div>
 
-        {/* Central Fixed Line */}
-        <div className="pointer-events-none absolute left-1/2 top-[10vh] bottom-[10vh] flex flex-col items-center justify-center z-40 -translate-x-1/2">
+        {/* Central Fixed Line (Desktop Only) */}
+        <div className="hidden md:flex pointer-events-none absolute left-1/2 top-[10vh] bottom-[10vh] flex-col items-center justify-center z-40 -translate-x-1/2">
           <div className="absolute w-[2px] h-full bg-gradient-to-b from-transparent via-gold to-transparent opacity-80" />
           <div className="absolute w-[30px] h-1/2 bg-gold/40 blur-2xl" />
           <div className="absolute w-[4px] h-[80px] bg-[#fffaf0] rounded-full shadow-[0_0_20px_4px_#C4A46A]" />
         </div>
 
-        {/* Horizontal Track */}
+        {/* Horizontal Track / Mobile Grid */}
         <div 
           ref={trackRef} 
-          // Huge padding so first card starts on the right, and last card ends on the left
-          className="flex items-center gap-6 pl-[60vw] pr-[60vw] w-max"
-          style={{ willChange: "transform" }}
+          className="flex md:items-center gap-4 md:gap-6 px-5 md:px-0 md:pl-[60vw] md:pr-[60vw] w-full md:w-max overflow-x-auto snap-x snap-mandatory md:overflow-visible pb-8 md:pb-0 hide-scrollbar"
+          style={{ willChange: isMobile ? "auto" : "transform" }}
         >
           {patients.map((p, index) => (
             <div 
               key={p.id} 
-              className="gallery-card relative w-[70vw] md:w-[35vw] lg:w-[28vw] aspect-[3/4] md:aspect-[4/5] shrink-0 rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-2xl"
+              className="gallery-card relative w-[80vw] sm:w-[60vw] md:w-[35vw] lg:w-[28vw] aspect-[4/5] shrink-0 snap-center rounded-2xl overflow-hidden ring-1 ring-white/10 shadow-xl"
             >
               {/* After image (Left side) */}
               <Image
                 src={p.after}
                 alt={`Gaziantep Saç Ekimi Sonucu Hasta ${index + 1} - 12. Ay Sonrası`}
                 fill
-                sizes="(max-width: 768px) 70vw, 35vw"
+                sizes="(max-width: 768px) 80vw, 35vw"
                 className="pointer-events-none object-cover object-top"
               />
-              {/* Before image (Right side) */}
+              {/* Before image (Right side) - Hidden on mobile for performance, or statically halved */}
               <Image
                 src={p.before}
                 alt={`Gaziantep Saç Ekimi Öncesi Hasta ${index + 1} - Kellik ve Seyreklik`}
                 fill
-                sizes="(max-width: 768px) 70vw, 35vw"
-                className="gallery-top-img pointer-events-none object-cover object-top"
+                sizes="(max-width: 768px) 80vw, 35vw"
+                className="gallery-top-img pointer-events-none object-cover object-top hidden md:block"
                 style={{ clipPath: "inset(0 0 0 50%)", WebkitClipPath: "inset(0 0 0 50%)" }}
               />
+              
+              {/* Mobile Label */}
+              <div className="absolute bottom-4 left-4 z-10 md:hidden bg-black/60 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full border border-white/20">
+                12. Ay Sonuç
+              </div>
             </div>
           ))}
           
-          {/* End spacing */}
-          <div className="w-[15vw] shrink-0" />
+          {/* End spacing (Desktop Only) */}
+          <div className="hidden md:block w-[15vw] shrink-0" />
         </div>
       </div>
     </section>

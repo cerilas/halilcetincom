@@ -53,7 +53,7 @@ export function ScrollReveal({
     <div
       ref={ref}
       className={cn(
-        "transition-all duration-700 ease-out", // Reduced from 1000 to 700 for snappier feel
+        "transition-[opacity,transform] duration-700 ease-out", // Replaced transition-all with specific properties for mobile GPU performance
         isVisible ? "opacity-100 translate-y-0" : "opacity-0",
         className
       )}
