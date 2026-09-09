@@ -169,7 +169,7 @@ export function ComparisonSlider({
     if (img && img.complete && img.naturalWidth > 0) {
       drawFrame(img);
     } else {
-      img = new Image();
+      img = new window.Image();
       const num = frameIndex.toString().padStart(4, "0");
       img.src = `${sequencePrefix}${num}${sequenceExt}`;
       loadedFramesRef.current[frameIndex] = img;
