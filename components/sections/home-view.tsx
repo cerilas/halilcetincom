@@ -76,7 +76,7 @@ export function HomeView({ content }: { content: SiteContent }) {
               </p>
               <div className="flex items-end text-gold">
                 <NumberTicker
-                  value={4876}
+                  value={14876}
                   className="font-display text-[80px] font-light leading-none tracking-tighter"
                 />
                 <span className="mb-4 ml-2 font-display text-7xl font-light">+</span>
@@ -87,8 +87,8 @@ export function HomeView({ content }: { content: SiteContent }) {
               <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
                 Yılların tecrübesi, doğal sonuçlar ve memnun hastalar. Saç ekiminde güvenilir ellerdesiniz.
               </p>
-              
-              <Link 
+
+              <Link
                 href="/halil-cetin-kimdir"
                 className="mt-8 group inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-6 py-3 text-sm font-medium text-gold transition-all hover:bg-gold hover:text-black"
               >

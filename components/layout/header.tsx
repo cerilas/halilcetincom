@@ -46,12 +46,12 @@ export function Header() {
           <img 
             src="/DARK-BG.svg" 
             alt="Halil Çetin Saç Ekim Merkezi Gaziantep Logo" 
-            className={cn("h-14 w-auto", (pathname === "/" && !isScrolled) ? "block" : "hidden dark:block")} 
+            className="hidden h-14 w-auto dark:block" 
           />
           <img 
             src="/LIGHT-BG.svg" 
             alt="Halil Çetin Saç Ekim Merkezi Gaziantep Logo" 
-            className={cn("h-14 w-auto", (pathname === "/" && !isScrolled) ? "hidden" : "block dark:hidden")} 
+            className="block h-14 w-auto dark:hidden" 
           />
         </Link>
 
