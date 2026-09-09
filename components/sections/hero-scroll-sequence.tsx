@@ -28,24 +28,20 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
       });
     };
 
-    // Preload first 15 frames for quick initial paint
-    const initialFrames = [];
-    for (let i = 1; i <= 15; i++) {
-      const num = i.toString().padStart(4, "0");
-      initialFrames.push(loadImage(`/webp_frames_20fps/frame_${num}.webp`));
-    }
+    // Preload ONLY the first frame for quick initial paint
+    const initialFrame = loadImage(`/webp_frames_20fps/frame_0001.webp`);
 
     // Preload high-res comparison images
     const img1 = loadImage("/results/sac-ekimi-sonrasi-dogal-gorunum.png");
     const img2 = loadImage("/before222.webp");
 
-    Promise.all([...initialFrames, img1, img2])
+    Promise.all([initialFrame, img1, img2])
       .then(() => {
         // Signal splash screen to open
         window.dispatchEvent(new Event("app-ready"));
 
         // Lazy load the rest in background using requestIdleCallback
-        let currentFrame = 16;
+        let currentFrame = 2;
         const loadNextFrame = () => {
           if (currentFrame > 200) return;
           const num = currentFrame.toString().padStart(4, "0");
