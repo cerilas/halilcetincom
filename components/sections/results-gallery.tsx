@@ -4,11 +4,15 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 
 const patients = [
-  { id: 2, before: "/before-after-image-packs/11-new.jpg", after: "/before-after-image-packs/12-new.jpg" },
-  { id: 3, before: "/before-after-image-packs/13.jpg", after: "/before-after-image-packs/14.jpg" },
-  { id: 4, before: "/before-after-image-packs/15.jpg", after: "/before-after-image-packs/16.jpg" },
-  { id: 5, before: "/before-after-image-packs/17.jpg", after: "/before-after-image-packs/18.jpg" },
-  { id: 1, before: "/before-after-image-packs/9.jpg", after: "/before-after-image-packs/10.jpg" },
+  { id: 1, before: "/before-after-bundle-images/1.jpg", after: "/before-after-bundle-images/2.jpg" },
+  { id: 2, before: "/before-after-bundle-images/3.jpg", after: "/before-after-bundle-images/4.jpg" },
+  { id: 3, before: "/before-after-bundle-images/5.jpg", after: "/before-after-bundle-images/6.jpg" },
+  { id: 4, before: "/before-after-bundle-images/7.jpg", after: "/before-after-bundle-images/8.jpg" },
+  { id: 5, before: "/before-after-bundle-images/9.jpg", after: "/before-after-bundle-images/10.jpg" },
+  { id: 6, before: "/before-after-bundle-images/11.jpg", after: "/before-after-bundle-images/12.jpg" },
+  { id: 7, before: "/before-after-bundle-images/13.jpg", after: "/before-after-bundle-images/14.jpg" },
+  { id: 8, before: "/before-after-bundle-images/15.jpg", after: "/before-after-bundle-images/16.jpg" },
+  { id: 9, before: "/before-after-bundle-images/17.jpg", after: "/before-after-bundle-images/18.jpg" },
 ];
 
 export function ResultsGallery() {
