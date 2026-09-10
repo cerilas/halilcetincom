@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import { ArrowUpRight } from "lucide-react";
 import type { SiteContent } from "@/lib/types";
 import { whatsappHref } from "@/lib/utils";
@@ -12,10 +11,10 @@ import { ParallaxBio } from "@/components/ui/parallax-bio";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { CtaSection } from "@/components/sections/cta-section";
 
-const ReelsGallery = dynamic(() => import("@/components/sections/reels-gallery").then(mod => mod.ReelsGallery));
-const ResultsGallery = dynamic(() => import("@/components/sections/results-gallery").then(mod => mod.ResultsGallery));
-const ProcessRail = dynamic(() => import("@/components/sections/process-rail").then(mod => mod.ProcessRail));
-const FaqList = dynamic(() => import("@/components/ui/faq-list").then(mod => mod.FaqList));
+import { ReelsGallery } from "@/components/sections/reels-gallery";
+import { ResultsGallery } from "@/components/sections/results-gallery";
+import { ProcessRail } from "@/components/sections/process-rail";
+import { FaqList } from "@/components/ui/faq-list";
 
 export function HomeView({ content }: { content: SiteContent }) {
   const wa = whatsappHref(
