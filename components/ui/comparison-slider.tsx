@@ -553,7 +553,7 @@ export function ComparisonSlider({
                       marginTop: -Math.max(dividerWidth, 2) / 2,
                       background: `linear-gradient(to right, transparent, ${dividerColor} 18%, #fffaf0 50%, ${dividerColor} 82%, transparent)`,
                       filter:
-                        "drop-shadow(0 0 6px #fff6dc) drop-shadow(0 0 16px #C4A46A) drop-shadow(0 0 32px rgba(196,164,106,0.55))",
+                        "drop-shadow(0 0 6px var(--gold-soft)) drop-shadow(0 0 16px var(--gold)) drop-shadow(0 0 32px color-mix(in oklab, var(--gold) 55%, transparent))",
                     }
                   : {
                       top: 0,
@@ -563,7 +563,7 @@ export function ComparisonSlider({
                       marginLeft: -Math.max(dividerWidth, 2) / 2,
                       background: `linear-gradient(to bottom, transparent, ${dividerColor} 18%, #fffaf0 50%, ${dividerColor} 82%, transparent)`,
                       filter:
-                        "drop-shadow(0 0 6px #fff6dc) drop-shadow(0 0 16px #C4A46A) drop-shadow(0 0 32px rgba(196,164,106,0.55))",
+                        "drop-shadow(0 0 6px var(--gold-soft)) drop-shadow(0 0 16px var(--gold)) drop-shadow(0 0 32px color-mix(in oklab, var(--gold) 55%, transparent))",
                     }
               }
             />

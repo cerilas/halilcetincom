@@ -13,7 +13,7 @@ import { toast } from "sonner";
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 import "react-quill-new/dist/quill.snow.css";
 
-type TabType = "TR" | "EN";
+type TabType = "TR" | "EN" | "AR";
 
 const quillModules = {
   toolbar: [
@@ -53,6 +53,14 @@ export function CmsView({ initialArticles }: { initialArticles: Article[] }) {
     metaTitleEn: "",
     metaDescriptionEn: "",
     metaKeywordsEn: "",
+    
+    // Arabic fields
+    titleAr: "",
+    coverImageAltAr: "",
+    contentHtmlAr: "",
+    metaTitleAr: "",
+    metaDescriptionAr: "",
+    metaKeywordsAr: "",
   });
 
   const resetForm = () => {
@@ -73,6 +81,12 @@ export function CmsView({ initialArticles }: { initialArticles: Article[] }) {
       metaTitleEn: "",
       metaDescriptionEn: "",
       metaKeywordsEn: "",
+      titleAr: "",
+      coverImageAltAr: "",
+      contentHtmlAr: "",
+      metaTitleAr: "",
+      metaDescriptionAr: "",
+      metaKeywordsAr: "",
     });
     setEditingId(null);
     setActiveTab("TR");
@@ -101,6 +115,12 @@ export function CmsView({ initialArticles }: { initialArticles: Article[] }) {
       metaTitleEn: article.metaTitleEn || "",
       metaDescriptionEn: article.metaDescriptionEn || "",
       metaKeywordsEn: article.metaKeywordsEn || "",
+      titleAr: article.titleAr || "",
+      coverImageAltAr: article.coverImageAltAr || "",
+      contentHtmlAr: article.contentHtmlAr || "",
+      metaTitleAr: article.metaTitleAr || "",
+      metaDescriptionAr: article.metaDescriptionAr || "",
+      metaKeywordsAr: article.metaKeywordsAr || "",
     });
     setEditingId(article.id);
     setIsFormOpen(true);
@@ -176,6 +196,13 @@ export function CmsView({ initialArticles }: { initialArticles: Article[] }) {
       metaTitleEn: formData.metaTitleEn || null,
       metaDescriptionEn: formData.metaDescriptionEn || null,
       metaKeywordsEn: formData.metaKeywordsEn || null,
+      
+      titleAr: formData.titleAr || null,
+      coverImageAltAr: formData.coverImageAltAr || null,
+      contentHtmlAr: formData.contentHtmlAr || null,
+      metaTitleAr: formData.metaTitleAr || null,
+      metaDescriptionAr: formData.metaDescriptionAr || null,
+      metaKeywordsAr: formData.metaKeywordsAr || null,
     };
 
     try {
@@ -225,6 +252,12 @@ export function CmsView({ initialArticles }: { initialArticles: Article[] }) {
             className={cn("px-8 py-3 text-sm font-medium border-b-2 transition-colors", activeTab === "EN" ? "border-gold text-gold" : "border-transparent text-muted hover:text-foreground")}
           >
             English (İngilizce)
+          </button>
+          <button 
+            onClick={() => setActiveTab("AR")}
+            className={cn("px-8 py-3 text-sm font-medium border-b-2 transition-colors", activeTab === "AR" ? "border-gold text-gold" : "border-transparent text-muted hover:text-foreground")}
+          >
+            العربية (Arapça)
           </button>
         </div>
         
@@ -308,6 +341,39 @@ export function CmsView({ initialArticles }: { initialArticles: Article[] }) {
                 </div>
               </div>
 
+              {/* AR TAB */}
+              <div className={cn("space-y-6", activeTab === "AR" ? "block" : "hidden")}>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-xs text-muted mb-1">Başlık (AR)</label>
+                    <input type="text" dir="rtl" value={formData.titleAr} onChange={e => setFormData({...formData, titleAr: e.target.value})} className="w-full rounded-xl border border-line bg-background px-4 py-2 text-sm outline-none focus:border-gold text-right" />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs text-muted mb-2">Makale İçeriği (AR)</label>
+                  <div className="bg-background rounded-xl overflow-hidden border border-line text-foreground" dir="rtl">
+                    <ReactQuill theme="snow" modules={quillModules} value={formData.contentHtmlAr} onChange={(val) => setFormData({...formData, contentHtmlAr: val})} className="h-[400px] text-right" />
+                  </div>
+                </div>
+                
+                <div className="pt-4 border-t border-line space-y-4">
+                  <h3 className="text-sm font-medium">SEO Ayarları (AR)</h3>
+                  <div>
+                    <label className="block text-xs text-muted mb-1">SEO Title (AR)</label>
+                    <input type="text" dir="rtl" value={formData.metaTitleAr} onChange={e => setFormData({...formData, metaTitleAr: e.target.value})} className="w-full rounded-xl border border-line bg-background px-4 py-2 text-sm outline-none focus:border-gold text-right" />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-muted mb-1">SEO Description (AR)</label>
+                    <textarea rows={2} dir="rtl" value={formData.metaDescriptionAr} onChange={e => setFormData({...formData, metaDescriptionAr: e.target.value})} className="w-full rounded-xl border border-line bg-background px-4 py-2 text-sm outline-none focus:border-gold text-right" />
+                  </div>
+                  <div>
+                    <label className="block text-xs text-muted mb-1">SEO Keywords (AR)</label>
+                    <input type="text" dir="rtl" value={formData.metaKeywordsAr} onChange={e => setFormData({...formData, metaKeywordsAr: e.target.value})} className="w-full rounded-xl border border-line bg-background px-4 py-2 text-sm outline-none focus:border-gold text-right" />
+                  </div>
+                </div>
+              </div>
+
             </div>
 
             {/* Right Column: Settings & Media */}
@@ -371,6 +437,10 @@ export function CmsView({ initialArticles }: { initialArticles: Article[] }) {
                 <div>
                   <label className="block text-xs text-muted mb-1">Alt Text (EN)</label>
                   <input type="text" value={formData.coverImageAltEn} onChange={e => setFormData({...formData, coverImageAltEn: e.target.value})} className="w-full rounded-xl border border-line bg-background px-4 py-2 text-sm outline-none focus:border-gold" />
+                </div>
+                <div>
+                  <label className="block text-xs text-muted mb-1">Alt Text (AR)</label>
+                  <input type="text" dir="rtl" value={formData.coverImageAltAr} onChange={e => setFormData({...formData, coverImageAltAr: e.target.value})} className="w-full rounded-xl border border-line bg-background px-4 py-2 text-sm outline-none focus:border-gold text-right" />
                 </div>
               </div>
               

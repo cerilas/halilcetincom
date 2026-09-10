@@ -4,12 +4,14 @@ import { Inter } from "next/font/google";
 import { Cormorant_Garamond } from "next/font/google";
 import { getContent } from "@/lib/content";
 import { siteUrl } from "@/lib/utils";
+import { prisma } from "@/lib/db";
+import { unstable_cache } from "next/cache";
 import { SplashScreen } from "@/components/ui/splash-screen";
 import { CookieBanner } from "@/components/ui/cookie-banner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AnalyticsTracker } from "@/components/analytics-tracker";
 import { Toaster } from "sonner";
-import "./globals.css";
+import "@/app/globals.css";
 
 const inter = Inter({
   variable: "--font-geist-sans",
@@ -25,8 +27,9 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-export async function generateMetadata(): Promise<Metadata> {
-  const content = await getContent();
+export async function generateMetadata(props: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const params = await props.params;
+  const content = await getContent(params.lang);
   const url = siteUrl();
 
   return {
@@ -71,8 +74,10 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function RootLayout({ children }: LayoutProps<"/">) {
-  const content = await getContent();
+export default async function RootLayout({ children, params }: { children: React.ReactNode; params: Promise<{ lang: string }> }) {
+  const resolvedParams = await params;
+  const lang = resolvedParams.lang;
+  const content = await getContent(lang);
   const url = siteUrl();
 
   const schemaOrg = {
@@ -113,12 +118,42 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     ]
   };
 
+  const getTheme = unstable_cache(
+    async () => {
+      try {
+        const s = await prisma.siteSettings.findUnique({ where: { id: "default" } });
+        return s ? JSON.parse(s.themeConfig) : null;
+      } catch (e) {
+        return null;
+      }
+    },
+    ["site-theme"],
+    { tags: ["layout"] }
+  );
+
+  const theme = await getTheme();
+
   return (
     <html
-      lang="tr"
+      lang={lang}
+      dir={lang === "ar" ? "rtl" : "ltr"}
       suppressHydrationWarning
       className={`${inter.variable} ${cormorant.variable} h-full antialiased`}
     >
+      <head>
+        {theme && (
+          <style dangerouslySetInnerHTML={{
+            __html: `
+              html:not(.dark) {
+                ${theme.background ? `--background: ${theme.background};` : ""}
+                ${theme.foreground ? `--foreground: ${theme.foreground};` : ""}
+                ${theme.gold ? `--gold: ${theme.gold};` : ""}
+                ${theme.goldSoft ? `--gold-soft: ${theme.goldSoft};` : ""}
+              }
+            `
+          }} />
+        )}
+      </head>
       <body className="flex min-h-full flex-col bg-background text-foreground">
         {/* Google Tag Manager (noscript) */}
         <noscript>
@@ -153,11 +188,11 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           <AnalyticsTracker />
           {children}
           <a
-            href={`https://wa.me/${content.clinic.whatsapp}?text=Merhaba,%20saç%20ekimi%20hakkında%20bilgi%20almak%20istiyorum.`}
+            href={`https://wa.me/${content.clinic.whatsapp}?text=${encodeURIComponent(content.ui.whatsappCta)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-transform hover:scale-110 hover:shadow-xl dark:shadow-black/50"
-            aria-label="WhatsApp ile iletişime geçin"
+            aria-label={content.ui.whatsappAria}
           >
             <img 
               src="/whatsapp.png" 

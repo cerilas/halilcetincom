@@ -3,8 +3,11 @@
 import { useState } from "react";
 import { GlareButton } from "@/components/ui/glare-button";
 
-export function ContactForm() {
+import type { SiteContent } from "@/lib/types";
+
+export function ContactForm({ content }: { content: SiteContent }) {
   const [status, setStatus] = useState<"idle" | "ok" | "err">("idle");
+  const formRef = content.ui.contact.form;
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -24,11 +27,11 @@ export function ContactForm() {
       onSubmit={onSubmit}
       className="space-y-4 rounded-2xl border border-line bg-card p-6"
     >
-      <Field name="name" label="Ad soyad" required />
-      <Field name="phone" label="Telefon" required />
-      <Field name="email" label="E-posta" type="email" />
+      <Field name="name" label={formRef.name} required />
+      <Field name="phone" label={formRef.phone} required />
+      <Field name="email" label={formRef.email} type="email" />
       <label className="block">
-        <span className="text-xs tracking-wide text-muted">Mesaj</span>
+        <span className="text-xs tracking-wide text-muted">{formRef.message}</span>
         <textarea
           name="message"
           required
@@ -37,13 +40,13 @@ export function ContactForm() {
         />
       </label>
       <GlareButton type="submit" className="w-full bg-gold text-white font-bold dark:text-black dark:font-medium">
-        Gönder
+        {formRef.send}
       </GlareButton>
       {status === "ok" && (
-        <p className="text-sm text-gold">Talebiniz alındı. En kısa sürede dönüş yapacağız.</p>
+        <p className="text-sm text-gold">{formRef.success}</p>
       )}
       {status === "err" && (
-        <p className="text-sm text-red-300">Gönderilemedi. Tekrar deneyin.</p>
+        <p className="text-sm text-red-300">{formRef.error}</p>
       )}
     </form>
   );

@@ -27,6 +27,12 @@ model Article {
   author            String   @default("Saç Ekim Uzmanı Halil Çetin")
   coverImageAlt     String?
   coverImageAltEn   String?
+  titleAr           String?
+  contentHtmlAr     String?
+  metaTitleAr       String?
+  metaDescriptionAr String?
+  metaKeywordsAr    String?
+  coverImageAltAr   String?
 }
 
 model PageView {
@@ -75,4 +81,10 @@ model Reel {
   updatedAt   DateTime @updatedAt
   published   Boolean  @default(true)
   order       Int      @default(0)
+}
+
+model SiteSettings {
+  id          String   @id @default("default")
+  themeConfig String   @default("{}") // JSON string for theme config (colors, etc.)
+  updatedAt   DateTime @updatedAt
 }

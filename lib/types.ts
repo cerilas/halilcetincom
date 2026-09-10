@@ -80,7 +80,105 @@ export type SiteContent = {
   process: ProcessStep[];
   testimonials: Testimonial[];
   faqs: Faq[];
-  about: AboutContent;
+  about: {
+    eyebrow: string;
+    title: string;
+    titleName: string;
+    heroText: string;
+    experienceYears: string;
+    experienceText: string;
+    section1: {
+      title: string;
+      p1: string;
+      p2: string;
+      p3: string;
+    };
+    section2: {
+      title: string;
+      p1: string;
+      p2: string;
+    };
+    galleryTitle: string;
+    qualificationsTitle: string;
+    qualifications: string[];
+    ctaBtn: string;
+  };
+  ui: {
+    quickLinks: string;
+    contactInfo: string;
+    faqTitle: string;
+    serviceAreas: string;
+    allRightsReserved: string;
+    whatsappCta: string;
+    whatsappAria: string;
+    appointment: string;
+    whatsappAnalysis: string;
+    cta: {
+      eyebrow: string;
+      title: string;
+      fillForm: string;
+      whatsapp: string;
+    };
+    home: {
+      treatmentsEyebrow: string;
+      treatmentsTitle: string;
+      allTreatments: string;
+      testimonialsEyebrow: string;
+      faqTitle: string;
+      marquee: string[];
+      reelsTitle: string;
+      reelsSubtitle: string;
+      processEyebrow: string;
+      processTitle: string;
+      swipeHint: string;
+    };
+    gallery: {
+      eyebrow: string;
+      title: string;
+      before: string;
+      after: string;
+      monthsLater: string;
+      loadMore: string;
+    };
+    footer: {
+      developedBy: string;
+      adminPanel: string;
+    };
+    treatment: {
+      pageTitle: string;
+      pageSubtitle: string;
+      backToTreatments: string;
+      analyzeBtn: string;
+      imageAltSuffix: string;
+    };
+    knowledgeBase: {
+      eyebrow: string;
+      title: string;
+      description: string;
+      specialContentCount: string;
+      libraryHas: string;
+      found: string;
+      noMatch: string;
+      noArticles: string;
+      readAll: string;
+      prev: string;
+      next: string;
+      page: string;
+      backToLibrary: string;
+      categories: Record<string, string>;
+    };
+    bio: {
+      founderTitle: string;
+      expertiseAndTrust: string;
+      experience: string;
+      description: string;
+      button: string;
+    };
+  };
+  headerLinks: { href: string; label: string }[];
+  legalLinks: { name: string; href: string }[];
+  footerFaqs: string[];
+  seoLocations: string[];
 };
 
 export type Inquiry = {

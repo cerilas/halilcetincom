@@ -13,19 +13,19 @@ export const metadata: Metadata = {
   alternates: { canonical: "/tedaviler" },
 };
 
-export default async function TreatmentsPage() {
-  const content = await getContent();
+export default async function TreatmentsPage(props: { params: Promise<{ lang: string }> }) {
+  const params = await props.params;
+  const content = await getContent(params.lang);
 
   return (
     <SiteShell content={content}>
       <section className="mx-auto max-w-6xl px-5 pt-32 pb-20">
-        <p className="text-xs tracking-[0.28em] text-gold uppercase">Tedaviler</p>
+        <p className="text-xs tracking-[0.28em] text-gold uppercase">{content.ui.home.treatmentsEyebrow}</p>
         <h1 className="mt-3 font-display text-5xl md:text-7xl">
-          Teknikler, yüzünüze göre.
+          {content.ui.treatment.pageTitle}
         </h1>
         <p className="mt-6 max-w-2xl text-muted">
-          Her yöntem bir pazarlama adı değil; donör, yoğunluk ve çizgi ihtiyacına
-          göre seçilen bir araçtır.
+          {content.ui.treatment.pageSubtitle}
         </p>
         <div className="mt-14 grid gap-5 md:grid-cols-2">
           {content.treatments.map((treatment) => (
@@ -41,7 +41,7 @@ export default async function TreatmentsPage() {
                     <div className="my-6 overflow-hidden rounded-xl border border-line relative h-48">
                       <Image
                         src={treatment.image}
-                        alt={`${treatment.title} - Saç Ekimi Operasyonu`}
+                        alt={`${treatment.title} ${content.ui.treatment.imageAltSuffix}`}
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
                         className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"

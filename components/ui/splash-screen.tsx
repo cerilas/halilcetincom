@@ -142,7 +142,7 @@ function SplashAnimation() {
               width: "440px",
               height: "440px",
               background:
-                "radial-gradient(circle at center, rgba(196,164,106,0.3) 0%, rgba(196,164,106,0.08) 38%, transparent 65%)",
+                "radial-gradient(circle at center, color-mix(in srgb, var(--gold) 30%, transparent) 0%, color-mix(in srgb, var(--gold) 8%, transparent) 38%, transparent 65%)",
             }}
           />
           <img

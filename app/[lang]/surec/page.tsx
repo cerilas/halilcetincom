@@ -12,13 +12,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "/surec" },
 };
 
-export default async function ProcessPage() {
-  const content = await getContent();
+export default async function ProcessPage(props: { params: Promise<{ lang: string }> }) {
+  const params = await props.params;
+  const content = await getContent(params.lang);
 
   return (
     <SiteShell content={content}>
       <div className="pt-16">
-        <ProcessRail steps={content.process} />
+        <ProcessRail steps={content.process} content={content} />
       </div>
       <CtaSection content={content} />
     </SiteShell>

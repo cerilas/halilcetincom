@@ -29,15 +29,7 @@ export function HomeView({ content }: { content: SiteContent }) {
       <ScrollReveal>
         <section className="border-y border-line">
           <Marquee pauseOnHover className="[--duration:36s]">
-            {[
-              "FUE",
-              "DHI",
-              "Safir FUE",
-              "Sakal ekimi",
-              "Doğal saç çizgisi",
-              "12 ay takip",
-              "İstanbul",
-            ].map((item) => (
+            {content.ui.home.marquee.map((item) => (
               <span
                 key={item}
                 className="px-8 text-sm tracking-[0.28em] text-muted uppercase"
@@ -66,11 +58,11 @@ export function HomeView({ content }: { content: SiteContent }) {
                 Halil Çetin
               </h2>
               <p className="mt-2 mb-12 text-xs tracking-[0.28em] text-gold uppercase">
-                Kurucu & Saç Ekim Uzmanı
+                {content.ui.bio.founderTitle}
               </p>
 
               <p className="mb-4 text-xs tracking-[0.28em] text-gold uppercase">
-                Uzmanlık ve Güven
+                {content.ui.bio.expertiseAndTrust}
               </p>
               <div className="flex items-end text-gold">
                 <NumberTicker
@@ -80,17 +72,17 @@ export function HomeView({ content }: { content: SiteContent }) {
                 <span className="mb-4 ml-2 font-display text-7xl font-light">+</span>
               </div>
               <h2 className="mt-6 font-display text-3xl text-foreground md:text-4xl">
-                Saç Ekim Deneyimi
+                {content.ui.bio.experience}
               </h2>
               <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
-                Yılların tecrübesi, doğal sonuçlar ve memnun hastalar. Saç ekiminde güvenilir ellerdesiniz.
+                {content.ui.bio.description}
               </p>
 
               <Link
                 href="/halil-cetin-kimdir"
                 className="mt-8 group inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-6 py-3 text-sm font-medium text-gold transition-all hover:bg-gold hover:text-black"
               >
-                <span className="truncate">Saç Ekim Uzmanı Halil Çetin</span>
+                <span className="truncate">{content.ui.bio.button}</span>
                 <ArrowUpRight size={16} className="shrink-0 transition-transform group-hover:rotate-12" />
               </Link>
             </div>
@@ -99,7 +91,7 @@ export function HomeView({ content }: { content: SiteContent }) {
       </ScrollReveal>
 
       <ScrollReveal>
-        <ReelsGallery />
+        <ReelsGallery content={content} />
       </ScrollReveal>
 
       <ScrollReveal>
@@ -107,17 +99,17 @@ export function HomeView({ content }: { content: SiteContent }) {
           <div className="flex items-end justify-between gap-8">
             <div>
               <p className="text-xs tracking-[0.28em] text-gold uppercase">
-                Tedaviler
+                {content.ui.home.treatmentsEyebrow}
               </p>
               <h2 className="mt-3 font-display text-4xl md:text-5xl">
-                Protokole göre, pakete göre değil.
+                {content.ui.home.treatmentsTitle}
               </h2>
             </div>
             <Link
               href="/tedaviler"
               className="hidden items-center gap-2 text-sm text-gold md:flex"
             >
-              Tüm tedaviler <ArrowUpRight size={16} />
+              {content.ui.home.allTreatments} <ArrowUpRight size={16} />
             </Link>
           </div>
           <div className="mt-12 grid gap-5 md:grid-cols-2">
@@ -154,7 +146,7 @@ export function HomeView({ content }: { content: SiteContent }) {
         </section>
       </ScrollReveal>
 
-      <ResultsGallery />
+      <ResultsGallery content={content} />
 
       <ScrollReveal>
         <section className="border-y border-line bg-card/40">
@@ -172,14 +164,14 @@ export function HomeView({ content }: { content: SiteContent }) {
       </ScrollReveal>
 
       <ScrollReveal>
-        <ProcessRail steps={content.process} />
+        <ProcessRail steps={content.process} content={content} />
       </ScrollReveal>
 
 
       <ScrollReveal>
         <section className="overflow-hidden border-y border-line py-16">
           <p className="mb-8 text-center text-xs tracking-[0.28em] text-gold uppercase">
-            Danışanlar
+            {content.ui.home.testimonialsEyebrow}
           </p>
           <Marquee pauseOnHover className="[--duration:50s]">
             {content.testimonials.map((item) => (
@@ -201,7 +193,7 @@ export function HomeView({ content }: { content: SiteContent }) {
 
       <ScrollReveal>
         <section className="mx-auto max-w-6xl px-5 py-24">
-          <h2 className="font-display text-4xl">Sık sorulanlar</h2>
+          <h2 className="font-display text-4xl">{content.ui.home.faqTitle}</h2>
           <div className="mt-10">
             <FaqList items={content.faqs} />
           </div>

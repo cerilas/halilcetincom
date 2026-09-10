@@ -10,7 +10,7 @@ import { JsonLd } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Saç Ekim Uzmanı Halil Çetin Kimdir? | Uzman Biyografisi",
   description:
-    "Gaziantep'in en çok tercih edilen saç ekim uzmanı Halil Çetin hakkında detaylı bilgi. 15 yılı aşkın tecrübe, 10.000'den fazla başarılı operasyon ve Safir FUE uzmanlığı.",
+    "Gaziantep'in en çok tercih edilen saç ekim uzmanı Halil Çetin hakkında detaylı bilgi. 24 yılı aşkın tecrübe, 10.000'den fazla başarılı operasyon ve Safir FUE uzmanlığı.",
   alternates: { canonical: "/halil-cetin-kimdir" },
   keywords: [
     "Halil Çetin kimdir",
@@ -21,17 +21,10 @@ export const metadata: Metadata = {
   ],
 };
 
-const qualifications = [
-  "15+ Yıllık Kesintisiz Saç Ekimi Tecrübesi",
-  "10.000'in Üzerinde Başarılı Saç ve Sakal Ekimi Operasyonu",
-  "DHI (Choi Pen) ve Safir FUE Yöntemlerinde İleri Düzey Uzmanlık",
-  "Uluslararası Saç Restorasyon Cerrahisi Derneği (ISHRS) Standartlarında Tedavi",
-  "Tam Donanımlı VIP Hastane Ortamında Steril Operasyon",
-  "Kişiye Özel Doğal Saç Çizgisi (Altın Oran) Tasarımı"
-];
 
-export default async function HalilCetinPage() {
-  const content = await getContent();
+export default async function HalilCetinPage(props: { params: Promise<{ lang: string }> }) {
+  const params = await props.params;
+  const content = await getContent(params.lang);
 
   return (
     <SiteShell content={content}>
@@ -47,7 +40,7 @@ export default async function HalilCetinPage() {
           },
           url: "https://halilcetin.com/halil-cetin-kimdir",
           image: "https://halilcetin.com/sac-ekim-uzmani-halil-cetin-portre.jpg",
-          description: "15 yılı aşkın tecrübesi ve 10.000'in üzerinde başarılı operasyonu ile Gaziantep ve Türkiye'nin önde gelen saç ekim uzmanlarından biridir.",
+          description: "24 yılı aşkın tecrübesi ve 10.000'in üzerinde başarılı operasyonu ile Gaziantep ve Türkiye'nin önde gelen saç ekim uzmanlarından biridir.",
           knowsAbout: ["Saç Ekimi", "Sakal Ekimi", "FUE Tekniği", "DHI Tekniği", "Safir FUE"]
         }}
       />
@@ -57,14 +50,14 @@ export default async function HalilCetinPage() {
           {/* Header Section */}
           <div className="mb-16 md:mb-24 text-center">
             <p className="text-xs tracking-[0.2em] text-gold uppercase mb-4 font-medium">
-              Kurucu & Başuzman
+              {content.about.eyebrow}
             </p>
             <h1 className="font-display text-5xl md:text-7xl mb-6">
-              Saç Ekim Uzmanı <br/>
-              <span className="text-gold">Halil Çetin</span>
+              {content.about.title} <br/>
+              <span className="text-gold">{content.about.titleName}</span>
             </h1>
             <p className="mx-auto max-w-2xl text-muted text-lg leading-relaxed">
-              Saç ekimi sadece bir cerrahi işlem değil, tıbbın ve estetik vizyonun kusursuz birleşimidir. Doğal, kalıcı ve kimsede anlaşılmayan sonuçlar için tecrübeli ellere güvenin.
+              {content.about.heroText}
             </p>
           </div>
 
@@ -84,26 +77,20 @@ export default async function HalilCetinPage() {
               </div>
               <div className="absolute -bottom-6 -right-6 h-32 w-32 rounded-full border border-gold/20 bg-background/80 backdrop-blur-md flex items-center justify-center text-center p-4 shadow-2xl">
                 <div>
-                  <span className="block font-display text-3xl text-gold">15+</span>
-                  <span className="text-[10px] uppercase tracking-wider text-muted font-bold">Yıllık Tecrübe</span>
+                  <span className="block font-display text-3xl text-gold">{content.about.experienceYears}</span>
+                  <span className="text-[10px] uppercase tracking-wider text-muted font-bold">{content.about.experienceText}</span>
                 </div>
               </div>
             </div>
 
             <div className="flex flex-col gap-6">
               <h2 className="font-display text-3xl md:text-4xl">
-                Estetik ve Tıbbın Kusursuz Birleşimi
+                {content.about.section1.title}
               </h2>
               <div className="space-y-4 text-muted leading-relaxed">
-                <p>
-                  Gaziantep merkezli kliniğinde Türkiye'nin dört bir yanından ve Avrupa'dan gelen hastalara hizmet veren <strong>Saç Ekim Uzmanı Halil Çetin</strong>, saç restorasyonu alanında bölgesinin en çok tercih edilen ve güvenilen isimlerinin başında gelmektedir.
-                </p>
-                <p>
-                  15 yılı aşkın mesleki hayatında 10.000'in üzerinde hastanın saç, sakal ve kaş ekimi operasyonunu bizzat yönetmiş, binlerce insanın hayatına ve özgüvenine pozitif dokunuşlar yapmıştır. Sıradan ve "seri üretim" mantığıyla çalışan saç ekim merkezlerinin aksine Halil Çetin, <strong>"butik ve kişiye özel"</strong> tedavi protokolünü benimsemektedir.
-                </p>
-                <p>
-                  Saç ekimi operasyonlarında başarı oranını maksimize eden Safir FUE (Sapphire FUE) ve DHI (Doğrudan Saç Ekimi) teknolojilerini en güncel cihazlarla uygulamaktadır.
-                </p>
+                <p dangerouslySetInnerHTML={{ __html: content.about.section1.p1 }} />
+                <p dangerouslySetInnerHTML={{ __html: content.about.section1.p2 }} />
+                <p dangerouslySetInnerHTML={{ __html: content.about.section1.p3 }} />
               </div>
             </div>
           </section>
@@ -125,22 +112,18 @@ export default async function HalilCetinPage() {
 
             <div className="order-2 lg:order-1 flex flex-col gap-6">
               <h2 className="font-display text-3xl md:text-4xl">
-                Operasyon Masasındaki Hassasiyet
+                {content.about.section2.title}
               </h2>
               <div className="space-y-4 text-muted leading-relaxed">
-                <p>
-                  Başarılı bir saç ekiminin sırrı sadece köklerin toplanıp ekilmesi değildir. <strong>Köklerin hangi açıyla, hangi derinlikte ve nasıl bir ön saç çizgisi tasarımıyla ekileceği</strong> asıl farkı yaratan unsurdur. Halil Çetin, operasyon masasında bir sanatçı titizliğiyle çalışır.
-                </p>
-                <p>
-                  Altın oran kurallarına uygun olarak planlanan saç çizgisi tasarımı, hastanın yaşına, yüz anatomisine ve beklentilerine göre lazer cetveller kullanılarak çizilir. İşlem esnasında donör bölgeden alınan her bir greft (saç kökü), canlılığını yitirmeden, en uygun solüsyonlarda bekletilerek yeni yuvalarına transfer edilir.
-                </p>
+                <p dangerouslySetInnerHTML={{ __html: content.about.section2.p1 }} />
+                <p dangerouslySetInnerHTML={{ __html: content.about.section2.p2 }} />
               </div>
             </div>
           </section>
 
           {/* Clinic & Results Gallery */}
           <section className="mb-24">
-            <h2 className="font-display text-3xl mb-10 text-center">Modern Klinik & Estetik Bakış Açısı</h2>
+            <h2 className="font-display text-3xl mb-10 text-center">{content.about.galleryTitle}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="relative overflow-hidden rounded-2xl border border-line bg-card aspect-[4/5] group">
                 <Image 
@@ -175,9 +158,9 @@ export default async function HalilCetinPage() {
           {/* Qualifications List */}
           <section className="mx-auto max-w-4xl bg-card border border-line rounded-3xl p-8 md:p-12 mb-20 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-gold/5 rounded-full blur-[100px]" />
-            <h2 className="font-display text-3xl mb-10 text-center">Neden Halil Çetin?</h2>
+            <h2 className="font-display text-3xl mb-10 text-center">{content.about.qualificationsTitle}</h2>
             <div className="grid md:grid-cols-2 gap-x-8 gap-y-6">
-              {qualifications.map((item, index) => (
+              {content.about.qualifications.map((item: string, index: number) => (
                 <div key={index} className="flex items-start gap-4">
                   <CheckCircle2 className="text-gold shrink-0 mt-0.5" size={20} />
                   <p className="text-sm text-muted/90 leading-relaxed">{item}</p>
@@ -189,7 +172,7 @@ export default async function HalilCetinPage() {
                 href="/iletisim"
                 className="inline-flex items-center gap-2 rounded-full bg-gold px-8 py-4 text-sm font-medium text-black transition-transform hover:scale-105"
               >
-                Ücretsiz Analiz Alın <ArrowUpRight size={16} />
+                {content.about.ctaBtn} <ArrowUpRight size={16} />
               </Link>
             </div>
           </section>

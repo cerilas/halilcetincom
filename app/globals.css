@@ -3,15 +3,15 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Light Mode Variables */
+  /* Light Mode Variables (Hospital Palette) */
   --background: #ffffff;
-  --foreground: #07080b;
-  --gold: #9e7535;
-  --gold-soft: #b38b4c;
-  --muted: #4a4a4a;
-  --line: rgba(7, 8, 11, 0.2);
-  --card: #fdfdfd;
-  --card-hover: #f7f7f7;
+  --foreground: #202121; /* Lead (Darkest) */
+  --gold: #4875a1;       /* Great Serpent (Primary Blue) */
+  --gold-soft: #6e5e52;  /* Chocolate Chip (Secondary Warm Accent) */
+  --muted: #91999c;      /* Wolverine (Gray for muted text) */
+  --line: #dae7ee;       /* First Light (Very light blue for borders) */
+  --card: #f5f8fa;       /* Off-white with blue tint */
+  --card-hover: #eaf1f5;
 }
 
 .dark {
@@ -136,8 +136,8 @@ body {
 
 .grid-lights {
   background-image:
-    linear-gradient(to right, rgba(196, 164, 106, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(196, 164, 106, 0.08) 1px, transparent 1px);
+    linear-gradient(to right, color-mix(in oklab, var(--gold) 15%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--gold) 15%, transparent) 1px, transparent 1px);
   background-size: 72px 72px;
   mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
 }

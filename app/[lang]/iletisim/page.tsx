@@ -12,22 +12,23 @@ export const metadata: Metadata = {
   alternates: { canonical: "/iletisim" },
 };
 
-export default async function ContactPage() {
-  const content = await getContent();
+export default async function ContactPage(props: { params: Promise<{ lang: string }> }) {
+  const params = await props.params;
+  const content = await getContent(params.lang);
 
   return (
     <SiteShell content={content}>
       <section className="mx-auto grid max-w-6xl gap-12 px-5 pt-32 pb-24 md:grid-cols-2">
         <div>
           <p className="text-xs tracking-[0.28em] text-gold uppercase">
-            İletişim
+            {content.ui.contact.eyebrow}
           </p>
           <h1 className="mt-3 font-display text-5xl md:text-6xl">
-            Analiz için yazın.
+            {content.ui.contact.title}
           </h1>
           <div className="mt-12 mb-12">
             <p className="text-xs tracking-[0.2em] text-muted uppercase mb-4">
-              Hemen Arayın
+              {content.ui.contact.callNow}
             </p>
             <a
               href={`tel:${content.clinic.phone.replace(/\s+/g, '')}`}
@@ -58,17 +59,17 @@ export default async function ContactPage() {
             <div className="flex items-center gap-4">
               <img src="/whatsapp.png" alt="WhatsApp" className="h-5 w-5 shrink-0 object-contain" />
               <a
-                href={whatsappHref(content.clinic.whatsapp, "Merhaba, ücretsiz saç ekimi analizi için bilgi almak istiyorum.")}
+                href={whatsappHref(content.clinic.whatsapp, content.ui.whatsappAnalysis)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium hover:text-[#25D366] transition-colors"
               >
-                WhatsApp Hattından Ulaşın
+                {content.ui.contact.whatsappLine}
               </a>
             </div>
           </div>
         </div>
-        <ContactForm />
+        <ContactForm content={content} />
       </section>
     </SiteShell>
   );

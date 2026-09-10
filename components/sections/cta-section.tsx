@@ -7,7 +7,7 @@ import type { SiteContent } from "@/lib/types";
 export function CtaSection({ content }: { content: SiteContent }) {
   const wa = whatsappHref(
     content.clinic.whatsapp,
-    "Merhaba, saç ekimi analizi için yazıyorum.",
+    content.ui.whatsappAnalysis
   );
 
   return (
@@ -16,14 +16,14 @@ export function CtaSection({ content }: { content: SiteContent }) {
         <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] border border-line bg-card px-8 py-16 md:px-16">
           <BorderBeam />
           <p className="text-xs tracking-[0.28em] text-gold uppercase">
-            Ücretsiz analiz
+            {content.ui.cta.eyebrow}
           </p>
           <h2 className="mt-4 max-w-2xl font-display text-4xl md:text-6xl">
-            Fotoğrafınızı gönderin. Hemen ücretsiz saç ekim analizinizi alın.
+            {content.ui.cta.title}
           </h2>
           <div className="mt-8 flex flex-wrap gap-4">
             <GlareButton href="/iletisim" className="bg-gold text-white font-bold dark:text-black dark:font-medium">
-              Formu doldur
+              {content.ui.cta.fillForm}
             </GlareButton>
             <a
               href={wa}
@@ -32,7 +32,7 @@ export function CtaSection({ content }: { content: SiteContent }) {
               className="flex h-[3.25rem] items-center gap-2 rounded-full border border-line px-8 font-medium transition-colors hover:border-[#25D366] hover:text-[#25D366]"
             >
               <img src="/whatsapp.png" alt="WhatsApp" className="h-5 w-5 object-contain" />
-              WhatsApp
+              {content.ui.cta.whatsapp}
             </a>
           </div>
         </div>

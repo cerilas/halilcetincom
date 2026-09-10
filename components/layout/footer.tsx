@@ -1,63 +1,32 @@
+"use client";
 import Link from "next/link";
 import type { SiteContent } from "@/lib/types";
+import { usePathname } from "next/navigation";
 import { MapPin, Clock, Phone, Mail } from "lucide-react";
 
-const faqs = [
-  "Saç ekimi fiyatları 2026 ne kadar?",
-  "Gaziantep en iyi saç ekim merkezi nasıl seçilir?",
-  "Saç ekimi işlemi acıtır mı, ağrılı mıdır?",
-  "Saç ekimi sonrası iyileşme süreci kaç gün sürer?",
-  "FUE mi yoksa DHI saç ekimi mi daha iyi?",
-  "Saç ekimi operasyonu kaç saat sürer?",
-  "Saç ekimi sonrası ilk yıkama ne zaman yapılır?",
-  "Tıraşsız saç ekimi mümkün mü, kimlere yapılır?",
-  "Saç ekimi için uygun yaş aralığı nedir?",
-  "Ekilen saçlar ileride dökülür mü, kalıcı mıdır?",
-  "Saç ekimi sonuçları ne zaman tam belli olur?",
-  "Saç ekimi sonrası şapka takılır mı?",
-  "Saç ekimi sonrası spor ve egzersiz ne zaman yapılır?",
-  "Saç ekiminden sonra iz kalır mı?",
-  "Kadınlarda saç ekimi nasıl yapılır?",
-  "Saç ekiminde greft hesaplama nasıl yapılır?",
-  "Sigara ve alkol tüketimi saç ekimini etkiler mi?",
-  "Saç ekiminde kök hücre ve PRP tedavisi faydalı mı?",
-  "Şeker ve tansiyon hastaları saç ekimi yaptırabilir mi?",
-  "Saç ekimi yaz aylarında sıcakta yapılır mı?"
-];
-
-const seoLocations = [
-  "Gaziantep Saç Ekimi", "Gaziantep Şahinbey Saç Ekimi", "Gaziantep Şehitkamil Saç Ekimi", 
-  "Nizip Saç Ekimi", "Oğuzeli Saç Ekimi", "İslahiye Saç Ekimi", "Nurdağı Saç Ekimi",
-  "Diyarbakır Saç Ekimi", "Diyarbakır Kayapınar Saç Ekimi", "Diyarbakır Yenişehir Saç Ekimi", "Bağlar Saç Ekimi",
-  "Şanlıurfa Saç Ekimi", "Urfa Karaköprü Saç Ekimi", "Siverek Saç Ekimi", "Birecik Saç Ekimi", "Viranşehir Saç Ekimi",
-  "Mardin Saç Ekimi", "Kızıltepe Saç Ekimi", "Midyat Saç Ekimi", "Nusaybin Saç Ekimi",
-  "Batman Saç Ekimi", "Kozluk Saç Ekimi",
-  "Adıyaman Saç Ekimi", "Besni Saç Ekimi", "Kahta Saç Ekimi",
-  "Osmaniye Saç Ekimi", "Kadirli Saç Ekimi", "Düziçi Saç Ekimi",
-  "Kahramanmaraş Saç Ekimi", "Elbistan Saç Ekimi", "Onikişubat Saç Ekimi",
-  "Elazığ Saç Ekimi", "Malatya Saç Ekimi", "Kilis Saç Ekimi", 
-  "Şırnak Saç Ekimi", "Cizre Saç Ekimi", "Silopi Saç Ekimi",
-  "Hatay Saç Ekimi", "İskenderun Saç Ekimi", "Antakya Saç Ekimi"
-];
-
-function slugify(text: string) {
-  return text.toLowerCase()
-    .replace(/ş/g, 's').replace(/ı/g, 'i').replace(/ğ/g, 'g')
-    .replace(/ü/g, 'u').replace(/ö/g, 'o').replace(/ç/g, 'c')
-    .replace(/\?/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-
-const legalLinks = [
-  { name: "Aydınlatma Metni & KVKK", href: "/kvkk" },
-  { name: "Gizlilik Politikası", href: "/gizlilik-politikasi" },
-  { name: "Kullanım Koşulları", href: "/kullanim-kosullari" },
-  { name: "Çerez Politikası", href: "/cerez-politikasi" },
-  { name: "Yasal Uyarı", href: "/yasal-uyari" }
-];
+// Removed hardcoded faqs, seoLocations, legalLinks
 
 export function Footer({ content }: { content: SiteContent }) {
+  const pathname = usePathname();
+  const locales = ["tr", "en", "ar"];
+  const currentLocale = locales.find((l) => pathname.startsWith(`/${l}/`) || pathname === `/${l}`) || "tr";
+  
+  if (pathname.startsWith("/admin")) return null;
+
+  const getHref = (path: string) => {
+    if (path === "/") return currentLocale === "tr" ? "/" : `/${currentLocale}`;
+    return currentLocale === "tr" ? path : `/${currentLocale}${path}`;
+  };
+
+  const slugify = (text: string) => {
+    return text.toLowerCase()
+      .replace(/ş/g, 's').replace(/ı/g, 'i').replace(/ğ/g, 'g')
+      .replace(/ü/g, 'u').replace(/ö/g, 'o').replace(/ç/g, 'c')
+      .replace(/\?/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  };
+
   return (
     <footer className="border-t border-line bg-background relative overflow-hidden">
       {/* Background glow */}
@@ -74,26 +43,26 @@ export function Footer({ content }: { content: SiteContent }) {
             {content.clinic.tagline}
           </p>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
-            Gaziantep saç ekimi merkezi olarak Uzman Halil Çetin liderliğinde; Safir FUE, DHI ve kök hücre destekli dökülme tedavilerinde ömür boyu kalıcı, %100 doğal sonuçlar ve uluslararası VIP standartlarda sağlık hizmeti sunuyoruz.
+            {content.seo.description}
           </p>
         </div>
         
         <div className="md:col-span-3 lg:col-span-3">
           <p className="text-xs tracking-[0.2em] text-gold uppercase mb-6 font-medium">
-            Navigasyon
+            {content.ui.quickLinks}
           </p>
           <div className="flex flex-col gap-4 text-sm text-muted/80">
-            <Link href="/halil-cetin-kimdir" className="hover:text-gold transition-colors w-max">Halil Çetin Kimdir?</Link>
-            <Link href="/tedaviler" className="hover:text-gold transition-colors w-max">Saç Ekimi Tedavileri</Link>
-            <Link href="/surec" className="hover:text-gold transition-colors w-max">Operasyon Süreci & Planlama</Link>
-            <Link href="/bilgi-bankasi" className="hover:text-gold transition-colors w-max">Uzman Bilgi Bankası (Blog)</Link>
-            <Link href="/iletisim" className="hover:text-gold transition-colors w-max">Ücretsiz Analiz & İletişim</Link>
+            {content.headerLinks.map((link) => (
+              <Link key={link.href} href={getHref(link.href)} className="hover:text-gold transition-colors w-max">
+                {link.label}
+              </Link>
+            ))}
           </div>
         </div>
         
         <div className="md:col-span-5 lg:col-span-5">
           <p className="text-xs tracking-[0.2em] text-gold uppercase mb-6 font-medium">
-            İletişim & Konum
+            {content.ui.contactInfo}
           </p>
           <div className="space-y-4 text-sm text-muted/80 mb-8">
             <p className="flex items-start gap-3">
@@ -117,13 +86,13 @@ export function Footer({ content }: { content: SiteContent }) {
               </a>
             </p>
             <a
-              href={`https://wa.me/${content.clinic.whatsapp}?text=Merhaba,%20saç%20ekimi%20hakkında%20bilgi%20almak%20istiyorum.`}
+              href={`https://wa.me/${content.clinic.whatsapp}?text=${encodeURIComponent(content.ui.whatsappCta)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 flex w-max items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-medium text-white transition-transform hover:scale-105"
             >
               <img src="/whatsapp.png" alt="WhatsApp" className="h-5 w-5 object-contain" />
-              WhatsApp'tan Ulaşın
+              {content.ui.whatsappAria}
             </a>
           </div>
           
@@ -150,12 +119,12 @@ export function Footer({ content }: { content: SiteContent }) {
             {/* FAQs */}
             <div className="lg:col-span-4">
               <p className="text-xs tracking-[0.2em] text-gold uppercase mb-6 font-medium">
-                Sık Sorulan Sorular
+                {content.ui.faqTitle}
               </p>
               <ul className="flex flex-col gap-3">
-                {faqs.map((faq, i) => (
+                {content.footerFaqs.map((faq, i) => (
                   <li key={i}>
-                    <Link href={`/bilgi-bankasi/${slugify(faq)}`} className="text-xs text-muted/70 hover:text-gold transition-colors line-clamp-1">
+                    <Link href={getHref(`/bilgi-bankasi/${slugify(faq)}`)} className="text-xs text-muted/70 hover:text-gold transition-colors line-clamp-1">
                       {faq}
                     </Link>
                   </li>
@@ -166,13 +135,13 @@ export function Footer({ content }: { content: SiteContent }) {
             {/* SEO Locations */}
             <div className="lg:col-span-8">
               <p className="text-xs tracking-[0.2em] text-gold uppercase mb-6 font-medium">
-                Hizmet Bölgelerimiz
+                {content.ui.serviceAreas}
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-3">
-                {seoLocations.map((loc, i) => (
+                {content.seoLocations.map((loc, i) => (
                   <Link 
                     key={i} 
-                    href={`/bilgi-bankasi/${slugify(loc)}`} 
+                    href={getHref(`/bilgi-bankasi/${slugify(loc)}`)} 
                     className="text-[11px] text-muted/50 hover:text-gold transition-colors truncate block"
                   >
                     {loc}
@@ -190,8 +159,8 @@ export function Footer({ content }: { content: SiteContent }) {
         <div className="mx-auto max-w-7xl px-5 py-8">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div className="flex flex-wrap items-center gap-4 text-[11px] text-muted/60">
-              {legalLinks.map((link, i) => (
-                <Link key={i} href={link.href} className="hover:text-white transition-colors">
+              {content.legalLinks.map((link, i) => (
+                <Link key={i} href={getHref(link.href)} className="hover:text-white transition-colors">
                   {link.name}
                 </Link>
               ))}
@@ -210,18 +179,15 @@ export function Footer({ content }: { content: SiteContent }) {
           </div>
           
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted/40 border-t border-black/5 dark:border-white/5 pt-8">
-            <span className="text-center sm:text-left">© {new Date().getFullYear()} {content.clinic.legalName}. Tüm hakları saklıdır.</span>
-            <a 
-              href="https://www.cerilas.com" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="text-[10px] opacity-40 hover:opacity-100 hover:text-gold transition-all duration-300 flex items-center"
-            >
-              Cerilas tarafından geliştirildi
-            </a>
-            <Link href="/yonetim" className="hover:text-white transition-colors">
-              Yönetim Paneli
-            </Link>
+            <span className="text-center sm:text-left">© {new Date().getFullYear()} {content.clinic.legalName}. {content.ui.allRightsReserved}</span>
+            <div className="flex gap-6">
+              <a href="https://cerilas.com" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors">
+                {content.ui.footer.developedBy}
+              </a>
+              <a href="/yonetim" className="hover:text-gold transition-colors">
+                {content.ui.footer.adminPanel}
+              </a>
+            </div>
           </div>
         </div>
       </div>

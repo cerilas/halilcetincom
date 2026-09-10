@@ -20,15 +20,18 @@ export const metadata: Metadata = {
 export const revalidate = 3600; // Revalidate every hour
 
 type Props = {
+  params: Promise<{ lang: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export default async function KnowledgeBasePage({ searchParams }: Props) {
-  const content = await getContent();
-  const params = await searchParams;
+export default async function KnowledgeBasePage({ params, searchParams }: Props) {
+  const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
   
-  const page = typeof params.page === "string" ? parseInt(params.page, 10) || 1 : 1;
-  const q = typeof params.q === "string" ? params.q : "";
+  const content = await getContent(resolvedParams.lang);
+  
+  const page = typeof resolvedSearchParams.page === "string" ? parseInt(resolvedSearchParams.page, 10) || 1 : 1;
+  const q = typeof resolvedSearchParams.q === "string" ? resolvedSearchParams.q : "";
   const ITEMS_PER_PAGE = 6;
   
   const whereClause = q ? {
@@ -59,22 +62,22 @@ export default async function KnowledgeBasePage({ searchParams }: Props) {
   return (
     <SiteShell content={content}>
       <section className="mx-auto max-w-6xl px-5 pt-32 pb-40">
-        <p className="text-xs tracking-[0.28em] text-gold uppercase">Kütüphane</p>
+        <p className="text-xs tracking-[0.28em] text-gold uppercase">{content.ui.knowledgeBase.eyebrow}</p>
         <h1 className="mt-3 font-display text-5xl md:text-7xl">
-          Bilgi Bankası
+          {content.ui.knowledgeBase.title}
         </h1>
         
         <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:gap-12 lg:items-end border-b border-white/5 pb-10">
           <div className="lg:col-span-7 xl:col-span-8 flex flex-col gap-4">
             <p className="text-muted text-base md:text-lg leading-relaxed">
-              Saç ekimi, saç sağlığı ve medikal estetik hakkında bilimsel kaynaklara dayalı detaylı rehberler.
+              {content.ui.knowledgeBase.description}
             </p>
             <div className="flex items-center gap-3 text-sm text-gold/90 bg-gold/5 w-max px-4 py-2 rounded-full border border-gold/10">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-gold"></span>
               </span>
-              Kütüphanede <strong>{absoluteTotal} özel içerik</strong> bulunuyor.
+              {content.ui.knowledgeBase.libraryHas} <strong>{absoluteTotal} {content.ui.knowledgeBase.specialContentCount}</strong> {content.ui.knowledgeBase.found}
             </div>
           </div>
           
@@ -88,79 +91,86 @@ export default async function KnowledgeBasePage({ searchParams }: Props) {
         {articles.length === 0 ? (
           <div className="mt-14 py-20 text-center border border-line rounded-2xl bg-card">
             <p className="text-muted">
-              {q ? `"${q}" aramasıyla eşleşen makale bulunamadı.` : "Henüz makale bulunmamaktadır."}
+              {q ? `"${q}" ${content.ui.knowledgeBase.noMatch}` : content.ui.knowledgeBase.noArticles}
             </p>
           </div>
         ) : (
           <>
             <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {articles.map((article) => (
-                <Link key={article.id} href={`/bilgi-bankasi/${article.slug}`}>
-                  <PinCard title={article.category}>
-                    <div className="flex flex-col h-full min-h-[300px] p-7">
-                      <div className="mb-6 -mt-2 -mx-2 overflow-hidden rounded-xl border border-line h-40 relative">
-                        <Image 
-                          src={article.coverImage || "/sac-ekimi-bilgi-bankasi-gorsel.jpg"} 
-                          alt={`${article.title} - Gaziantep Saç Ekimi Bilgi Bankası`}
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          className="object-cover transition-transform duration-700 group-hover:scale-105"
-                        />
-                      </div>
-                      <h2 className="font-display text-2xl line-clamp-2">{article.title}</h2>
-                      <p className="mt-3 text-sm leading-7 text-muted line-clamp-3">
-                        {article.metaDescription || article.title}
-                      </p>
-                      <div className="mt-auto pt-6 flex items-end justify-between text-xs text-gold">
-                        <div className="flex flex-col gap-1.5">
-                          <span className="text-foreground">{article.author}</span>
-                          <span className="text-muted/70">
-                            {new Date(article.publishedAt).toLocaleDateString("tr-TR", {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric'
-                            })}
+              {articles.map((article) => {
+                const title = resolvedParams.lang === "en" ? article.titleEn || article.title : resolvedParams.lang === "ar" ? article.titleAr || article.title : article.title;
+                const metaDesc = resolvedParams.lang === "en" ? article.metaDescriptionEn || article.metaDescription : resolvedParams.lang === "ar" ? article.metaDescriptionAr || article.metaDescription : article.metaDescription;
+                const coverAlt = resolvedParams.lang === "en" ? article.coverImageAltEn || article.coverImageAlt : resolvedParams.lang === "ar" ? article.coverImageAltAr || article.coverImageAlt : article.coverImageAlt;
+                const category = content.ui.knowledgeBase.categories[article.category] || article.category;
+                
+                return (
+                  <Link key={article.id} href={`/${resolvedParams.lang}/bilgi-bankasi/${article.slug}`}>
+                    <PinCard title={category}>
+                      <div className="flex flex-col h-full min-h-[300px] p-7">
+                        <div className="mb-6 -mt-2 -mx-2 overflow-hidden rounded-xl border border-line h-40 relative">
+                          <Image 
+                            src={article.coverImage || "/sac-ekimi-bilgi-bankasi-gorsel.jpg"} 
+                            alt={coverAlt || `${title} - Gaziantep Saç Ekimi Bilgi Bankası`}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                        </div>
+                        <h2 className="font-display text-2xl line-clamp-2">{title}</h2>
+                        <p className="mt-3 text-sm leading-7 text-muted line-clamp-3">
+                          {metaDesc || title}
+                        </p>
+                        <div className="mt-auto pt-6 flex items-end justify-between text-xs text-gold">
+                          <div className="flex flex-col gap-1.5">
+                            <span className="text-foreground">{article.author}</span>
+                            <span className="text-muted/70">
+                              {new Date(article.publishedAt).toLocaleDateString(resolvedParams.lang === "en" ? "en-US" : resolvedParams.lang === "ar" ? "ar-SA" : "tr-TR", {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                              })}
+                            </span>
+                          </div>
+                          <span className="flex items-center gap-1 opacity-80 group-hover:opacity-100 group-hover:translate-x-1 transition-all mb-0.5">
+                            {content.ui.knowledgeBase.readAll} <ArrowUpRight size={14} />
                           </span>
                         </div>
-                        <span className="flex items-center gap-1 opacity-80 group-hover:opacity-100 group-hover:translate-x-1 transition-all mb-0.5">
-                          Tümünü Oku <ArrowUpRight size={14} />
-                        </span>
                       </div>
-                    </div>
-                  </PinCard>
-                </Link>
-              ))}
+                    </PinCard>
+                  </Link>
+                );
+              })}
             </div>
 
             {totalPages > 1 && (
               <div className="mt-28 pt-8 border-t border-line/50 flex items-center justify-center gap-4">
                 {page > 1 ? (
                   <Link 
-                    href={`/bilgi-bankasi?page=${page - 1}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
+                    href={`/${resolvedParams.lang}/bilgi-bankasi?page=${page - 1}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
                     className="rounded-full border border-line bg-card px-5 py-2.5 text-sm hover:text-gold transition-colors"
                   >
-                    Önceki
+                    {content.ui.knowledgeBase.prev}
                   </Link>
                 ) : (
                   <span className="rounded-full border border-line/50 px-5 py-2.5 text-sm text-muted/30 cursor-not-allowed">
-                    Önceki
+                    {content.ui.knowledgeBase.prev}
                   </span>
                 )}
                 
                 <span className="text-sm text-muted">
-                  Sayfa {page} / {totalPages}
+                  {content.ui.knowledgeBase.page} {page} / {totalPages}
                 </span>
                 
                 {page < totalPages ? (
                   <Link 
-                    href={`/bilgi-bankasi?page=${page + 1}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
+                    href={`/${resolvedParams.lang}/bilgi-bankasi?page=${page + 1}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
                     className="rounded-full border border-line bg-card px-5 py-2.5 text-sm hover:text-gold transition-colors"
                   >
-                    Sonraki
+                    {content.ui.knowledgeBase.next}
                   </Link>
                 ) : (
                   <span className="rounded-full border border-line/50 px-5 py-2.5 text-sm text-muted/30 cursor-not-allowed">
-                    Sonraki
+                    {content.ui.knowledgeBase.next}
                   </span>
                 )}
               </div>

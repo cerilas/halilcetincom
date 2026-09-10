@@ -1,7 +1,9 @@
 import { prisma } from "@/lib/db";
 import { ReelsCarousel } from "@/components/ui/reels-carousel";
 
-export async function ReelsGallery() {
+import type { SiteContent } from "@/lib/types";
+
+export async function ReelsGallery({ content }: { content: SiteContent }) {
   let reels: any[] = [];
   try {
     reels = await prisma.reel.findMany({
@@ -20,10 +22,10 @@ export async function ReelsGallery() {
     <section className="border-y border-line bg-card/40 py-16 overflow-hidden">
       <div className="mx-auto max-w-6xl px-5 mb-8">
         <h2 className="font-display text-3xl md:text-4xl text-foreground">
-          Öne Çıkan Sonuçlar
+          {content.ui.home.reelsTitle}
         </h2>
         <p className="mt-2 text-sm text-muted">
-          Gerçek hastalarımızın operasyon süreçleri ve sonuçları.
+          {content.ui.home.reelsSubtitle}
         </p>
       </div>
 

@@ -15,7 +15,9 @@ const patients = [
   { id: 9, before: "/before-after-bundle-images/17.jpg", after: "/before-after-bundle-images/18.jpg" },
 ];
 
-export function ResultsGallery() {
+import type { SiteContent } from "@/lib/types";
+
+export function ResultsGallery({ content }: { content: SiteContent }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -36,28 +38,7 @@ export function ResultsGallery() {
     let targetX = 0;
     let isVisible = false;
     let isTicking = true;
-    let cardMetrics: { left: number; width: number }[] = [];
     let lastProgressCache = new Map<number, number>();
-
-    if (isMobile) {
-      // Mobilde JS tabanlı animasyonu tamamen kapat
-      return;
-    }
-
-    const updateMetrics = () => {
-      if (!trackRef.current) return;
-      const cards = Array.from(trackRef.current.children) as HTMLElement[];
-      
-      // Sadece galeri kartlarını al
-      const validCards = cards.filter(c => c.classList.contains('gallery-card'));
-      
-      cardMetrics = validCards.map((card) => {
-        return {
-          left: card.offsetLeft,
-          width: card.offsetWidth
-        };
-      });
-    };
 
     const handleScroll = () => {
       if (!containerRef.current || !trackRef.current) return;
@@ -65,19 +46,21 @@ export function ResultsGallery() {
       const rect = containerRef.current.getBoundingClientRect();
       const vh = window.innerHeight;
       
-      // Stop processing if section is completely out of view
       isVisible = rect.top < vh && rect.bottom > 0;
       if (!isVisible) return;
 
-      const scrollY = -rect.top;
-      const maxScroll = rect.height - vh;
-      const progress = Math.max(0, Math.min(1, scrollY / maxScroll));
-      
-      const trackWidth = trackRef.current.scrollWidth;
-      const vw = window.innerWidth;
-      const maxTranslate = trackWidth - vw;
+      if (!isMobile) {
+        const scrollY = -rect.top;
+        const maxScroll = rect.height - vh;
+        const progress = Math.max(0, Math.min(1, scrollY / maxScroll));
+        
+        const trackWidth = trackRef.current.scrollWidth;
+        const vw = window.innerWidth;
+        const maxTranslate = trackWidth - vw;
 
-      targetX = progress * -maxTranslate;
+        const isRtl = document.documentElement.dir === "rtl";
+        targetX = isRtl ? progress * maxTranslate : progress * -maxTranslate;
+      }
 
       if (!isTicking) {
         isTicking = true;
@@ -86,48 +69,40 @@ export function ResultsGallery() {
     };
 
     const tick = () => {
-      if (!isVisible && Math.abs(targetX - currentX) < 0.5) {
-        // Stop looping completely if not visible and already at target
+      if (!isVisible && (!isMobile ? Math.abs(targetX - currentX) < 0.5 : true)) {
         isTicking = false;
         return;
       }
       
-      // Snap to target if very close to avoid infinite micro-updates
-      if (Math.abs(targetX - currentX) < 0.5) {
-        currentX = targetX;
-      } else {
-        currentX += (targetX - currentX) * 0.1;
-      }
-      
-      if (trackRef.current) {
+      if (!isMobile && trackRef.current) {
+        if (Math.abs(targetX - currentX) < 0.5) {
+          currentX = targetX;
+        } else {
+          currentX += (targetX - currentX) * 0.1;
+        }
         trackRef.current.style.transform = `translate3d(${currentX}px, 0, 0)`;
+      }
 
+      if (trackRef.current) {
         const vw = window.innerWidth;
+        const splitScreenX = vw / 2;
+        const cards = Array.from(trackRef.current.children).filter(c => c.classList.contains('gallery-card'));
 
         for (let i = 0; i < patients.length; i++) {
-          const metrics = cardMetrics[i];
-          if (!metrics) continue;
+          const card = cards[i] as HTMLElement;
+          if (!card) continue;
           
-          // The fixed central line is at vw / 2.
-          const splitScreenX = vw / 2;
-          const screenX = metrics.left + currentX;
-          let progress = (splitScreenX - screenX) / metrics.width;
-          
+          const rect = card.getBoundingClientRect();
+          let progress = (splitScreenX - rect.left) / rect.width;
           progress = Math.max(0, Math.min(1, progress));
           
-          // Performans Optimizasyonu: Sadece progress değeri değişen kartların DOM'unu güncelle.
-          // Bu, mobilde saniyede 60 kez gereksiz yere 9 kartın stilini hesaplamayı önler.
           if (lastProgressCache.get(i) === progress) continue;
           lastProgressCache.set(i, progress);
           
-          // Apply clipPath directly to the top image for zero-latency synchronization
-          const card = trackRef.current.children[i] as HTMLElement;
-          if (card) {
-            const topImg = card.querySelector('.gallery-top-img') as HTMLElement;
-            if (topImg) {
-              topImg.style.clipPath = `inset(0 0 0 ${progress * 100}%)`;
-              (topImg.style as any).webkitClipPath = `inset(0 0 0 ${progress * 100}%)`;
-            }
+          const topImg = card.querySelector('.gallery-top-img') as HTMLElement;
+          if (topImg) {
+            topImg.style.clipPath = `inset(0 0 0 ${progress * 100}%)`;
+            (topImg.style as any).webkitClipPath = `inset(0 0 0 ${progress * 100}%)`;
           }
         }
       }
@@ -135,17 +110,23 @@ export function ResultsGallery() {
       rafId = requestAnimationFrame(tick);
     };
 
-    const onResize = () => {
-      updateMetrics();
-      handleScroll();
+    const onResize = () => handleScroll();
+
+    const handleMobileScroll = () => {
+      if (isMobile && !isTicking) {
+        isTicking = true;
+        tick();
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", onResize, { passive: true });
     
-    // Initial setup (delay metrics slightly to ensure DOM is ready)
+    if (trackRef.current) {
+      trackRef.current.addEventListener("scroll", handleMobileScroll, { passive: true });
+    }
+    
     setTimeout(() => {
-      updateMetrics();
       handleScroll();
     }, 100);
     
@@ -154,6 +135,9 @@ export function ResultsGallery() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", onResize);
+      if (trackRef.current) {
+        trackRef.current.removeEventListener("scroll", handleMobileScroll);
+      }
       cancelAnimationFrame(rafId);
     };
   }, [isMobile]);
@@ -170,20 +154,20 @@ export function ResultsGallery() {
         <div className="pointer-events-none absolute left-1/2 top-1/2 h-[400px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/10 opacity-20 blur-[150px] hidden md:block" />
 
         {/* Section Title */}
-        <div className="md:absolute top-16 left-5 md:top-24 md:left-12 z-20 pointer-events-none px-5 md:px-0 mb-8 md:mb-0">
+        <div className="md:absolute top-16 left-5 md:top-8 md:left-12 z-20 pointer-events-none px-5 md:px-0 mb-8 md:mb-0">
           <p className="text-xs tracking-[0.28em] text-gold uppercase mb-4">
-            Kanıtlanmış Sonuçlar
+            {content.ui.gallery.eyebrow}
           </p>
-          <h2 className="font-display text-4xl md:text-6xl text-foreground">
-            Halil Çetin ile<br className="hidden md:block" /> Büyük Değişim.
+          <h2 className="font-display text-4xl md:text-4xl lg:text-5xl text-foreground md:whitespace-nowrap">
+            {content.ui.gallery.title}
           </h2>
         </div>
 
-        {/* Central Fixed Line (Desktop Only) */}
-        <div className="hidden md:flex pointer-events-none absolute left-1/2 top-[10vh] bottom-[10vh] flex-col items-center justify-center z-40 -translate-x-1/2">
+        {/* Central Fixed Line */}
+        <div className="flex pointer-events-none absolute left-1/2 top-[20vh] bottom-[20vh] md:top-[10vh] md:bottom-[10vh] flex-col items-center justify-center z-40 -translate-x-1/2">
           <div className="absolute w-[2px] h-full bg-gradient-to-b from-transparent via-gold to-transparent opacity-80" />
           <div className="absolute w-[30px] h-1/2 bg-gold/40 blur-2xl" />
-          <div className="absolute w-[4px] h-[80px] bg-[#fffaf0] rounded-full shadow-[0_0_20px_4px_#C4A46A]" />
+          <div className="absolute w-[4px] h-[80px] bg-card rounded-full shadow-[0_0_20px_4px_var(--gold)]" />
         </div>
 
         {/* Horizontal Track / Mobile Grid */}
@@ -205,19 +189,19 @@ export function ResultsGallery() {
                 sizes="(max-width: 768px) 80vw, 35vw"
                 className="pointer-events-none object-cover object-top"
               />
-              {/* Before image (Right side) - Hidden on mobile for performance, or statically halved */}
+              {/* Before image (Right side) */}
               <Image
                 src={p.before}
                 alt={`Gaziantep Saç Ekimi Öncesi Hasta ${index + 1} - Kellik ve Seyreklik`}
                 fill
                 sizes="(max-width: 768px) 80vw, 35vw"
-                className="gallery-top-img pointer-events-none object-cover object-top hidden md:block"
+                className="gallery-top-img pointer-events-none object-cover object-top block"
                 style={{ clipPath: "inset(0 0 0 50%)", WebkitClipPath: "inset(0 0 0 50%)" }}
               />
               
               {/* Mobile Label */}
               <div className="absolute bottom-4 left-4 z-10 md:hidden bg-black/60 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full border border-white/20">
-                12. Ay Sonuç
+                12 {content.ui.gallery.monthsLater}
               </div>
             </div>
           ))}

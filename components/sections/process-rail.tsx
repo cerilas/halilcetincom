@@ -2,9 +2,9 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import type { ProcessStep } from "@/lib/types";
+import type { ProcessStep, SiteContent } from "@/lib/types";
 
-export function ProcessRail({ steps }: { steps: ProcessStep[] }) {
+export function ProcessRail({ steps, content }: { steps: ProcessStep[], content: SiteContent }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -14,9 +14,9 @@ export function ProcessRail({ steps }: { steps: ProcessStep[] }) {
 
   return (
     <section ref={ref} className="mx-auto max-w-6xl px-5 py-24">
-      <p className="text-xs tracking-[0.28em] text-gold uppercase">Süreç</p>
+      <p className="text-xs tracking-[0.28em] text-gold uppercase">{content.ui.home.processEyebrow}</p>
       <h2 className="mt-3 font-display text-4xl md:text-5xl">
-        Kusursuz Sonuca Giden 6 Adım.
+        {content.ui.home.processTitle}
       </h2>
       <div className="relative mt-14 pl-8">
         <div className="absolute top-0 bottom-0 left-[7px] w-px bg-line" />

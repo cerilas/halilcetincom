@@ -13,7 +13,7 @@ export function SiteShell({
   return (
     <>
       <ScrollProgress />
-      <Header />
+      <Header content={content} />
       <main className="flex-1">{children}</main>
       <Footer content={content} />
     </>

@@ -13,13 +13,13 @@ type Props = {
 };
 
 export async function generateStaticParams() {
-  const content = await getContent();
+  const content = await getContent(params.lang);
   return content.treatments.map((t) => ({ slug: t.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const content = await getContent();
+  const content = await getContent(params.lang);
   const treatment = content.treatments.find((t) => t.slug === slug);
   if (!treatment) return {};
   return {
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function TreatmentPage({ params }: Props) {
   const { slug } = await params;
-  const content = await getContent();
+  const content = await getContent(params.lang);
   const treatment = content.treatments.find((t) => t.slug === slug);
   if (!treatment) notFound();
 
@@ -48,7 +48,7 @@ export default async function TreatmentPage({ params }: Props) {
       />
       <article className="mx-auto max-w-3xl px-5 pt-32 pb-24">
         <Link href="/tedaviler" className="text-xs tracking-wide text-gold">
-          ← Tedaviler
+          {content.ui.treatment.backToTreatments}
         </Link>
         <h1 className="mt-6 font-display text-5xl md:text-7xl">
           {treatment.title}
@@ -63,7 +63,7 @@ export default async function TreatmentPage({ params }: Props) {
           <div className="my-10 overflow-hidden rounded-2xl border border-line relative h-[400px]">
             <Image
               src={treatment.image}
-              alt={`${treatment.title} - Saç Ekimi Operasyonu`}
+              alt={`${treatment.title} ${content.ui.treatment.imageAltSuffix}`}
               fill
               sizes="(max-width: 768px) 100vw, 800px"
               className="object-cover opacity-90"
@@ -79,7 +79,7 @@ export default async function TreatmentPage({ params }: Props) {
         />
         <div className="mt-12">
           <MagneticButton href="/iletisim" className="bg-gold text-black">
-            Bu tedavi için analiz
+            {content.ui.treatment.analyzeBtn}
           </MagneticButton>
         </div>
       </article>

@@ -150,7 +150,7 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
         <div className="absolute inset-0 z-0 bg-white dark:bg-[#07080b]">
           <div className="absolute inset-0 opacity-[0.05] dark:opacity-[0.03]" />
         </div>
-        <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" fill="#E8D5A3" />
+        <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" fill="var(--gold-soft)" />
 
         {/* Comparison slider */}
         <div className="absolute inset-0 flex items-center justify-center pt-24 pb-32">
@@ -173,17 +173,17 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
               afterAlt="Saç ekimi öncesi — seyrek ön hat ve tepe"
               value={sliderPosition}
               scrollDriven={false} /* Controlled by parent */
-              dividerColor="#C4A46A"
-              handleColor="#C4A46A"
+              dividerColor="var(--gold)"
+              handleColor="var(--gold)"
               dividerWidth={1}
               dividerExtent={1}
               handleSize={44}
               showLabels
-              labelText={{ before: "Önce", after: "Sonra" }}
+              labelText={{ before: content.ui.gallery.before, after: content.ui.gallery.after }}
               labelPosition="top-left"
               className="h-full w-full pointer-events-none"
               imageClassName="object-cover object-top"
-              handleClassName="z-20 border border-gold/80 bg-background/55 text-gold shadow-[0_0_18px_rgba(255,246,220,0.8),0_0_40px_rgba(196,164,106,0.9),0_0_72px_rgba(196,164,106,0.45)] md:backdrop-blur-md"
+              handleClassName="z-20 border border-gold/80 bg-background/55 text-gold shadow-[0_0_18px_color-mix(in_oklab,var(--gold-soft)_80%,transparent),0_0_40px_color-mix(in_oklab,var(--gold)_90%,transparent),0_0_72px_color-mix(in_oklab,var(--gold)_45%,transparent)] md:backdrop-blur-md"
               labelClassName="tracking-[0.28em]"
               ariaLabel="Saç ekimi önce ve sonra karşılaştırması"
             />
@@ -217,14 +217,14 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
                 >
                   {content.hero.primaryCta}
                 </GlareButton>
-                <a
-                  href={`https://wa.me/${content.clinic.whatsapp}?text=Merhaba,%20ücretsiz%20saç%20ekimi%20analizi%20için%20ulaşıyorum.`}
+                <a 
+                  href={`https://wa.me/${content.clinic.whatsapp}?text=${encodeURIComponent(content.ui.whatsappAnalysis)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex h-[3.25rem] items-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white transition-transform hover:scale-105"
                 >
                   <Image src="/whatsapp.png" alt="WhatsApp" width={20} height={20} className="h-5 w-5 object-contain" />
-                  WhatsApp'tan Ulaş
+                  {content.ui.contact.whatsappLine}
                 </a>
               </div>
             </div>
@@ -234,7 +234,7 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
         {/* Scroll hint */}
         <div className="absolute bottom-4 right-5 z-30 lg:hidden">
           <p className="text-[10px] tracking-[0.22em] text-muted/60 uppercase">
-            Kaydırın · 12. ay sonuç
+            {content.ui.home.swipeHint}
           </p>
         </div>
       </div>

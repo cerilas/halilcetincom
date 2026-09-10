@@ -9,7 +9,7 @@ import { prisma } from "@/lib/db";
 import { CtaSection } from "@/components/sections/cta-section";
 
 type Props = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ lang: string; slug: string }>;
 };
 
 export const revalidate = 3600;
@@ -32,8 +32,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ArticlePage({ params }: Props) {
-  const { slug } = await params;
-  const content = await getContent();
+  const { slug, lang } = await params;
+  const content = await getContent(lang);
   
   const article = await prisma.article.findUnique({
     where: { slug }
@@ -41,14 +41,20 @@ export default async function ArticlePage({ params }: Props) {
   
   if (!article) notFound();
 
+  const title = lang === "en" ? article.titleEn || article.title : lang === "ar" ? article.titleAr || article.title : article.title;
+  const contentHtml = lang === "en" ? article.contentHtmlEn || article.contentHtml : lang === "ar" ? article.contentHtmlAr || article.contentHtml : article.contentHtml;
+  const metaTitle = lang === "en" ? article.metaTitleEn || article.metaTitle : lang === "ar" ? article.metaTitleAr || article.metaTitle : article.metaTitle;
+  const metaDescription = lang === "en" ? article.metaDescriptionEn || article.metaDescription : lang === "ar" ? article.metaDescriptionAr || article.metaDescription : article.metaDescription;
+  const coverImageAlt = lang === "en" ? article.coverImageAltEn || article.coverImageAlt : lang === "ar" ? article.coverImageAltAr || article.coverImageAlt : article.coverImageAlt;
+
   return (
     <SiteShell content={content}>
       <JsonLd
         data={{
           "@context": "https://schema.org",
           "@type": "Article",
-          headline: article.metaTitle || article.title,
-          description: article.metaDescription,
+          headline: metaTitle || title,
+          description: metaDescription,
           image: article.coverImage ? [article.coverImage] : [],
           datePublished: article.publishedAt.toISOString(),
           dateModified: article.updatedAt.toISOString(),
@@ -60,17 +66,17 @@ export default async function ArticlePage({ params }: Props) {
       />
       
       <article className="mx-auto max-w-3xl px-5 pt-32 pb-24">
-        <Link href="/bilgi-bankasi" className="text-xs tracking-wide text-gold">
-          ← Bilgi Bankası
+        <Link href={`/${lang}/bilgi-bankasi`} className="text-xs tracking-wide text-gold">
+          {content.ui.knowledgeBase.backToLibrary}
         </Link>
         
         <div className="mt-8 flex flex-wrap gap-4 text-xs tracking-wider text-gold uppercase">
-          <span>{article.category}</span>
+          <span>{content.ui.knowledgeBase.categories?.[article.category] || article.category}</span>
           <span className="text-muted/50">•</span>
           <span className="text-foreground">{article.author}</span>
           <span className="text-muted/50">•</span>
           <span className="text-muted">
-            {new Date(article.publishedAt).toLocaleDateString("tr-TR", {
+            {new Date(article.publishedAt).toLocaleDateString(lang === "en" ? "en-US" : lang === "ar" ? "ar-SA" : "tr-TR", {
               year: 'numeric',
               month: 'long',
               day: 'numeric'
@@ -79,13 +85,13 @@ export default async function ArticlePage({ params }: Props) {
         </div>
         
         <h1 className="mt-6 font-display text-4xl md:text-6xl leading-tight">
-          {article.title}
+          {title}
         </h1>
         
         <div className="my-12 overflow-hidden rounded-2xl border border-line relative h-[400px]">
           <Image
             src={article.coverImage || "/sac-ekimi-bilgi-bankasi-gorsel.jpg"}
-            alt={`${article.title} - Gaziantep Saç Ekimi`}
+            alt={coverImageAlt || `${title} ${content.ui.treatment.imageAltSuffix}`}
             fill
             sizes="(max-width: 768px) 100vw, 800px"
             className="object-cover"
@@ -95,7 +101,7 @@ export default async function ArticlePage({ params }: Props) {
         
         <div 
           className="prose dark:prose-invert prose-gold max-w-none mt-10"
-          dangerouslySetInnerHTML={{ __html: article.contentHtml }} 
+          dangerouslySetInnerHTML={{ __html: contentHtml }} 
         />
 
         {article.metaKeywords && (

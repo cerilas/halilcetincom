@@ -318,7 +318,7 @@
 .pc-handle {
   font-size: 12px;
   font-weight: 600;
-  color: #c4a46a;
+  color: var(--gold);
   line-height: 1;
   letter-spacing: 0.04em;
 }
@@ -337,7 +337,7 @@
   padding: 8px 14px;
   font-size: 11px;
   font-weight: 600;
-  color: #c4a46a;
+  color: var(--gold);
   cursor: pointer;
   background: rgba(196, 164, 106, 0.08);
   transition: all 0.2s ease;
@@ -380,7 +380,7 @@
   margin: 0;
   font-size: 1.5rem;
   letter-spacing: 0.01em;
-  background-image: linear-gradient(to bottom, #f3eee4, #c4a46a);
+  background-image: linear-gradient(to bottom, #f3eee4, var(--gold));
   -webkit-text-fill-color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
@@ -395,7 +395,7 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   margin: 0 auto;
-  background-image: linear-gradient(to bottom, #9a9386, #c4a46a80);
+  background-image: linear-gradient(to bottom, #9a9386, color-mix(in oklab, var(--gold) 50%, transparent));
   -webkit-text-fill-color: transparent;
   background-clip: text;
   -webkit-background-clip: text;

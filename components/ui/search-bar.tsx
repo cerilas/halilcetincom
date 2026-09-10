@@ -1,7 +1,7 @@
 "use client";
 
 import { Search, X } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, useParams } from "next/navigation";
 import { useState, useEffect, useTransition } from "react";
 
 export function SearchBar() {
@@ -9,6 +9,9 @@ export function SearchBar() {
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") || "");
   const [isPending, startTransition] = useTransition();
+
+  const paramsHook = useParams();
+  const lang = paramsHook?.lang || "tr";
 
   useEffect(() => {
     setQuery(searchParams.get("q") || "");
@@ -26,7 +29,7 @@ export function SearchBar() {
         params.delete("q");
       }
       
-      router.push(`/bilgi-bankasi?${params.toString()}`);
+      router.push(`/${lang}/bilgi-bankasi?${params.toString()}`);
     });
   };
 

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { MessageSquare, BookOpen, BarChart3, Calendar, LogOut } from "lucide-react";
+import { MessageSquare, BookOpen, BarChart3, Calendar, Settings, PaintBucket, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const menuItems = [
@@ -10,6 +10,7 @@ const menuItems = [
   { href: "/yonetim/bilgi-bankasi", label: "Bilgi Bankası", icon: BookOpen },
   { href: "/yonetim/istatistikler", label: "İstatistikler", icon: BarChart3 },
   { href: "/yonetim/randevular", label: "Randevu Talepleri", icon: Calendar },
+  { href: "/yonetim/ayarlar", label: "Tema Ayarları", icon: PaintBucket },
 ];
 
 export function Sidebar() {

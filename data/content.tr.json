@@ -194,13 +194,288 @@
     }
   ],
   "about": {
-    "headline": "Cerrahi titizlik, dijital planlama.",
-    "body": "Halil Çetin Hair Transplant, saç ekimini bir paket turu değil klinik bir işlem olarak ele alır. Hedef; fotoğrafta abartılı, hayatta yapay duran bir tepe değil — yaşınızla, alın yapınızla ve duruşunuzla uyumlu bir saç çizgisidir. Planlama yüz oranlarından, greft kalitesinden ve donörün uzun vadeli sağlığından başlar.",
-    "highlights": [
-      "Kişiye özel saç çizgisi ve yoğunluk haritası",
-      "Donör alanı koruyan alım disiplini",
-      "Operasyon günü şeffaf greft sayımı",
-      "12 aya kadar klinik takip"
-    ]
-  }
+    "eyebrow": "Kurucu & Başuzman",
+    "title": "Saç Ekim Uzmanı",
+    "titleName": "Halil Çetin",
+    "heroText": "Saç ekimi sadece bir cerrahi işlem değil, tıbbın ve estetik vizyonun kusursuz birleşimidir. Doğal, kalıcı ve kimsede anlaşılmayan sonuçlar için tecrübeli ellere güvenin.",
+    "experienceYears": "24+",
+    "experienceText": "Yıllık Tecrübe",
+    "section1": {
+      "title": "Estetik ve Tıbbın Kusursuz Birleşimi",
+      "p1": "Gaziantep merkezli kliniğinde Türkiye'nin dört bir yanından ve Avrupa'dan gelen hastalara hizmet veren <strong>Saç Ekim Uzmanı Halil Çetin</strong>, saç restorasyonu alanında bölgesinin en çok tercih edilen ve güvenilen isimlerinin başında gelmektedir.",
+      "p2": "24 yılı aşkın mesleki hayatında 10.000'in üzerinde hastanın saç, sakal ve kaş ekimi operasyonunu bizzat yönetmiş, binlerce insanın hayatına ve özgüvenine pozitif dokunuşlar yapmıştır. Sıradan ve \"seri üretim\" mantığıyla çalışan saç ekim merkezlerinin aksine Halil Çetin, <strong>\"butik ve kişiye özel\"</strong> tedavi protokolünü benimsemektedir.",
+      "p3": "Saç ekimi operasyonlarında başarı oranını maksimize eden Safir FUE (Sapphire FUE) ve DHI (Doğrudan Saç Ekimi) teknolojilerini en güncel cihazlarla uygulamaktadır."
+    },
+    "section2": {
+      "title": "Operasyon Masasındaki Hassasiyet",
+      "p1": "Başarılı bir saç ekiminin sırrı sadece köklerin toplanıp ekilmesi değildir. <strong>Köklerin hangi açıyla, hangi derinlikte ve nasıl bir ön saç çizgisi tasarımıyla ekileceği</strong> asıl farkı yaratan unsurdur. Halil Çetin, operasyon masasında bir sanatçı titizliğiyle çalışır.",
+      "p2": "Altın oran kurallarına uygun olarak planlanan saç çizgisi tasarımı, hastanın yaşına, yüz anatomisine ve beklentilerine göre lazer cetveller kullanılarak çizilir. İşlem esnasında donör bölgeden alınan her bir greft (saç kökü), canlılığını yitirmeden, en uygun solüsyonlarda bekletilerek yeni yuvalarına transfer edilir."
+    },
+    "galleryTitle": "Modern Klinik & Estetik Bakış Açısı",
+    "qualificationsTitle": "Neden Halil Çetin?",
+    "qualifications": [
+      "24+ Yıllık Kesintisiz Saç Ekimi Tecrübesi",
+      "10.000'in Üzerinde Başarılı Saç ve Sakal Ekimi Operasyonu",
+      "DHI (Choi Pen) ve Safir FUE Yöntemlerinde İleri Düzey Uzmanlık",
+      "Uluslararası Saç Restorasyon Cerrahisi Derneği (ISHRS) Standartlarında Tedavi",
+      "Tam Donanımlı VIP Hastane Ortamında Steril Operasyon",
+      "Kişiye Özel Doğal Saç Çizgisi (Altın Oran) Tasarımı"
+    ],
+    "ctaBtn": "Ücretsiz Analiz Alın"
+  },
+  "ui": {
+    "quickLinks": "Hızlı Bağlantılar",
+    "contactInfo": "İletişim Bilgileri",
+    "faqTitle": "Sık Sorulan Sorular",
+    "serviceAreas": "Hizmet Bölgelerimiz",
+    "allRightsReserved": "Tüm Hakları Saklıdır.",
+    "whatsappCta": "Merhaba, saç ekimi hakkında bilgi almak istiyorum.",
+    "whatsappAria": "WhatsApp ile iletişime geçin",
+    "appointment": "Randevu Al",
+    "cta": {
+      "eyebrow": "Ücretsiz analiz",
+      "title": "Fotoğrafınızı gönderin. Hemen ücretsiz saç ekim analizinizi alın.",
+      "fillForm": "Formu doldur",
+      "whatsapp": "WhatsApp"
+    },
+    "gallery": {
+      "eyebrow": "Kanıtlanmış Sonuçlar",
+      "title": "Halil Çetin ile Büyük Değişim.",
+      "before": "Öncesi",
+      "after": "Sonrası",
+      "monthsLater": "ay sonra",
+      "loadMore": "Daha fazla sonuç yükle"
+    },
+    "whatsappAnalysis": "Merhaba, ücretsiz saç ekimi analizi için ulaşıyorum.",
+    "contact": {
+      "eyebrow": "İletişim",
+      "title": "Analiz için yazın.",
+      "callNow": "Hemen Arayın",
+      "whatsappLine": "WhatsApp Hattından Ulaşın",
+      "form": {
+        "title": "İletişim Formu",
+        "name": "Ad soyad",
+        "phone": "Telefon",
+        "email": "E-posta",
+        "message": "Mesaj",
+        "send": "Gönder",
+        "success": "Talebiniz alındı. En kısa sürede dönüş yapacağız.",
+        "error": "Gönderilemedi. Tekrar deneyin."
+      }
+    },
+    "booking": {
+      "title": "Randevu Alın",
+      "description": "Aşağıdaki takvimden size en uygun gün ve saati seçerek ücretsiz saç analizi ve planlama görüşmesi için yerinizi ayırtın.",
+      "tabs": {
+        "book": "Randevu Al",
+        "manage": "Randevularım"
+      },
+      "types": {
+        "consultation": {
+          "label": "Ön Görüşme",
+          "desc": "Süreci planlamak ve tanışmak için"
+        },
+        "analysis": {
+          "label": "Saç Analizi",
+          "desc": "Kök yapınızın detaylı incelenmesi"
+        },
+        "care": {
+          "label": "Bakım (PRP vb.)",
+          "desc": "PRP, Mezoterapi ve güçlendirme"
+        },
+        "control": {
+          "label": "Kontrol",
+          "desc": "Ekim sonrası rutin takip ve inceleme"
+        }
+      },
+      "form": {
+        "date": "Tarih Seçin",
+        "time": "Saat Seçin",
+        "noSlots": "Bu tarihte uygun saat bulunmuyor.",
+        "details": "Kişisel Bilgiler",
+        "name": "Ad Soyad",
+        "phone": "Telefon (05xx...)",
+        "email": "E-posta (Opsiyonel)",
+        "confirm": "Randevuyu Onayla",
+        "success": "Randevunuz Başarıyla Oluşturuldu",
+        "successDesc": "En kısa sürede sizinle iletişime geçeceğiz.",
+        "manageDesc": "Mevcut randevularınızı görüntülemek ve iptal etmek için telefon numaranızı girin.",
+        "search": "Sorgula",
+        "cancel": "İptal Et",
+        "cancelConfirm": "İptal etmek istediğinize emin misiniz?",
+        "cancelYes": "Evet, İptal Et",
+        "cancelNo": "Vazgeç"
+      }
+    },
+    "bio": {
+      "founderTitle": "Kurucu & Saç Ekim Uzmanı",
+      "expertiseAndTrust": "Uzmanlık ve Güven",
+      "experience": "Saç Ekim Deneyimi",
+      "description": "Yılların tecrübesi, doğal sonuçlar ve memnun hastalar. Saç ekiminde güvenilir ellerdesiniz.",
+      "button": "Saç Ekim Uzmanı Halil Çetin"
+    },
+    "home": {
+      "treatmentsEyebrow": "Tedaviler",
+      "treatmentsTitle": "Protokole göre, pakete göre değil.",
+      "allTreatments": "Tüm tedaviler",
+      "testimonialsEyebrow": "Danışanlar",
+      "faqTitle": "Sık sorulanlar",
+      "marquee": [
+        "FUE",
+        "DHI",
+        "Safir FUE",
+        "Sakal ekimi",
+        "Doğal saç çizgisi",
+        "12 ay takip",
+        "Gaziantep"
+      ],
+      "reelsTitle": "Öne Çıkan Sonuçlar",
+      "reelsSubtitle": "Gerçek hastalarımızın operasyon süreçleri ve sonuçları.",
+      "processEyebrow": "Süreç",
+      "processTitle": "Kusursuz Sonuca Giden 6 Adım.",
+      "swipeHint": "Kaydırın · 12. ay sonuç"
+    },
+    "footer": {
+      "developedBy": "Cerilas tarafından geliştirildi",
+      "adminPanel": "Yönetim Paneli"
+    },
+    "treatment": {
+      "pageTitle": "Teknikler, yüzünüze göre.",
+      "pageSubtitle": "Her yöntem bir pazarlama adı değil; donör, yoğunluk ve çizgi ihtiyacına göre seçilen bir araçtır.",
+      "backToTreatments": "← Tedaviler",
+      "analyzeBtn": "Bu tedavi için analiz",
+      "imageAltSuffix": "- Saç Ekimi Operasyonu"
+    },
+    "knowledgeBase": {
+      "eyebrow": "Kütüphane",
+      "title": "Bilgi Bankası",
+      "description": "Saç ekimi, saç sağlığı ve medikal estetik hakkında bilimsel kaynaklara dayalı detaylı rehberler.",
+      "specialContentCount": "özel içerik",
+      "libraryHas": "Kütüphanede",
+      "found": "bulunuyor.",
+      "noMatch": "aramasıyla eşleşen makale bulunamadı.",
+      "noArticles": "Henüz makale bulunmamaktadır.",
+      "readAll": "Tümünü Oku",
+      "prev": "Önceki",
+      "next": "Sonraki",
+      "page": "Sayfa",
+      "backToLibrary": "← Kütüphaneye Dön",
+      "categories": {
+        "Maliyet ve Planlama": "Maliyet ve Planlama",
+        "Tedavi Yöntemleri": "Tedavi Yöntemleri",
+        "İyileşme ve Bakım": "İyileşme ve Bakım",
+        "Sık Sorulan Sorular": "Sık Sorulan Sorular",
+        "Kalıcılık": "Kalıcılık",
+        "Diğer": "Diğer"
+      }
+    }
+  },
+  "headerLinks": [
+    {
+      "href": "/halil-cetin-kimdir",
+      "label": "Hakkımızda"
+    },
+    {
+      "href": "/tedaviler",
+      "label": "Tedaviler"
+    },
+    {
+      "href": "/surec",
+      "label": "Süreç"
+    },
+    {
+      "href": "/bilgi-bankasi",
+      "label": "Bilgi Bankası"
+    },
+    {
+      "href": "/iletisim",
+      "label": "İletişim"
+    }
+  ],
+  "legalLinks": [
+    {
+      "name": "Aydınlatma Metni & KVKK",
+      "href": "/kvkk"
+    },
+    {
+      "name": "Gizlilik Politikası",
+      "href": "/gizlilik-politikasi"
+    },
+    {
+      "name": "Kullanım Koşulları",
+      "href": "/kullanim-kosullari"
+    },
+    {
+      "name": "Çerez Politikası",
+      "href": "/cerez-politikasi"
+    },
+    {
+      "name": "Yasal Uyarı",
+      "href": "/yasal-uyari"
+    }
+  ],
+  "footerFaqs": [
+    "Saç ekimi fiyatları 2026 ne kadar?",
+    "Gaziantep en iyi saç ekim merkezi nasıl seçilir?",
+    "Saç ekimi işlemi acıtır mı, ağrılı mıdır?",
+    "Saç ekimi sonrası iyileşme süreci kaç gün sürer?",
+    "FUE mi yoksa DHI saç ekimi mi daha iyi?",
+    "Saç ekimi operasyonu kaç saat sürer?",
+    "Saç ekimi sonrası ilk yıkama ne zaman yapılır?",
+    "Tıraşsız saç ekimi mümkün mü, kimlere yapılır?",
+    "Saç ekimi için uygun yaş aralığı nedir?",
+    "Ekilen saçlar ileride dökülür mü, kalıcı mıdır?",
+    "Saç ekimi sonuçları ne zaman tam belli olur?",
+    "Saç ekimi sonrası şapka takılır mı?",
+    "Saç ekimi sonrası spor ve egzersiz ne zaman yapılır?",
+    "Saç ekiminden sonra iz kalır mı?",
+    "Kadınlarda saç ekimi nasıl yapılır?",
+    "Saç ekiminde greft hesaplama nasıl yapılır?",
+    "Sigara ve alkol tüketimi saç ekimini etkiler mi?",
+    "Saç ekiminde kök hücre ve PRP tedavisi faydalı mı?",
+    "Şeker ve tansiyon hastaları saç ekimi yaptırabilir mi?",
+    "Saç ekimi yaz aylarında sıcakta yapılır mı?"
+  ],
+  "seoLocations": [
+    "Gaziantep Saç Ekimi",
+    "Gaziantep Şahinbey Saç Ekimi",
+    "Gaziantep Şehitkamil Saç Ekimi",
+    "Nizip Saç Ekimi",
+    "Oğuzeli Saç Ekimi",
+    "İslahiye Saç Ekimi",
+    "Nurdağı Saç Ekimi",
+    "Diyarbakır Saç Ekimi",
+    "Diyarbakır Kayapınar Saç Ekimi",
+    "Diyarbakır Yenişehir Saç Ekimi",
+    "Bağlar Saç Ekimi",
+    "Şanlıurfa Saç Ekimi",
+    "Urfa Karaköprü Saç Ekimi",
+    "Siverek Saç Ekimi",
+    "Birecik Saç Ekimi",
+    "Viranşehir Saç Ekimi",
+    "Mardin Saç Ekimi",
+    "Kızıltepe Saç Ekimi",
+    "Midyat Saç Ekimi",
+    "Nusaybin Saç Ekimi",
+    "Batman Saç Ekimi",
+    "Kozluk Saç Ekimi",
+    "Adıyaman Saç Ekimi",
+    "Besni Saç Ekimi",
+    "Kahta Saç Ekimi",
+    "Osmaniye Saç Ekimi",
+    "Kadirli Saç Ekimi",
+    "Düziçi Saç Ekimi",
+    "Kahramanmaraş Saç Ekimi",
+    "Elbistan Saç Ekimi",
+    "Onikişubat Saç Ekimi",
+    "Elazığ Saç Ekimi",
+    "Malatya Saç Ekimi",
+    "Kilis Saç Ekimi",
+    "Şırnak Saç Ekimi",
+    "Cizre Saç Ekimi",
+    "Silopi Saç Ekimi",
+    "Hatay Saç Ekimi",
+    "İskenderun Saç Ekimi",
+    "Antakya Saç Ekimi"
+  ]
 }

@@ -2,16 +2,23 @@ import { promises as fs } from "fs";
 import path from "path";
 import type { Inquiry, SiteContent } from "@/lib/types";
 
-const contentPath = path.join(process.cwd(), "data", "content.json");
+const getPath = (locale: string) => path.join(process.cwd(), "data", `content.${locale}.json`);
 const inquiriesPath = path.join(process.cwd(), "data", "inquiries.json");
 
-export async function getContent(): Promise<SiteContent> {
-  const raw = await fs.readFile(contentPath, "utf8");
-  return JSON.parse(raw) as SiteContent;
+export async function getContent(locale: string = "tr"): Promise<SiteContent> {
+  const targetPath = getPath(locale);
+  try {
+    const raw = await fs.readFile(targetPath, "utf8");
+    return JSON.parse(raw) as SiteContent;
+  } catch (e) {
+    // Fallback to tr if locale file doesn't exist
+    const raw = await fs.readFile(getPath("tr"), "utf8");
+    return JSON.parse(raw) as SiteContent;
+  }
 }
 
-export async function saveContent(content: SiteContent) {
-  await fs.writeFile(contentPath, JSON.stringify(content, null, 2), "utf8");
+export async function saveContent(content: SiteContent, locale: string = "tr") {
+  await fs.writeFile(getPath(locale), JSON.stringify(content, null, 2), "utf8");
 }
 
 export async function getInquiries(): Promise<Inquiry[]> {
