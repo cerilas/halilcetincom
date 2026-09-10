@@ -74,11 +74,11 @@ export default async function HalilCetinPage() {
               <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-gold/30 to-gold/0 opacity-20 blur-xl transition-opacity duration-500 group-hover:opacity-40" />
               <div className="relative overflow-hidden rounded-2xl border border-line bg-card aspect-[3/4] md:aspect-auto md:h-[600px]">
                 <Image 
-                  src="/sac-ekim-uzmani-halil-cetin-portre.jpg" 
-                  alt="En İyi Saç Ekim Uzmanı Halil Çetin - VIP Klinik Portresi" 
+                  src="/about/gaziantep-sac-ekim-uzmani-halil-cetin.png" 
+                  alt="Gaziantep'in En İyi Saç Ekim Uzmanı Halil Çetin VIP Kliniğinde" 
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-700 hover:scale-105"
+                  className="object-cover transition-transform duration-700 hover:scale-105 object-top"
                   priority
                 />
               </div>
@@ -134,6 +134,40 @@ export default async function HalilCetinPage() {
                 <p>
                   Altın oran kurallarına uygun olarak planlanan saç çizgisi tasarımı, hastanın yaşına, yüz anatomisine ve beklentilerine göre lazer cetveller kullanılarak çizilir. İşlem esnasında donör bölgeden alınan her bir greft (saç kökü), canlılığını yitirmeden, en uygun solüsyonlarda bekletilerek yeni yuvalarına transfer edilir.
                 </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Clinic & Results Gallery */}
+          <section className="mb-24">
+            <h2 className="font-display text-3xl mb-10 text-center">Modern Klinik & Estetik Bakış Açısı</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="relative overflow-hidden rounded-2xl border border-line bg-card aspect-[4/5] group">
+                <Image 
+                  src="/about/en-iyi-sac-ekim-merkezi-gaziantep-vip.png"
+                  alt="Gaziantep En İyi Saç Ekim Merkezi VIP Klinik Ortamı"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+              <div className="relative overflow-hidden rounded-2xl border border-line bg-card aspect-[4/5] group">
+                <Image 
+                  src="/about/uzman-halil-cetin-gaziantep-klinik.jpg"
+                  alt="Saç Ekim Uzmanı Halil Çetin Gaziantep VIP Klinik"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105 object-top"
+                />
+              </div>
+              <div className="relative overflow-hidden rounded-2xl border border-line bg-card aspect-[4/5] group">
+                <Image 
+                  src="/about/dhi-sac-ekimi-uzmani-halil-cetin-klinik.png"
+                  alt="DHI Saç Ekimi Uzmanı Halil Çetin Başarılı Operasyon Sonuçları"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105 object-top"
+                />
               </div>
             </div>
           </section>

@@ -53,15 +53,15 @@ export function ParallaxBio() {
   return (
     <div 
       ref={containerRef} 
-      className="relative mb-6 rounded-2xl border border-line bg-background p-2 aspect-[4/5] w-[85%] max-w-[280px] sm:max-w-[320px] group cursor-pointer"
+      className="relative mb-6 rounded-2xl border border-line bg-background p-2 aspect-[4/5] md:aspect-square w-[90%] max-w-[400px] sm:max-w-[450px] md:max-w-[500px] group cursor-pointer"
     >
       <div className="relative w-full h-full overflow-hidden rounded-xl bg-background/50">
         <Image 
           ref={bgRef}
-          src="/uzman-halil-cetin-sac-ekimi-gaziantep-bg.png" 
+          src="/halil-cetin-bg-v3.jpg" 
           alt="Gaziantep Saç Ekimi Kliniği - VIP Ortam" 
           fill
-          sizes="(max-width: 768px) 50vw, 320px"
+          sizes="(max-width: 768px) 80vw, 500px"
           className="absolute -left-[15%] -top-[15%] h-[130%] w-[130%] max-w-none object-cover opacity-80 transition-opacity group-hover:opacity-100 will-change-transform"
           style={{ transformOrigin: "center center" }}
         />
@@ -69,10 +69,10 @@ export function ParallaxBio() {
         
       <Image 
         ref={fgRef}
-        src="/uzman-halil-cetin-sac-ekimi-gaziantep-fg.png" 
+        src="/halil-cetin-fg-v3.png" 
         alt="Saç Ekim Uzmanı Halil Çetin Profil" 
         fill
-        sizes="(max-width: 768px) 50vw, 320px"
+        sizes="(max-width: 768px) 80vw, 500px"
         className="absolute bottom-0 left-0 w-full h-[120%] object-contain object-bottom pointer-events-none will-change-transform"
         style={{ 
           transformOrigin: "bottom center",

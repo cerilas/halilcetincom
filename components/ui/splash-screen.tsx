@@ -44,14 +44,14 @@ function SplashAnimation() {
       if (!logoRef.current || !circleRef.current || !containerRef.current) return;
       
       // 2. Logo fades out and shrinks slightly
-      logoRef.current.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+      logoRef.current.style.transition = "opacity 0.2s ease, transform 0.2s ease";
       logoRef.current.style.opacity = "0";
       logoRef.current.style.transform = "scale(0.9)";
 
       // 3. Animate SVG circle 'r' attribute via RAF (Safari workaround)
       setTimeout(() => {
         let progress = 0;
-        const duration = 1200; // ms
+        const duration = 600; // ms (hızlandırıldı)
         const start = performance.now();
 
         const tick = (now: number) => {
@@ -80,7 +80,7 @@ function SplashAnimation() {
         };
 
         rafId = requestAnimationFrame(tick);
-      }, 150);
+      }, 50);
     };
 
     // If we are on the home page, wait for the heavy video & images to preload
