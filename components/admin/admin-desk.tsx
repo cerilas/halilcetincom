@@ -257,23 +257,18 @@ export function AdminDesk({
           <div className="space-y-3">
             <Field
               label="Başlık"
-              value={content.about.headline}
-              onChange={(headline) => patch("about", { ...content.about, headline })}
+              value={content.about.title}
+              onChange={(title) => patch("about", { ...content.about, title })}
             />
             <Area
-              label="Metin"
-              value={content.about.body}
-              onChange={(body) => patch("about", { ...content.about, body })}
+              label="Özet Metin"
+              value={content.about.heroText}
+              onChange={(heroText) => patch("about", { ...content.about, heroText })}
             />
-            <Area
-              label="Öne çıkanlar (satır satır)"
-              value={content.about.highlights.join("\n")}
-              onChange={(value) =>
-                patch("about", {
-                  ...content.about,
-                  highlights: value.split("\n").map((v) => v.trim()).filter(Boolean),
-                })
-              }
+            <Field
+              label="Deneyim"
+              value={content.about.experienceText}
+              onChange={(experienceText) => patch("about", { ...content.about, experienceText })}
             />
           </div>
         )}

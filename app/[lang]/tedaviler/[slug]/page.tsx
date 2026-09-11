@@ -9,29 +9,30 @@ import { MagneticButton } from "@/components/react-bits/magnetic-button";
 import { CtaSection } from "@/components/sections/cta-section";
 
 type Props = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; lang: string }>;
 };
 
-export async function generateStaticParams() {
-  const content = await getContent(params.lang);
+export async function generateStaticParams(props: { params: any }) {
+  const { lang } = await props.params;
+  const content = await getContent(lang);
   return content.treatments.map((t) => ({ slug: t.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const content = await getContent(params.lang);
+  const { slug, lang } = await params;
+  const content = await getContent(lang);
   const treatment = content.treatments.find((t) => t.slug === slug);
   if (!treatment) return {};
   return {
     title: treatment.title,
     description: treatment.excerpt,
-    alternates: { canonical: `/tedaviler/${treatment.slug}` },
+    alternates: { canonical: `/${lang}/tedaviler/${treatment.slug}` },
   };
 }
 
 export default async function TreatmentPage({ params }: Props) {
-  const { slug } = await params;
-  const content = await getContent(params.lang);
+  const { slug, lang } = await params;
+  const content = await getContent(lang);
   const treatment = content.treatments.find((t) => t.slug === slug);
   if (!treatment) notFound();
 

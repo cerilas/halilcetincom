@@ -174,6 +174,42 @@ export type SiteContent = {
       description: string;
       button: string;
     };
+    contact: {
+      eyebrow: string;
+      title: string;
+      callNow: string;
+      whatsappLine: string;
+      form: {
+        title: string;
+        name: string;
+        phone: string;
+        email: string;
+        message: string;
+        send: string;
+        success: string;
+        error: string;
+      };
+    };
+    booking: {
+      title: string;
+      description: string;
+      tabs: {
+        book: string;
+        manage: string;
+      };
+      types: Record<string, { label: string; desc: string }>;
+      form: {
+        date: string;
+        time: string;
+        noSlots: string;
+        details: string;
+        name: string;
+        phone: string;
+        email: string;
+        confirm: string;
+        success: string;
+      };
+    };
   };
   headerLinks: { href: string; label: string }[];
   legalLinks: { name: string; href: string }[];

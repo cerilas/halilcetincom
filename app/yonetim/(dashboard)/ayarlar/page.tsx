@@ -39,7 +39,7 @@ export default async function SettingsPage() {
       </div>
 
       <div className="rounded-xl border bg-card p-6 shadow-sm">
-        <form action={saveSiteSettings} className="space-y-6">
+        <form action={saveSiteSettings as any} className="space-y-6">
           <div className="grid gap-6 md:grid-cols-2">
             
             <div className="space-y-2">

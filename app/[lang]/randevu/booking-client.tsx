@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { createAppointment } from "../yonetim/actions";
+import { createAppointment } from "@/app/yonetim/actions";
 import { getAppointmentsByPhone, cancelAppointmentByPatient } from "./actions";
 import { toast } from "sonner";
 import { Calendar as CalendarIcon, Clock, User, Phone, Mail, Loader2, CheckCircle2, Settings, X, AlertTriangle, Users, Activity, Sparkles, Stethoscope } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { SiteContent } from "@/lib/types";
 
-export function BookingClient() {
+export function BookingClient({ content }: { content: SiteContent }) {
   const [date, setDate] = useState<string>("");
   const [slots, setSlots] = useState<string[]>([]);
   const [loadingSlots, setLoadingSlots] = useState(false);
