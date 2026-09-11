@@ -53,8 +53,9 @@ export function HomeView({ content }: { content: SiteContent }) {
               <div className="relative mb-6 rounded-2xl border border-line bg-background p-2 aspect-[3/4] w-[90%] max-w-[400px] sm:max-w-[450px] md:max-w-[500px]">
                 <div className="relative w-full h-full overflow-hidden rounded-xl">
                   <Image 
-                    src="/halil-cetin-profil.jpg" 
-                    alt="Saç Ekim Uzmanı Halil Çetin - FUE ve Gold Saç Ekimi Uzmanı" 
+                    src="/halil-cetin-yeni-upd.jpeg" 
+                    alt="Saç Ekim Uzmanı Halil Çetin, Gaziantep - FUE, DHI ve Gold Saç Ekimi" 
+                    title="Saç Ekim Uzmanı Halil Çetin"
                     fill
                     sizes="(max-width: 768px) 90vw, 500px"
                     className="object-cover"

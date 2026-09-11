@@ -103,6 +103,9 @@ export function Header({ content }: { content: SiteContent }) {
 
       {open && (
         <div className="mx-5 rounded-2xl border border-line bg-background/95 p-4 md:backdrop-blur-xl md:hidden">
+          <div className="mb-4 flex justify-center">
+            <LanguageSwitcher />
+          </div>
           {content.headerLinks.map((link) => (
             <Link
               key={link.href}
