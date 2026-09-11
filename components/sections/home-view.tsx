@@ -7,9 +7,10 @@ import { Marquee } from "@/components/ui/marquee";
 import { NumberTicker } from "@/components/ui/number-ticker";
 import { PinCard } from "@/components/ui/pin-card";
 import { HeroScrollSequence } from "@/components/sections/hero-scroll-sequence";
-import { ParallaxBio } from "@/components/ui/parallax-bio";
+
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { CtaSection } from "@/components/sections/cta-section";
+import { GoldSection } from "@/components/sections/gold-section";
 
 import { ReelsGallery } from "@/components/sections/reels-gallery";
 import { ResultsGallery } from "@/components/sections/results-gallery";
@@ -49,7 +50,17 @@ export function HomeView({ content }: { content: SiteContent }) {
           <div className="relative z-10 mx-auto grid max-w-5xl gap-8 px-5 md:grid-cols-2 md:items-center">
             {/* Left Column - Photo */}
             <div className="flex flex-col items-center md:items-end md:pr-8">
-              <ParallaxBio />
+              <div className="relative mb-6 rounded-2xl border border-line bg-background p-2 aspect-[3/4] w-[90%] max-w-[400px] sm:max-w-[450px] md:max-w-[500px]">
+                <div className="relative w-full h-full overflow-hidden rounded-xl">
+                  <Image 
+                    src="/halil-cetin-profil.jpg" 
+                    alt="Saç Ekim Uzmanı Halil Çetin - FUE ve Gold Saç Ekimi Uzmanı" 
+                    fill
+                    sizes="(max-width: 768px) 90vw, 500px"
+                    className="object-cover"
+                  />
+                </div>
+              </div>
             </div>
 
             {/* Right Column - Bio & Stats */}
@@ -127,7 +138,7 @@ export function HomeView({ content }: { content: SiteContent }) {
                     <div className="my-6 overflow-hidden rounded-xl border border-line relative h-48 w-full">
                       <Image
                         src={treatment.image || "/protocols/dogal-sac-cizgisi-tasarimi-fue.jpg"}
-                        alt={treatment.title}
+                        alt={treatment.imageAlt || treatment.title}
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
                         className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100"
@@ -145,8 +156,9 @@ export function HomeView({ content }: { content: SiteContent }) {
           </div>
         </section>
       </ScrollReveal>
-
       <ResultsGallery content={content} />
+
+      <GoldSection content={content} />
 
       <ScrollReveal>
         <section className="border-y border-line bg-card/40">

@@ -4,15 +4,24 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 const patients = [
-  { id: 1, before: "/before-after-bundle-images/1.jpg", after: "/before-after-bundle-images/2.jpg" },
-  { id: 2, before: "/before-after-bundle-images/3.jpg", after: "/before-after-bundle-images/4.jpg" },
-  { id: 3, before: "/before-after-bundle-images/5.jpg", after: "/before-after-bundle-images/6.jpg" },
-  { id: 4, before: "/before-after-bundle-images/7.jpg", after: "/before-after-bundle-images/8.jpg" },
-  { id: 5, before: "/before-after-bundle-images/9.jpg", after: "/before-after-bundle-images/10.jpg" },
-  { id: 6, before: "/before-after-bundle-images/11.jpg", after: "/before-after-bundle-images/12.jpg" },
-  { id: 7, before: "/before-after-bundle-images/13.jpg", after: "/before-after-bundle-images/14.jpg" },
-  { id: 8, before: "/before-after-bundle-images/15.jpg", after: "/before-after-bundle-images/16.jpg" },
-  { id: 9, before: "/before-after-bundle-images/17.jpg", after: "/before-after-bundle-images/18.jpg" },
+  // Existing patients with SEO alts
+  { id: 1, before: "/before-after-bundle-images/1.jpg", after: "/before-after-bundle-images/2.jpg", altBefore: "Gaziantep Saç Ekimi Öncesi Kellik Durumu", altAfter: "Gaziantep Saç Ekimi 12. Ay Sonrası Başarılı Sonuç" },
+  { id: 3, before: "/before-after-bundle-images/5.jpg", after: "/before-after-bundle-images/6.jpg", altBefore: "Gaziantep Erkek Tipi Saç Dökülmesi Öncesi", altAfter: "Gaziantep FUE Saç Ekimi Sonrası Doğal Görünüm" },
+  { id: 5, before: "/before-after-bundle-images/9.jpg", after: "/before-after-bundle-images/10.jpg", altBefore: "Saç Ekimi Öncesi Seyrek Saç Görünümü", altAfter: "Saç Ekimi Sonrası Gür ve Doğal Saçlar" },
+  { id: 6, before: "/before-after-bundle-images/11.jpg", after: "/before-after-bundle-images/12.jpg", altBefore: "Gaziantep Tepe Bölgesi Saç Ekimi Öncesi", altAfter: "Gaziantep Tepe Bölgesi Saç Ekimi Sonrası Kapanma" },
+  { id: 7, before: "/before-after-bundle-images/13.jpg", after: "/before-after-bundle-images/14.jpg", altBefore: "Ön Saç Çizgisi Kaybı Saç Ekimi Öncesi", altAfter: "Doğal Ön Saç Çizgisi Tasarımı Sonrası" },
+  { id: 9, before: "/before-after-bundle-images/17.jpg", after: "/before-after-bundle-images/18.jpg", altBefore: "İleri Derece Saç Dökülmesi Öncesi", altAfter: "İleri Derece Dökülmelerde Başarılı Saç Ekimi Sonucu" },
+  // New patients
+  { id: 10, before: "/oncesi-sonrasi-upd/1.jpg", after: "/oncesi-sonrasi-upd/2.jpg", altBefore: "Halil Çetin Saç Ekimi Öncesi Kellik Problemi", altAfter: "Halil Çetin ile Saç Ekimi 1 Yıl Sonrası Kalıcı Sonuç" },
+  { id: 11, before: "/oncesi-sonrasi-upd/3.jpg", after: "/oncesi-sonrasi-upd/4.jpg", altBefore: "Gaziantep Safir FUE Öncesi Alın Açıklığı", altAfter: "Gaziantep Safir FUE Sonrası Doğal Saç Çizgisi" },
+  { id: 12, before: "/oncesi-sonrasi-upd/5.jpg", after: "/oncesi-sonrasi-upd/6.jpg", altBefore: "Tepe (Vertex) Bölgesi Seyreklik Öncesi", altAfter: "Tepe (Vertex) Bölgesi DHI Saç Ekimi Sonrası" },
+  { id: 13, before: "/oncesi-sonrasi-upd/7.jpg", after: "/oncesi-sonrasi-upd/8.jpg", altBefore: "Şakak Bölgesi Saç Dökülmesi Öncesi", altAfter: "Şakak Bölgesi Sıklaştırma Ekimi Sonrası" },
+  { id: 14, before: "/oncesi-sonrasi-upd/9.jpg", after: "/oncesi-sonrasi-upd/10.jpg", altBefore: "Genel Saç Seyrekliği Problemi Öncesi", altAfter: "Maksimum Greft FUE Saç Ekimi Sonrası" },
+  { id: 15, before: "/oncesi-sonrasi-upd/11.jpg", after: "/oncesi-sonrasi-upd/12.jpg", altBefore: "Erkek Tipi Saç Dökülmesi Öncesi Gaziantep", altAfter: "Erkek Tipi Saç Dökülmesi Tedavisi Sonrası" },
+  { id: 16, before: "/oncesi-sonrasi-upd/13.jpg", after: "/oncesi-sonrasi-upd/14.jpg", altBefore: "Ön Bölge Saç Çizgisi Geri Çekilmesi Öncesi", altAfter: "Altın Oran Saç Çizgisi Tasarımı Sonrası" },
+  { id: 17, before: "/oncesi-sonrasi-upd/15.jpg", after: "/oncesi-sonrasi-upd/16.jpg", altBefore: "Saç Ekimi Öncesi Planlama ve Çizim Aşaması", altAfter: "Saç Ekimi Operasyonu Sonrası Doğal Görünüm" },
+  { id: 18, before: "/oncesi-sonrasi-upd/17.jpg", after: "/oncesi-sonrasi-upd/18.jpg", altBefore: "Geniş Alan Saç Ekimi Öncesi Kellik", altAfter: "Geniş Alan Yüksek Yoğunluklu Saç Ekimi Sonrası" },
+  { id: 19, before: "/oncesi-sonrasi-upd/19.jpg", after: "/oncesi-sonrasi-upd/20.jpg", altBefore: "Traşsız Saç Ekimi Öncesi Seyreklik", altAfter: "Traşsız Saç Ekimi Sonrası Gür Saçlar Gaziantep" }
 ];
 
 import type { SiteContent } from "@/lib/types";
@@ -184,7 +193,7 @@ export function ResultsGallery({ content }: { content: SiteContent }) {
               {/* After image (Left side) */}
               <Image
                 src={p.after}
-                alt={`Gaziantep Saç Ekimi Sonucu Hasta ${index + 1} - 12. Ay Sonrası`}
+                alt={p.altAfter}
                 fill
                 sizes="(max-width: 768px) 80vw, 35vw"
                 className="pointer-events-none object-cover object-top"
@@ -192,7 +201,7 @@ export function ResultsGallery({ content }: { content: SiteContent }) {
               {/* Before image (Right side) */}
               <Image
                 src={p.before}
-                alt={`Gaziantep Saç Ekimi Öncesi Hasta ${index + 1} - Kellik ve Seyreklik`}
+                alt={p.altBefore}
                 fill
                 sizes="(max-width: 768px) 80vw, 35vw"
                 className="gallery-top-img pointer-events-none object-cover object-top block"

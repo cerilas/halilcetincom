@@ -38,6 +38,7 @@ export type Treatment = {
   slug: string;
   title: string;
   image?: string;
+  imageAlt?: string;
   excerpt: string;
   description: string;
   contentHtml?: string;
@@ -131,6 +132,13 @@ export type SiteContent = {
       processEyebrow: string;
       processTitle: string;
       swipeHint: string;
+      goldSection: {
+        eyebrow: string;
+        title: string;
+        description: string;
+        features: string[];
+        cta: string;
+      };
     };
     gallery: {
       eyebrow: string;
