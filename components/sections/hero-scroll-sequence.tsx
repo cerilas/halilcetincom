@@ -37,9 +37,6 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
 
     Promise.all([initialFrame, img1, img2])
       .then(() => {
-        // Signal splash screen to open
-        window.dispatchEvent(new Event("app-ready"));
-
         // Lazy load the rest in background using requestIdleCallback
         let currentFrame = 2;
         const loadNextFrame = () => {
@@ -64,7 +61,6 @@ export function HeroScrollSequence({ content }: { content: SiteContent }) {
       })
       .catch((err) => {
         console.error("Error preloading assets:", err);
-        window.dispatchEvent(new Event("app-ready"));
       });
   }, []);
 

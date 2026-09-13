@@ -6,7 +6,6 @@ import { getContent } from "@/lib/content";
 import { siteUrl } from "@/lib/utils";
 import { prisma } from "@/lib/db";
 import { unstable_cache } from "next/cache";
-import { SplashScreen } from "@/components/ui/splash-screen";
 import { CookieBanner } from "@/components/ui/cookie-banner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AnalyticsTracker } from "@/components/analytics-tracker";
@@ -183,7 +182,6 @@ export default async function RootLayout({ children, params }: { children: React
         />
 
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <SplashScreen />
           <CookieBanner />
           <AnalyticsTracker />
           {children}
